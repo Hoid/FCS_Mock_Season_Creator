@@ -8,13 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		1906C7EE22D1B097007CD0D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C7ED22D1B097007CD0D4 /* AppDelegate.swift */; };
-		1906C7F022D1B097007CD0D4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C7EF22D1B097007CD0D4 /* ViewController.swift */; };
+		1906C7F022D1B097007CD0D4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C7EF22D1B097007CD0D4 /* LoginViewController.swift */; };
 		1906C7F322D1B097007CD0D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1906C7F122D1B097007CD0D4 /* Main.storyboard */; };
 		1906C7F622D1B097007CD0D4 /* FCS_Mock_Season_Creator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1906C7F422D1B097007CD0D4 /* FCS_Mock_Season_Creator.xcdatamodeld */; };
 		1906C7F822D1B098007CD0D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1906C7F722D1B098007CD0D4 /* Assets.xcassets */; };
 		1906C7FB22D1B098007CD0D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1906C7F922D1B098007CD0D4 /* LaunchScreen.storyboard */; };
 		1906C80622D1B098007CD0D4 /* FCS_Mock_Season_CreatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C80522D1B098007CD0D4 /* FCS_Mock_Season_CreatorTests.swift */; };
 		1906C81122D1B098007CD0D4 /* FCS_Mock_Season_CreatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C81022D1B098007CD0D4 /* FCS_Mock_Season_CreatorUITests.swift */; };
+		1906C81F22D2CA07007CD0D4 /* ConferenceResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C81E22D2CA07007CD0D4 /* ConferenceResultsTableViewController.swift */; };
+		1906C82222D2CC3E007CD0D4 /* ConferencesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C82122D2CC3E007CD0D4 /* ConferencesTableViewController.swift */; };
+		1906C82522D2CF81007CD0D4 /* ConferencesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C82422D2CF81007CD0D4 /* ConferencesTableViewCell.swift */; };
+		1906C82722D2D14A007CD0D4 /* Conference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C82622D2D14A007CD0D4 /* Conference.swift */; };
+		1906C82922D2E9F0007CD0D4 /* ConferenceResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C82822D2E9F0007CD0D4 /* ConferenceResultsTableViewCell.swift */; };
+		1906C82B22D2EF56007CD0D4 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C82A22D2EF56007CD0D4 /* Game.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,8 +42,8 @@
 
 /* Begin PBXFileReference section */
 		1906C7EA22D1B097007CD0D4 /* FCS Mock Season Creator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FCS Mock Season Creator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		1906C7ED22D1B097007CD0D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1906C7EF22D1B097007CD0D4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1906C7ED22D1B097007CD0D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ../AppDelegate.swift; sourceTree = "<group>"; };
+		1906C7EF22D1B097007CD0D4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1906C7F222D1B097007CD0D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1906C7F522D1B097007CD0D4 /* FCS_Mock_Season_Creator.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FCS_Mock_Season_Creator.xcdatamodel; sourceTree = "<group>"; };
 		1906C7F722D1B098007CD0D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -49,6 +55,12 @@
 		1906C80C22D1B098007CD0D4 /* FCS Mock Season CreatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "FCS Mock Season CreatorUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1906C81022D1B098007CD0D4 /* FCS_Mock_Season_CreatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCS_Mock_Season_CreatorUITests.swift; sourceTree = "<group>"; };
 		1906C81222D1B098007CD0D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1906C81E22D2CA07007CD0D4 /* ConferenceResultsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferenceResultsTableViewController.swift; sourceTree = "<group>"; };
+		1906C82122D2CC3E007CD0D4 /* ConferencesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferencesTableViewController.swift; sourceTree = "<group>"; };
+		1906C82422D2CF81007CD0D4 /* ConferencesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferencesTableViewCell.swift; sourceTree = "<group>"; };
+		1906C82622D2D14A007CD0D4 /* Conference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conference.swift; sourceTree = "<group>"; };
+		1906C82822D2E9F0007CD0D4 /* ConferenceResultsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferenceResultsTableViewCell.swift; sourceTree = "<group>"; };
+		1906C82A22D2EF56007CD0D4 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,11 +111,10 @@
 		1906C7EC22D1B097007CD0D4 /* FCS Mock Season Creator */ = {
 			isa = PBXGroup;
 			children = (
-				1906C7ED22D1B097007CD0D4 /* AppDelegate.swift */,
-				1906C7EF22D1B097007CD0D4 /* ViewController.swift */,
+				1906C82322D2CF32007CD0D4 /* Resources */,
 				1906C7F122D1B097007CD0D4 /* Main.storyboard */,
-				1906C7F722D1B098007CD0D4 /* Assets.xcassets */,
 				1906C7F922D1B098007CD0D4 /* LaunchScreen.storyboard */,
+				1906C7F722D1B098007CD0D4 /* Assets.xcassets */,
 				1906C7FC22D1B098007CD0D4 /* Info.plist */,
 				1906C7F422D1B097007CD0D4 /* FCS_Mock_Season_Creator.xcdatamodeld */,
 			);
@@ -126,6 +137,29 @@
 				1906C81222D1B098007CD0D4 /* Info.plist */,
 			);
 			path = "FCS Mock Season CreatorUITests";
+			sourceTree = "<group>";
+		};
+		1906C82022D2CC19007CD0D4 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				1906C7EF22D1B097007CD0D4 /* LoginViewController.swift */,
+				1906C81E22D2CA07007CD0D4 /* ConferenceResultsTableViewController.swift */,
+				1906C82122D2CC3E007CD0D4 /* ConferencesTableViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		1906C82322D2CF32007CD0D4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1906C82022D2CC19007CD0D4 /* ViewControllers */,
+				1906C7ED22D1B097007CD0D4 /* AppDelegate.swift */,
+				1906C82822D2E9F0007CD0D4 /* ConferenceResultsTableViewCell.swift */,
+				1906C82422D2CF81007CD0D4 /* ConferencesTableViewCell.swift */,
+				1906C82622D2D14A007CD0D4 /* Conference.swift */,
+				1906C82A22D2EF56007CD0D4 /* Game.swift */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,9 +293,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1906C7F022D1B097007CD0D4 /* ViewController.swift in Sources */,
+				1906C7F022D1B097007CD0D4 /* LoginViewController.swift in Sources */,
+				1906C82B22D2EF56007CD0D4 /* Game.swift in Sources */,
 				1906C7EE22D1B097007CD0D4 /* AppDelegate.swift in Sources */,
+				1906C81F22D2CA07007CD0D4 /* ConferenceResultsTableViewController.swift in Sources */,
+				1906C82722D2D14A007CD0D4 /* Conference.swift in Sources */,
+				1906C82922D2E9F0007CD0D4 /* ConferenceResultsTableViewCell.swift in Sources */,
+				1906C82522D2CF81007CD0D4 /* ConferencesTableViewCell.swift in Sources */,
 				1906C7F622D1B097007CD0D4 /* FCS_Mock_Season_Creator.xcdatamodeld in Sources */,
+				1906C82222D2CC3E007CD0D4 /* ConferencesTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
