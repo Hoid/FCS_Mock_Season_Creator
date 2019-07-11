@@ -11,16 +11,18 @@ import CoreData
 
 class Game: NSManagedObject {
     
+    @NSManaged var id: String
     @NSManaged var contestants: [String]
     @NSManaged var winner: String
     @NSManaged var confidence: Int
     @NSManaged var conferences: [String]
+    @NSManaged var week: Int
     
 }
 
 extension Game {
     
-    public static func newGame(context: NSManagedObjectContext, contestants: [String]?, winner: String?, confidence: Int?, conferences: [Conference]?) -> Game {
+    public static func newGame(context: NSManagedObjectContext, contestants: [String]?, winner: String?, confidence: Int?, conferences: [Conference]?, week: Int?) -> Game {
         
         let newGame = Game(context: context)
         
@@ -49,6 +51,12 @@ extension Game {
             newGame.conferences.removeAll()
             newGame.conferences.append("CAA")
         }
+        if let week = week {
+            newGame.week = week
+        } else {
+            newGame.week = 0
+        }
+        newGame.id = UUID().uuidString
         
         return newGame
     

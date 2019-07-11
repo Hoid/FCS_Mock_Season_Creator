@@ -13,6 +13,7 @@ import CoreData
 
 class ConferenceResultsTableViewController: UITableViewController {
     
+    
     var allGames = [Game]()
     var gamesToBeShown: [Game] {
         return allGames.filter { (game) -> Bool in
@@ -26,10 +27,11 @@ class ConferenceResultsTableViewController: UITableViewController {
             } else {
                 return false
             }
-        }
+            }.sorted(by: { $0.week <= $1.week })
     }
     var conference: Conference?
     let CONFERENCE_RESULTS_CELL_IDENTIFIER = "ConferenceResultsTableViewCell"
+    let numberOfWeeksInSeason = 14
     
     override func viewDidLoad() {
         
@@ -42,11 +44,21 @@ class ConferenceResultsTableViewController: UITableViewController {
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return self.numberOfWeeksInSeason
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return String.init(format: "Week %d", section)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.gamesToBeShown.count
+        var count: Int = 0
+        for game in self.gamesToBeShown {
+            if game.week == (section) {
+                count = count + 1
+            }
+        }
+        return count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -60,18 +72,53 @@ class ConferenceResultsTableViewController: UITableViewController {
             return ConferenceResultsTableViewCell()
         }
         
-        cell.gameWinnerControl.removeAllSegments()
-        cell.gameWinnerControl.insertSegment(withTitle: game.contestants[0], at: 0, animated: true)
-        cell.gameWinnerControl.insertSegment(withTitle: game.contestants[1], at: 1, animated: true)
-        guard let winnerIndex = game.contestants.firstIndex(of: game.winner) else {
-            os_log("Could not unwrap selectedSegmentIndex for game winner in tableView(cellForRowAt:) in ConferenceResultsTableViewController", type: .debug)
-            return ConferenceResultsTableViewCell()
-        }
-        cell.gameWinnerControl.selectedSegmentIndex = winnerIndex
-        cell.confidenceTextField.text = String(game.confidence)
-        cell.confidenceAverageAllUsersLabel.text = "0"
+        cell.setup(game: game)
         
         return cell
+        
+    }
+    
+    @IBAction func winnerChanged(_ sender: UISegmentedControl) {
+        os_log("Saving game because winner was changed", type: .debug)
+        let viewcell = sender.superview?.superview as? ConferenceResultsTableViewCell
+        guard viewcell != nil else {
+            os_log("viewcell is nil in winnerChanged in ConferenceResultsTableViewController", type: .debug)
+            return
+        }
+        guard let game = viewcell?.game else {
+            os_log("Could not unwrap game in winnerChanged in ConferenceResultsTableViewController", type: .debug)
+            return
+        }
+        guard let winner = sender.titleForSegment(at: sender.selectedSegmentIndex) else {
+            os_log("Could not unwrap game winner from UISegmentedControl in ConferenceResultsTableViewController", type: .debug)
+            return
+        }
+        game.winner = winner
+        updateOrCreateGame(game: game)
+    }
+    
+    @IBAction func confidenceChanged(_ sender: UITextField) {
+        
+        os_log("Saving game because confidence was changed", type: .debug)
+        let viewcell = sender.superview?.superview as? ConferenceResultsTableViewCell
+        guard viewcell != nil else {
+            os_log("viewcell is nil in winnerChanged in ConferenceResultsTableViewController", type: .debug)
+            return
+        }
+        guard let game = viewcell?.game else {
+            os_log("Could not unwrap game in winnerChanged in ConferenceResultsTableViewController", type: .debug)
+            return
+        }
+        guard let confidenceStr = sender.text else {
+            os_log("Could not unwrap confidenceStr in confidenceChanged in ConferenceResultsTableViewController", type: .debug)
+            return
+        }
+        guard let confidence = Int(confidenceStr) else {
+            os_log("Could not unwrap confidence from confidenceStr in confidenceChanged in ConferenceResultsTableViewController", type: .debug)
+            return
+        }
+        game.confidence = confidence
+        updateOrCreateGame(game: game)
         
     }
     
@@ -84,11 +131,68 @@ class ConferenceResultsTableViewController: UITableViewController {
             return
         }
         let managedContext = appDelegate.persistentContainer.viewContext
-        self.allGames = [
-            Game.newGame(context: managedContext, contestants: ["Elon", "JMU"], winner: "Elon", confidence: 55, conferences: [.caa]),
-            Game.newGame(context: managedContext, contestants: ["Elon", "Wake Forest"], winner: "Wake Forest", confidence: 65, conferences: [.caa]),
-            Game.newGame(context: managedContext, contestants: ["Elon", "The Citadel"], winner: "Elon", confidence: 60, conferences: [.caa, .southern])
-        ]
+        
+        let fetchRequest = NSFetchRequest<Game>(entityName: "Game")
+        
+        do {
+            self.allGames = try managedContext.fetch(fetchRequest)
+            os_log("Loading %d games", log: OSLog.default, type: .debug, self.allGames.count)
+            if self.allGames.count == 0 {
+                self.allGames = [
+                    Game.newGame(context: managedContext, contestants: ["Elon", "JMU"], winner: "Elon", confidence: 55, conferences: [.caa], week: 0),
+                    Game.newGame(context: managedContext, contestants: ["Elon", "Wake Forest"], winner: "Wake Forest", confidence: 65, conferences: [.caa], week: 1),
+                    Game.newGame(context: managedContext, contestants: ["Elon", "The Citadel"], winner: "Elon", confidence: 60, conferences: [.caa, .southern], week: 2)
+                ]
+                os_log("Needed to load games for the first time", log: OSLog.default, type: .debug)
+            }
+        } catch let error as NSError {
+            print("Could not fetch games. \(error), \(error.userInfo)")
+        }
+        
+    }
+    
+    private func updateOrCreateGame(game: Game) {
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "Game")
+        fetchRequest.predicate = NSPredicate(format: "contestants = %@", game.contestants)
+        
+        do {
+            let test = try managedContext.fetch(fetchRequest)
+            
+            let objectUpdate = test[0] as! NSManagedObject
+            objectUpdate.setValue(game.id, forKey: "id")
+            objectUpdate.setValue(game.conferences, forKeyPath: "conferences")
+            objectUpdate.setValue(game.confidence, forKeyPath: "confidence")
+            objectUpdate.setValue(game.contestants, forKeyPath: "contestants")
+            objectUpdate.setValue(game.winner, forKeyPath: "winner")
+            
+            do {
+                try managedContext.save()
+            } catch let error as NSError {
+                print("Could not update game to CoreData. \(error), \(error.userInfo)")
+            }
+        } catch {
+            os_log("Could not fetch game from CoreData. Saving it as a new game.", type: .debug)
+            
+            let entity = NSEntityDescription.entity(forEntityName: "Game", in: managedContext)!
+            let newGame = Game(entity: entity, insertInto: managedContext)
+            
+            newGame.setValue(game.id, forKey: "id")
+            newGame.setValue(game.conferences, forKeyPath: "conferences")
+            newGame.setValue(game.confidence, forKeyPath: "confidence")
+            newGame.setValue(game.contestants, forKeyPath: "contestants")
+            newGame.setValue(game.winner, forKeyPath: "winner")
+            
+            do {
+                try managedContext.save()
+            } catch let error as NSError {
+                print("Could not save new game to CoreData. \(error), \(error.userInfo)")
+            }
+        }
         
     }
     
