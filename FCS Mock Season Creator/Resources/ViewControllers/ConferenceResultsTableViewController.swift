@@ -66,7 +66,8 @@ class ConferenceResultsTableViewController: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CONFERENCE_RESULTS_CELL_IDENTIFIER, for: indexPath) as? ConferenceResultsTableViewCell else {
             fatalError("The dequeued cell is not an instance of ConferenceResultsTableViewCell.")
         }
-        guard let game = self.gamesToBeShown[safe: indexPath.row] else {
+        let gamesInThisSection = self.gamesToBeShown.filter({ $0.week == indexPath.section })
+        guard let game = gamesInThisSection[safe: indexPath.row] else {
             os_log("Could not unwrap game for indexPath in ConferenceResultsTableViewController.swift", log: OSLog.default, type: .default)
             self.tableView.reloadData()
             return ConferenceResultsTableViewCell()
@@ -139,9 +140,11 @@ class ConferenceResultsTableViewController: UITableViewController {
             os_log("Loading %d games", log: OSLog.default, type: .debug, self.allGames.count)
             if self.allGames.count == 0 {
                 self.allGames = [
-                    Game.newGame(context: managedContext, contestants: ["Elon", "JMU"], winner: "Elon", confidence: 55, conferences: [.caa], week: 0),
-                    Game.newGame(context: managedContext, contestants: ["Elon", "Wake Forest"], winner: "Wake Forest", confidence: 65, conferences: [.caa], week: 1),
-                    Game.newGame(context: managedContext, contestants: ["Elon", "The Citadel"], winner: "Elon", confidence: 60, conferences: [.caa, .southern], week: 2)
+                    Game.newGame(context: managedContext, contestants: ["Elon", "NC A&T"], winner: "Elon", confidence: 65, conferences: [.caa], week: 0),
+                    Game.newGame(context: managedContext, contestants: ["JMU", "WVU"], winner: "WVU", confidence: 85, conferences: [.caa], week: 0),
+                    Game.newGame(context: managedContext, contestants: ["Samford", "Youngstown State"], winner: "Samford", confidence: 75, conferences: [.mvfc], week: 0),
+                    Game.newGame(context: managedContext, contestants: ["Elon", "The Citadel"], winner: "Elon", confidence: 60, conferences: [.caa, .southern], week: 1),
+                    Game.newGame(context: managedContext, contestants: ["Elon", "Richmond"], winner: "Elon", confidence: 80, conferences: [.caa], week: 2)
                 ]
                 os_log("Needed to load games for the first time", log: OSLog.default, type: .debug)
             }
