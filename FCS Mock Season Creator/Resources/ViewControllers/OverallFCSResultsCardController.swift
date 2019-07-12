@@ -64,13 +64,6 @@ class TableViewModel {
         
         loadGames()
         
-        /* to build tableData:
-         Get a list of TeamResultsData for every team in the FCS
-         tableData should have in it the following:
-            - Placement (normalized using ties)
-            - Team Name
-            - Most likely record (list should be sorted by percentOfGamesWon)
-        */
         for teamNameByConference in TeamsByConferenceOption.data.values {
             for teamName in teamNameByConference {
                 let gamesPlayedByTeam = self.allGames.filter({ (game) -> Bool in
@@ -80,14 +73,14 @@ class TableViewModel {
             }
         }
         let fcsSeasonResult = FCSSeasonResult(teamResults: allTeamResults)
-        for (index, teamAndRecord) in fcsSeasonResult.placementMappedToTeamAndRecord.values.enumerated() {
-            tableData.append((index, teamAndRecord.0, teamAndRecord.1))
+        print(fcsSeasonResult.sortedTeamsAndRecords)
+        for (index, (teamName, record)) in fcsSeasonResult.sortedTeamsAndRecords.enumerated() {
+            tableData.append((index, teamName, record))
         }
         
         // When these values change, the UI in the TestCardController
         // will automatically update
-        title.accept("Hello, world!")
-        text.accept("CardParts is awesome!")
+        title.accept("Most Likely FCS Season Results")
         
     }
     

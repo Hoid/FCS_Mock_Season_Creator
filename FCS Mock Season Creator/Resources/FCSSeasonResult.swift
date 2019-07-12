@@ -7,10 +7,11 @@
 //
 
 import Foundation
+import os.log
 
 class FCSSeasonResult {
     
-    public var placementMappedToTeamAndRecord = [Int : (String, Record)]()
+    public var sortedTeamsAndRecords = [(String, Record)]()
     
     init(teamResults: [TeamResultsData]) {
         var teamNamesAndRecords = [(String, Record)]()
@@ -18,10 +19,9 @@ class FCSSeasonResult {
             let mostLikelyRecord = teamResult.calculateMostLikelyRecord()
             teamNamesAndRecords.append((teamResult.teamName, mostLikelyRecord))
         }
-        let sortedTeamNamesAndRecords = teamNamesAndRecords.sorted(by: { $0.1.percentOfGamesWon > $1.1.percentOfGamesWon })
-        for (index, teamNameAndRecord) in sortedTeamNamesAndRecords.enumerated() {
-            self.placementMappedToTeamAndRecord[index] = teamNameAndRecord
-        }
+        self.sortedTeamsAndRecords = teamNamesAndRecords.sorted(by: { $0.1.percentOfGamesWon > $1.1.percentOfGamesWon })
+        print(sortedTeamsAndRecords)
+
     }
     
 }

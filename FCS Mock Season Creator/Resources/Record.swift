@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Record {
+class Record: CustomStringConvertible {
     
     public var numberOfWins: Int
     public var numberOfGamesPlayed: Int
@@ -22,12 +22,20 @@ class Record {
     }
     
     public var percentOfGamesWon: Double {
-        return Double(numberOfWins) / Double(numberOfGamesPlayed)
+        if numberOfWins == 0 || numberOfGamesPlayed == 0 {
+            return 0.0
+        } else {
+            return Double(numberOfWins) / Double(numberOfGamesPlayed)
+        }
     }
     
     init(numberOfWins: Int, numberOfGamesPlayed: Int) {
         self.numberOfWins = numberOfWins
         self.numberOfGamesPlayed = numberOfGamesPlayed
+    }
+
+    var description: String {
+        return "Record: \(recordStr)"
     }
     
 }
