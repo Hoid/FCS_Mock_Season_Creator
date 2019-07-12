@@ -20,11 +20,7 @@ class ConferencesTableViewController: UITableViewController {
         
         super.viewDidLoad()
         
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        self.tableView.isEditing = false;
-        self.tableView.allowsSelection = true;
-        self.view = tableView;
+        setupView()
         
         populateConferences()
         self.tableView.reloadData()
@@ -88,6 +84,18 @@ class ConferencesTableViewController: UITableViewController {
     }
     
     // MARK: - Private functions
+    
+    private func setupView() {
+        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.isEditing = false
+        self.tableView.allowsSelection = true
+        self.view = tableView
+        
+        print(self.view.subviews)
+        
+    }
     
     private func populateConferences() {
         os_log("Populating conferences...", log: OSLog.default, type: .debug)

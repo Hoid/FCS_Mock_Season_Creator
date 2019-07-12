@@ -36,6 +36,8 @@ class ConferenceResultsTableViewController: UITableViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        let goToResultsButton = UIBarButtonItem(title: "Results", style: .done, target: self, action: #selector(goToResults))
+        self.navigationItem.rightBarButtonItem = goToResultsButton
         loadGames()
         self.tableView.reloadData()
         
@@ -120,6 +122,12 @@ class ConferenceResultsTableViewController: UITableViewController {
         }
         game.confidence = confidence
         updateOrCreateGame(game: game)
+        
+    }
+    
+    @objc func goToResults() {
+        
+        print("goToResults() called")
         
     }
     

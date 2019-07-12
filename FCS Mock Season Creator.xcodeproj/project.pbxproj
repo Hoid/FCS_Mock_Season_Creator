@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -21,6 +21,12 @@
 		1906C82722D2D14A007CD0D4 /* Conference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C82622D2D14A007CD0D4 /* Conference.swift */; };
 		1906C82922D2E9F0007CD0D4 /* ConferenceResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C82822D2E9F0007CD0D4 /* ConferenceResultsTableViewCell.swift */; };
 		1906C82B22D2EF56007CD0D4 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C82A22D2EF56007CD0D4 /* Game.swift */; };
+		1906C82E22D81E0A007CD0D4 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C82D22D81E0A007CD0D4 /* ResultsViewController.swift */; };
+		1906C83322D827DA007CD0D4 /* OverallFCSResultsCardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C83222D827DA007CD0D4 /* OverallFCSResultsCardController.swift */; };
+		1906C83522D82F75007CD0D4 /* TeamResultsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C83422D82F75007CD0D4 /* TeamResultsData.swift */; };
+		528BCFF60D630AFA12291381 /* Pods_FCS_Mock_Season_Creator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EE1124AA8755D3890D0DBE6 /* Pods_FCS_Mock_Season_Creator.framework */; };
+		56FBDD6EA6F25962715F7B03 /* libPods-FCS Mock Season CreatorUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A1E02CAA473E05F58F785F8A /* libPods-FCS Mock Season CreatorUITests.a */; };
+		7503583BF9F4A8A9606EE989 /* libPods-FCS Mock Season CreatorTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EF0261113F1917FC249A8DD /* libPods-FCS Mock Season CreatorTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		005C61658A425F55E5DA0BDB /* Pods-FCS Mock Season CreatorTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FCS Mock Season CreatorTests.debug.xcconfig"; path = "Target Support Files/Pods-FCS Mock Season CreatorTests/Pods-FCS Mock Season CreatorTests.debug.xcconfig"; sourceTree = "<group>"; };
 		1906C7EA22D1B097007CD0D4 /* FCS Mock Season Creator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FCS Mock Season Creator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1906C7ED22D1B097007CD0D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ../AppDelegate.swift; sourceTree = "<group>"; };
 		1906C7EF22D1B097007CD0D4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -61,6 +68,17 @@
 		1906C82622D2D14A007CD0D4 /* Conference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conference.swift; sourceTree = "<group>"; };
 		1906C82822D2E9F0007CD0D4 /* ConferenceResultsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferenceResultsTableViewCell.swift; sourceTree = "<group>"; };
 		1906C82A22D2EF56007CD0D4 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		1906C82D22D81E0A007CD0D4 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
+		1906C83222D827DA007CD0D4 /* OverallFCSResultsCardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallFCSResultsCardController.swift; sourceTree = "<group>"; };
+		1906C83422D82F75007CD0D4 /* TeamResultsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamResultsData.swift; sourceTree = "<group>"; };
+		1EE1124AA8755D3890D0DBE6 /* Pods_FCS_Mock_Season_Creator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FCS_Mock_Season_Creator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4115BD9DFDE47937034BC5F4 /* Pods-FCS Mock Season CreatorTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FCS Mock Season CreatorTests.release.xcconfig"; path = "Target Support Files/Pods-FCS Mock Season CreatorTests/Pods-FCS Mock Season CreatorTests.release.xcconfig"; sourceTree = "<group>"; };
+		422F6A7D5D69406A23ABBEB6 /* Pods-FCS Mock Season Creator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FCS Mock Season Creator.debug.xcconfig"; path = "Target Support Files/Pods-FCS Mock Season Creator/Pods-FCS Mock Season Creator.debug.xcconfig"; sourceTree = "<group>"; };
+		6EF0261113F1917FC249A8DD /* libPods-FCS Mock Season CreatorTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FCS Mock Season CreatorTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1E02CAA473E05F58F785F8A /* libPods-FCS Mock Season CreatorUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FCS Mock Season CreatorUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C74013DE263F15B8BAE7C113 /* Pods-FCS Mock Season Creator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FCS Mock Season Creator.release.xcconfig"; path = "Target Support Files/Pods-FCS Mock Season Creator/Pods-FCS Mock Season Creator.release.xcconfig"; sourceTree = "<group>"; };
+		EA7B76FDF6993F164C9FA03E /* Pods-FCS Mock Season CreatorUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FCS Mock Season CreatorUITests.release.xcconfig"; path = "Target Support Files/Pods-FCS Mock Season CreatorUITests/Pods-FCS Mock Season CreatorUITests.release.xcconfig"; sourceTree = "<group>"; };
+		FEFB1936A4BB6ABD8736C17F /* Pods-FCS Mock Season CreatorUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FCS Mock Season CreatorUITests.debug.xcconfig"; path = "Target Support Files/Pods-FCS Mock Season CreatorUITests/Pods-FCS Mock Season CreatorUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				528BCFF60D630AFA12291381 /* Pods_FCS_Mock_Season_Creator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7503583BF9F4A8A9606EE989 /* libPods-FCS Mock Season CreatorTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +102,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56FBDD6EA6F25962715F7B03 /* libPods-FCS Mock Season CreatorUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +116,8 @@
 				1906C80422D1B098007CD0D4 /* FCS Mock Season CreatorTests */,
 				1906C80F22D1B098007CD0D4 /* FCS Mock Season CreatorUITests */,
 				1906C7EB22D1B097007CD0D4 /* Products */,
+				C9C6CD7652B6F0F832D51613 /* Pods */,
+				87F1DE71854C5180AA961CD4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -145,6 +168,8 @@
 				1906C7EF22D1B097007CD0D4 /* LoginViewController.swift */,
 				1906C81E22D2CA07007CD0D4 /* ConferenceResultsTableViewController.swift */,
 				1906C82122D2CC3E007CD0D4 /* ConferencesTableViewController.swift */,
+				1906C82D22D81E0A007CD0D4 /* ResultsViewController.swift */,
+				1906C83222D827DA007CD0D4 /* OverallFCSResultsCardController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -152,14 +177,38 @@
 		1906C82322D2CF32007CD0D4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				1906C82022D2CC19007CD0D4 /* ViewControllers */,
 				1906C7ED22D1B097007CD0D4 /* AppDelegate.swift */,
+				1906C82022D2CC19007CD0D4 /* ViewControllers */,
 				1906C82822D2E9F0007CD0D4 /* ConferenceResultsTableViewCell.swift */,
 				1906C82422D2CF81007CD0D4 /* ConferencesTableViewCell.swift */,
 				1906C82622D2D14A007CD0D4 /* Conference.swift */,
 				1906C82A22D2EF56007CD0D4 /* Game.swift */,
+				1906C83422D82F75007CD0D4 /* TeamResultsData.swift */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		87F1DE71854C5180AA961CD4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1EE1124AA8755D3890D0DBE6 /* Pods_FCS_Mock_Season_Creator.framework */,
+				6EF0261113F1917FC249A8DD /* libPods-FCS Mock Season CreatorTests.a */,
+				A1E02CAA473E05F58F785F8A /* libPods-FCS Mock Season CreatorUITests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C9C6CD7652B6F0F832D51613 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				422F6A7D5D69406A23ABBEB6 /* Pods-FCS Mock Season Creator.debug.xcconfig */,
+				C74013DE263F15B8BAE7C113 /* Pods-FCS Mock Season Creator.release.xcconfig */,
+				005C61658A425F55E5DA0BDB /* Pods-FCS Mock Season CreatorTests.debug.xcconfig */,
+				4115BD9DFDE47937034BC5F4 /* Pods-FCS Mock Season CreatorTests.release.xcconfig */,
+				FEFB1936A4BB6ABD8736C17F /* Pods-FCS Mock Season CreatorUITests.debug.xcconfig */,
+				EA7B76FDF6993F164C9FA03E /* Pods-FCS Mock Season CreatorUITests.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,9 +218,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1906C81522D1B098007CD0D4 /* Build configuration list for PBXNativeTarget "FCS Mock Season Creator" */;
 			buildPhases = (
+				75AA1AA373CB5057C43A98AE /* [CP] Check Pods Manifest.lock */,
 				1906C7E622D1B097007CD0D4 /* Sources */,
 				1906C7E722D1B097007CD0D4 /* Frameworks */,
 				1906C7E822D1B097007CD0D4 /* Resources */,
+				32ED7F197333D5F579CB96EF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -186,6 +237,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1906C81822D1B098007CD0D4 /* Build configuration list for PBXNativeTarget "FCS Mock Season CreatorTests" */;
 			buildPhases = (
+				1F78251CEF49BF4CF003C932 /* [CP] Check Pods Manifest.lock */,
 				1906C7FD22D1B098007CD0D4 /* Sources */,
 				1906C7FE22D1B098007CD0D4 /* Frameworks */,
 				1906C7FF22D1B098007CD0D4 /* Resources */,
@@ -204,6 +256,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1906C81B22D1B098007CD0D4 /* Build configuration list for PBXNativeTarget "FCS Mock Season CreatorUITests" */;
 			buildPhases = (
+				C5D79B8B62E968CBDB2C9A50 /* [CP] Check Pods Manifest.lock */,
 				1906C80822D1B098007CD0D4 /* Sources */,
 				1906C80922D1B098007CD0D4 /* Frameworks */,
 				1906C80A22D1B098007CD0D4 /* Resources */,
@@ -288,6 +341,92 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1F78251CEF49BF4CF003C932 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FCS Mock Season CreatorTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		32ED7F197333D5F579CB96EF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FCS Mock Season Creator/Pods-FCS Mock Season Creator-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FCS Mock Season Creator/Pods-FCS Mock Season Creator-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FCS Mock Season Creator/Pods-FCS Mock Season Creator-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		75AA1AA373CB5057C43A98AE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FCS Mock Season Creator-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C5D79B8B62E968CBDB2C9A50 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FCS Mock Season CreatorUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		1906C7E622D1B097007CD0D4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -296,6 +435,9 @@
 				1906C7F022D1B097007CD0D4 /* LoginViewController.swift in Sources */,
 				1906C82B22D2EF56007CD0D4 /* Game.swift in Sources */,
 				1906C7EE22D1B097007CD0D4 /* AppDelegate.swift in Sources */,
+				1906C83522D82F75007CD0D4 /* TeamResultsData.swift in Sources */,
+				1906C83322D827DA007CD0D4 /* OverallFCSResultsCardController.swift in Sources */,
+				1906C82E22D81E0A007CD0D4 /* ResultsViewController.swift in Sources */,
 				1906C81F22D2CA07007CD0D4 /* ConferenceResultsTableViewController.swift in Sources */,
 				1906C82722D2D14A007CD0D4 /* Conference.swift in Sources */,
 				1906C82922D2E9F0007CD0D4 /* ConferenceResultsTableViewCell.swift in Sources */,
@@ -474,6 +616,7 @@
 		};
 		1906C81622D1B098007CD0D4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 422F6A7D5D69406A23ABBEB6 /* Pods-FCS Mock Season Creator.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -492,6 +635,7 @@
 		};
 		1906C81722D1B098007CD0D4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C74013DE263F15B8BAE7C113 /* Pods-FCS Mock Season Creator.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -510,6 +654,7 @@
 		};
 		1906C81922D1B098007CD0D4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 005C61658A425F55E5DA0BDB /* Pods-FCS Mock Season CreatorTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -531,6 +676,7 @@
 		};
 		1906C81A22D1B098007CD0D4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4115BD9DFDE47937034BC5F4 /* Pods-FCS Mock Season CreatorTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -552,6 +698,7 @@
 		};
 		1906C81C22D1B098007CD0D4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FEFB1936A4BB6ABD8736C17F /* Pods-FCS Mock Season CreatorUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -572,6 +719,7 @@
 		};
 		1906C81D22D1B098007CD0D4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EA7B76FDF6993F164C9FA03E /* Pods-FCS Mock Season CreatorUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

@@ -1,0 +1,53 @@
+PODS:
+  - Bond (7.6.0):
+    - Differ (~> 1.3)
+    - ReactiveKit (~> 3.10)
+  - CardParts (2.10.0):
+    - RxCocoa (~> 4.5)
+    - RxDataSources (~> 3.1)
+    - RxGesture (~> 2.2)
+    - RxSwift (~> 4.5)
+  - Differ (1.4.3)
+  - Differentiator (3.1.0)
+  - ReactiveKit (3.13.0)
+  - RxCocoa (4.5.0):
+    - RxSwift (>= 4.4.2, ~> 4.4)
+  - RxDataSources (3.1.0):
+    - Differentiator (~> 3.0)
+    - RxCocoa (~> 4.0)
+    - RxSwift (~> 4.0)
+  - RxGesture (2.2.0):
+    - RxCocoa (~> 4.5)
+    - RxSwift (~> 4.5)
+  - RxSwift (4.5.0)
+
+DEPENDENCIES:
+  - Bond
+  - CardParts
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Bond
+    - CardParts
+    - Differ
+    - Differentiator
+    - ReactiveKit
+    - RxCocoa
+    - RxDataSources
+    - RxGesture
+    - RxSwift
+
+SPEC CHECKSUMS:
+  Bond: 5d626bfbbfc60b213ec35badb8f4fd81beff6a5f
+  CardParts: 85304e4aa9257f8b7274b9c2527c56c06a15b7f5
+  Differ: 6c7477d6187e8c36d02ec342a3c321061b85a0ea
+  Differentiator: be49ca3408f0ecfc761e4c7763d20c62be01b9ad
+  ReactiveKit: 4a938b0671b0b068232926a443da19d535a03023
+  RxCocoa: cbf70265dc65a981d4ac982e513c10cf23df24a0
+  RxDataSources: a843bad90c29817f5923ec8163f4af2de084ceb3
+  RxGesture: c1b7bf17166b0ef9d642a9510f8bac5785f18990
+  RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
+
+PODFILE CHECKSUM: 72ad75922096fb1208ce11d425d3096b9301eaa6
+
+COCOAPODS: 1.7.4

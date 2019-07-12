@@ -1,0 +1,6 @@
+framework module Pods_FCS_Mock_Season_CreatorTests {
+  umbrella header "Pods-FCS Mock Season CreatorTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
