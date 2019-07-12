@@ -21,15 +21,15 @@ class ConferenceResultsTableViewController: UITableViewController {
                 os_log("conference is nil in ConferenceResultsTableViewController", log: OSLog.default, type: .debug)
                 return false
             }
-            let gameConferences = game.conferences.map({ Conference.getEnumValueFromStringValue(conferenceStr: $0) })
-            if (self.conference == Conference.all) || (gameConferences.contains(conference)) {
+            let gameConferences = game.conferences.map({ ConferenceOptions.getEnumValueFromStringValue(conferenceStr: $0) })
+            if (self.conference == ConferenceOptions.all) || (gameConferences.contains(conference)) {
                 return true
             } else {
                 return false
             }
             }.sorted(by: { $0.week <= $1.week })
     }
-    var conference: Conference?
+    var conference: ConferenceOptions?
     let CONFERENCE_RESULTS_CELL_IDENTIFIER = "ConferenceResultsTableViewCell"
     let numberOfWeeksInSeason = 14
     

@@ -22,7 +22,7 @@ class Game: NSManagedObject {
 
 extension Game {
     
-    public static func newGame(context: NSManagedObjectContext, contestants: [String]?, winner: String?, confidence: Int?, conferences: [Conference]?, week: Int?) -> Game {
+    public static func newGame(context: NSManagedObjectContext, contestants: [String]?, winner: String?, confidence: Int?, conferences: [ConferenceOptions]?, week: Int?) -> Game {
         
         let newGame = Game(context: context)
         
@@ -44,7 +44,7 @@ extension Game {
         if let conferences = conferences {
             newGame.conferences.removeAll()
             for conference in conferences {
-                newGame.conferences.append(Conference.getStringValue(conference: conference))
+                newGame.conferences.append(ConferenceOptions.getStringValue(conferenceOption: conference))
             }
 //            newGame.conferences = conferences.map({ Conference.getStringValue(conference: $0) })
         } else {

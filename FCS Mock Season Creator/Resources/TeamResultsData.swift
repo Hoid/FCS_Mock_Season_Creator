@@ -7,31 +7,43 @@
 //
 
 import Foundation
+import os.log
 
 class TeamResultsData {
     
-    public var team: String
+    public var teamName: String
     public var games: [Game]
     
-    init(team: String, games: [Game]) {
+    init(teamName: String, games: [Game]) {
         
-        self.team = team
+        self.teamName = teamName
         self.games = games
         
     }
     
-    public func probOfWinningXNumberOfGames(gamesWon: Int) -> Double {
+    public func calculateProbOfWinningXNumberOfGames(gamesWon: Int) -> Double {
         let n = self.numberOfGamesPlayed
         let k = gamesWon
         return (fact(n) / (fact(k) * fact(n-k))) * pow(avgConfidenceToWinEachGame, Double(n)) * pow(1-avgConfidenceToWinEachGame, Double(n-k))
     }
     
-    public func probOfWinningAtLeast8Games() -> Double {
+    public func calculateProbOfWinningAtLeast8Games() -> Double {
         var result: Double = 0.0
-        for i in 1...8 {
-            result = result + probOfWinningXNumberOfGames(gamesWon: i)
+        for i in 8...numberOfGamesPlayed {
+            result = result + calculateProbOfWinningXNumberOfGames(gamesWon: i)
         }
         return result
+    }
+    
+    public func calculateMostLikelyRecord() -> Record {
+        var possibleRecordsAndLikelihoods = [(Record, Double)]()
+        for i in 0...numberOfGamesPlayed {
+            let record = Record(numberOfWins: i, numberOfGamesPlayed: numberOfGamesPlayed)
+            possibleRecordsAndLikelihoods.append((record, calculateProbOfWinningXNumberOfGames(gamesWon: i)))
+        }
+        possibleRecordsAndLikelihoods.sort(by: { $0.1 > $1.1 })
+        let mostLikelyRecord = possibleRecordsAndLikelihoods[0].0
+        return mostLikelyRecord
     }
     
     private var numberOfGamesPlayed: Int {

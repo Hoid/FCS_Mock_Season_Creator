@@ -13,7 +13,7 @@ import os.log
 class ConferencesTableViewController: UITableViewController {
     
     var conferences = [String]()
-    var conferenceSelected: Conference?
+    var conferenceSelected: ConferenceOptions?
     let CONFERENCE_CELL_IDENTIFIER = "ConferencesTableViewCell"
     
     override func viewDidLoad() {
@@ -64,7 +64,7 @@ class ConferencesTableViewController: UITableViewController {
             os_log("Could not unwrap conferenceStr in tableView(didSelectRowAtIndexPath:) in ConferencesTableViewController", log: OSLog.default, type: .debug)
             return
         }
-        self.conferenceSelected = Conference.getEnumValueFromStringValue(conferenceStr: conferenceStr)
+        self.conferenceSelected = ConferenceOptions.getEnumValueFromStringValue(conferenceStr: conferenceStr)
         performSegue(withIdentifier: "showConferenceResultsSeque", sender: self)
         
     }
@@ -77,7 +77,7 @@ class ConferencesTableViewController: UITableViewController {
                 os_log("Could not unwrap conferenceSelected in prepare(for:sender:) in ConferencesTableViewController", log: OSLog.default, type: .debug)
                 return
             }
-            os_log("conferenceSelected is %s", log: OSLog.default, type: .debug, Conference.getStringValue(conference: conferenceSelected))
+            os_log("conferenceSelected is %s", log: OSLog.default, type: .debug, ConferenceOptions.getStringValue(conferenceOption: conferenceSelected))
             vc?.conference = self.conferenceSelected
         }
         
@@ -100,20 +100,20 @@ class ConferencesTableViewController: UITableViewController {
     private func populateConferences() {
         os_log("Populating conferences...", log: OSLog.default, type: .debug)
         conferences = [String]()
-        conferences.append(Conference.getStringValue(conference: Conference.all))
-        conferences.append(Conference.getStringValue(conference: Conference.bigsky))
-        conferences.append(Conference.getStringValue(conference: Conference.bigsouth))
-        conferences.append(Conference.getStringValue(conference: Conference.caa))
-        conferences.append(Conference.getStringValue(conference: Conference.independent))
-        conferences.append(Conference.getStringValue(conference: Conference.ivy))
-        conferences.append(Conference.getStringValue(conference: Conference.meac))
-        conferences.append(Conference.getStringValue(conference: Conference.mvfc))
-        conferences.append(Conference.getStringValue(conference: Conference.nec))
-        conferences.append(Conference.getStringValue(conference: Conference.ovc))
-        conferences.append(Conference.getStringValue(conference: Conference.pioneer))
-        conferences.append(Conference.getStringValue(conference: Conference.southern))
-        conferences.append(Conference.getStringValue(conference: Conference.southland))
-        conferences.append(Conference.getStringValue(conference: Conference.swac))
+        conferences.append(ConferenceOptions.getStringValue(conferenceOption: ConferenceOptions.all))
+        conferences.append(ConferenceOptions.getStringValue(conferenceOption: ConferenceOptions.bigsky))
+        conferences.append(ConferenceOptions.getStringValue(conferenceOption: ConferenceOptions.bigsouth))
+        conferences.append(ConferenceOptions.getStringValue(conferenceOption: ConferenceOptions.caa))
+        conferences.append(ConferenceOptions.getStringValue(conferenceOption: ConferenceOptions.independent))
+        conferences.append(ConferenceOptions.getStringValue(conferenceOption: ConferenceOptions.ivy))
+        conferences.append(ConferenceOptions.getStringValue(conferenceOption: ConferenceOptions.meac))
+        conferences.append(ConferenceOptions.getStringValue(conferenceOption: ConferenceOptions.mvfc))
+        conferences.append(ConferenceOptions.getStringValue(conferenceOption: ConferenceOptions.nec))
+        conferences.append(ConferenceOptions.getStringValue(conferenceOption: ConferenceOptions.ovc))
+        conferences.append(ConferenceOptions.getStringValue(conferenceOption: ConferenceOptions.pioneer))
+        conferences.append(ConferenceOptions.getStringValue(conferenceOption: ConferenceOptions.southern))
+        conferences.append(ConferenceOptions.getStringValue(conferenceOption: ConferenceOptions.southland))
+        conferences.append(ConferenceOptions.getStringValue(conferenceOption: ConferenceOptions.swac))
     }
     
 }
