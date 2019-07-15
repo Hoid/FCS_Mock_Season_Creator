@@ -10,11 +10,11 @@ import Foundation
 
 class Team {
     
-    var teamName: String
+    var name: String
     var conference: Conference
     
     init(teamName: String, conference: Conference) {
-        self.teamName = teamName
+        self.name = teamName
         self.conference = conference
     }
     

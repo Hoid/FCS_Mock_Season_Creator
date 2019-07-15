@@ -1,8 +1,8 @@
 //
-//  OverallFCSResultsCardController.swift
+//  ConferenceResultsCardController.swift
 //  FCS Mock Season Creator
 //
-//  Created by Tyler Cheek on 7/11/19.
+//  Created by Tyler Cheek on 7/14/19.
 //  Copyright © 2019 Tyler Cheek. All rights reserved.
 //
 
@@ -13,12 +13,23 @@ import RxCocoa
 import CardParts
 import Bond
 
-class OverallFCSResultsCardController: CardPartsViewController {
+class ConferenceResultsCardController: CardPartsViewController {
     
     var allGames = [Game]()
-    var viewModel = OverallFCSResultsTableViewModel()
+    var conference: Conference
+    var viewModel: ConferenceResultsTableViewModel
     var titlePart = CardPartTitleView(type: .titleOnly)
     var tableViewPart = CardPartTableView()
+    
+    init(conference: Conference) {
+        self.conference = conference
+        self.viewModel = ConferenceResultsTableViewModel(conference: self.conference)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         
@@ -26,16 +37,16 @@ class OverallFCSResultsCardController: CardPartsViewController {
         
         self.allGames = viewModel.allGames
         
-        if let navigationController = self.navigationController {
-//            navigationBarAppearance.tintColor = uicolorFromHex(0xffffff)
-//            navigationBarAppearance.barTintColor = uicolorFromHex(0xf88379)
-            let navigationBarAppearance = navigationController.navigationBar
-            navigationBarAppearance.tintColor = UIColor.white
-            navigationBarAppearance.barTintColor = UIColor.cyan
-        } else {
-            os_log("There is no navigation controller in OverallFCSResultsCardController.viewDidLoad()", type: .debug)
-        }
-
+//        if let navigationController = self.navigationController {
+//            //            navigationBarAppearance.tintColor = uicolorFromHex(0xffffff)
+//            //            navigationBarAppearance.barTintColor = uicolorFromHex(0xf88379)
+//            let navigationBarAppearance = navigationController.navigationBar
+//            navigationBarAppearance.tintColor = UIColor.white
+//            navigationBarAppearance.barTintColor = UIColor.cyan
+//        } else {
+//            os_log("There is no navigation controller in OverallFCSResultsCardController.viewDidLoad()", type: .debug)
+//        }
+        
         
         viewModel.title.asObservable().bind(to: titlePart.rx.title).disposed(by: bag)
         viewModel.tableData.bind(to: tableViewPart.tableView) { tableData, indexPath, tableView in
@@ -44,14 +55,14 @@ class OverallFCSResultsCardController: CardPartsViewController {
                 return UITableViewCell()
             }
             
-            guard let tableDataInfo = tableData as? [(Int, String, Record)] else {
+            guard let tableDataTuple = tableData as? [(Int, String, Record)] else {
                 return UITableViewCell()
             }
             
-            let placement = tableDataInfo[indexPath.row].0 + 1
-            let teamName = tableDataInfo[indexPath.row].1
+            let placement = tableDataTuple[indexPath.row].0 + 1
+            let teamName = tableDataTuple[indexPath.row].1
             cell.leftTitleLabel.text = "\(placement). \(teamName)"
-            cell.rightTitleLabel.text = tableDataInfo[indexPath.row].2.recordStr
+            cell.rightTitleLabel.text = tableDataTuple[indexPath.row].2.recordStr
             
             return cell
             
@@ -62,36 +73,47 @@ class OverallFCSResultsCardController: CardPartsViewController {
     
 }
 
-class OverallFCSResultsTableViewModel {
+class ConferenceResultsTableViewModel {
     
     var allGames = [Game]()
-    var allTeamResults = [TeamResultsData]()
+    var conference: Conference
     var tableData = MutableObservableArray([])
     
     var title = BehaviorRelay(value: "")
     var text = BehaviorRelay(value: "")
     
-    init() {
+    init(conference: Conference) {
+        
+        self.conference = conference
         
         loadGames()
         
-        for teamNameByConference in TeamsByConferenceOption.data.values {
-            for teamName in teamNameByConference {
-                let gamesPlayedByTeam = self.allGames.filter({ (game) -> Bool in
-                    return game.contestants.contains(teamName)
-                })
-                allTeamResults.append(TeamResultsData(teamName: teamName, games: gamesPlayedByTeam))
+//        for teamNameByConference in TeamsByConferenceOption.data.values {
+//            for teamName in teamNameByConference {
+//                let gamesPlayedByTeam = self.allGames.filter({ (game) -> Bool in
+//                    return game.contestants.contains(teamName)
+//                })
+//                allTeamResults.append(TeamResultsData(teamName: teamName, games: gamesPlayedByTeam))
+//            }
+//        }
+        var teamResultsForConference = [TeamResultsData]()
+        for team in self.conference.teams {
+            let gamesPlayedByTeam = self.allGames.filter { (game) -> Bool in
+                return game.contestants.contains(team.name)
             }
+            teamResultsForConference.append(TeamResultsData(teamName: team.name, games: gamesPlayedByTeam))
         }
-        let fcsSeasonResult = FCSSeasonResult(teamResults: allTeamResults)
-        print(fcsSeasonResult.sortedTeamsAndRecords)
-        for (index, (teamName, record)) in fcsSeasonResult.sortedTeamsAndRecords.enumerated() {
+        let conferenceSeasonResult = ConferenceSeasonResult(conference: self.conference, teamResults: teamResultsForConference)
+        print(conferenceSeasonResult.placementMappedToTeamAndRecord)
+        
+        let sortedTeamsAndRecords = conferenceSeasonResult.placementMappedToTeamAndRecord.values.enumerated()
+        for (index, (teamName, record)) in sortedTeamsAndRecords {
             tableData.append((index, teamName, record))
         }
         
         // When these values change, the UI in the TestCardController
         // will automatically update
-        title.accept("Most Likely FCS Season Results")
+        title.accept(self.conference.name)
         
     }
     

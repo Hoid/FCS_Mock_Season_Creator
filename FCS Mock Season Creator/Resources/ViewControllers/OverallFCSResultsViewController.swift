@@ -10,7 +10,7 @@ import Foundation
 import RxCocoa
 import CardParts
 
-class ResultsViewController: CardsViewController {
+class OverallFCSResultsViewController: CardsViewController {
     
     let cards: [CardController] = [OverallFCSResultsCardController()]
     

@@ -1,8 +1,8 @@
 //
-//  OverallFCSResultsCardController.swift
+//  ConferencesResultsCardController.swift
 //  FCS Mock Season Creator
 //
-//  Created by Tyler Cheek on 7/11/19.
+//  Created by Tyler Cheek on 7/14/19.
 //  Copyright © 2019 Tyler Cheek. All rights reserved.
 //
 
@@ -13,10 +13,10 @@ import RxCocoa
 import CardParts
 import Bond
 
-class OverallFCSResultsCardController: CardPartsViewController {
+class ConferenceResultsCardController: CardPartsViewController {
     
     var allGames = [Game]()
-    var viewModel = OverallFCSResultsTableViewModel()
+    var viewModel = ConferencesResultsTableViewModel()
     var titlePart = CardPartTitleView(type: .titleOnly)
     var tableViewPart = CardPartTableView()
     
@@ -27,15 +27,15 @@ class OverallFCSResultsCardController: CardPartsViewController {
         self.allGames = viewModel.allGames
         
         if let navigationController = self.navigationController {
-//            navigationBarAppearance.tintColor = uicolorFromHex(0xffffff)
-//            navigationBarAppearance.barTintColor = uicolorFromHex(0xf88379)
+            //            navigationBarAppearance.tintColor = uicolorFromHex(0xffffff)
+            //            navigationBarAppearance.barTintColor = uicolorFromHex(0xf88379)
             let navigationBarAppearance = navigationController.navigationBar
             navigationBarAppearance.tintColor = UIColor.white
             navigationBarAppearance.barTintColor = UIColor.cyan
         } else {
             os_log("There is no navigation controller in OverallFCSResultsCardController.viewDidLoad()", type: .debug)
         }
-
+        
         
         viewModel.title.asObservable().bind(to: titlePart.rx.title).disposed(by: bag)
         viewModel.tableData.bind(to: tableViewPart.tableView) { tableData, indexPath, tableView in
@@ -62,7 +62,7 @@ class OverallFCSResultsCardController: CardPartsViewController {
     
 }
 
-class OverallFCSResultsTableViewModel {
+class ConferencesResultsTableViewModel {
     
     var allGames = [Game]()
     var allTeamResults = [TeamResultsData]()
