@@ -13,10 +13,11 @@ import RxCocoa
 import CardParts
 import Bond
 
-class OverallFCSResultsCardController: CardPartsViewController {
+class OverallFCSResultsCardController: CardPartsViewController, RoundedCardTrait, NoTopBottomMarginsCardTrait {
     
     var allGames = [Game]()
     var viewModel = OverallFCSResultsTableViewModel()
+    var aboveSpacerPart = CardPartSpacerView(height: 30.0)
     var titlePart = CardPartTitleView(type: .titleOnly)
     var tableViewPart = CardPartTableView()
     
@@ -25,17 +26,6 @@ class OverallFCSResultsCardController: CardPartsViewController {
         super.viewDidLoad()
         
         self.allGames = viewModel.allGames
-        
-        if let navigationController = self.navigationController {
-//            navigationBarAppearance.tintColor = uicolorFromHex(0xffffff)
-//            navigationBarAppearance.barTintColor = uicolorFromHex(0xf88379)
-            let navigationBarAppearance = navigationController.navigationBar
-            navigationBarAppearance.tintColor = UIColor.white
-            navigationBarAppearance.barTintColor = UIColor.cyan
-        } else {
-            os_log("There is no navigation controller in OverallFCSResultsCardController.viewDidLoad()", type: .debug)
-        }
-
         
         viewModel.title.asObservable().bind(to: titlePart.rx.title).disposed(by: bag)
         viewModel.tableData.bind(to: tableViewPart.tableView) { tableData, indexPath, tableView in
@@ -56,8 +46,28 @@ class OverallFCSResultsCardController: CardPartsViewController {
             return cell
             
         }
+        
+        tableViewPart.margins = UIEdgeInsets(top: 10.0, left: 14.0, bottom: 14.0, right: 10.0)
+        
+//        titlePart.backgroundColor = UIColor(rgb: 0xD3D3D3)
+//        tableViewPart.backgroundColor = UIColor(rgb: 0xD3D3D3)
+        if let uiFont = UIFont(name: "Arial", size: 22.0) {
+            titlePart.titleFont = uiFont
+        } else {
+            os_log("Could not create UIFont in OverallFCSResultsCardController.viewDidLoad()", type: .debug)
+        }
+        
+//        setupCardParts([aboveSpacerPart, titlePart, tableViewPart])
         setupCardParts([titlePart, tableViewPart])
         
+    }
+    
+    func cornerRadius() -> CGFloat {
+        return 10.0
+    }
+    
+    func requiresNoTopBottomMargins() -> Bool {
+        return false
     }
     
 }
@@ -122,5 +132,23 @@ class OverallFCSResultsTableViewModel {
             print("Could not fetch games. \(error), \(error.userInfo)")
         }
         
+    }
+}
+
+extension UIColor {
+    convenience init(red: Int, green: Int, blue: Int) {
+        assert(red >= 0 && red <= 255, "Invalid red component")
+        assert(green >= 0 && green <= 255, "Invalid green component")
+        assert(blue >= 0 && blue <= 255, "Invalid blue component")
+        
+        self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: 1.0)
+    }
+    
+    convenience init(rgb: Int) {
+        self.init(
+            red: (rgb >> 16) & 0xFF,
+            green: (rgb >> 8) & 0xFF,
+            blue: rgb & 0xFF
+        )
     }
 }

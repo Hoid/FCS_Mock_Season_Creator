@@ -13,7 +13,7 @@ import RxCocoa
 import CardParts
 import Bond
 
-class ConferenceResultsCardController: CardPartsViewController {
+class ConferenceResultsCardController: CardPartsViewController, RoundedCardTrait, NoTopBottomMarginsCardTrait {
     
     var allGames = [Game]()
     var conference: Conference
@@ -37,17 +37,6 @@ class ConferenceResultsCardController: CardPartsViewController {
         
         self.allGames = viewModel.allGames
         
-//        if let navigationController = self.navigationController {
-//            //            navigationBarAppearance.tintColor = uicolorFromHex(0xffffff)
-//            //            navigationBarAppearance.barTintColor = uicolorFromHex(0xf88379)
-//            let navigationBarAppearance = navigationController.navigationBar
-//            navigationBarAppearance.tintColor = UIColor.white
-//            navigationBarAppearance.barTintColor = UIColor.cyan
-//        } else {
-//            os_log("There is no navigation controller in OverallFCSResultsCardController.viewDidLoad()", type: .debug)
-//        }
-        
-        
         viewModel.title.asObservable().bind(to: titlePart.rx.title).disposed(by: bag)
         viewModel.tableData.bind(to: tableViewPart.tableView) { tableData, indexPath, tableView in
             
@@ -67,8 +56,23 @@ class ConferenceResultsCardController: CardPartsViewController {
             return cell
             
         }
+        
+        if let uiFont = UIFont(name: "Arial", size: 22.0) {
+            titlePart.titleFont = uiFont
+        } else {
+            os_log("Could not create UIFont in ConferenceResultsCardController.viewDidLoad()", type: .debug)
+        }
+        
         setupCardParts([titlePart, tableViewPart])
         
+    }
+    
+    func cornerRadius() -> CGFloat {
+        return 10.0
+    }
+    
+    func requiresNoTopBottomMargins() -> Bool {
+        return false
     }
     
 }

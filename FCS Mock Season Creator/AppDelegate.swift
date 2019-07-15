@@ -8,6 +8,8 @@
 
 import UIKit
 import CoreData
+import RxCocoa
+import CardParts
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        let uiPageControlAppearance = UIPageControl.appearance()
+        uiPageControlAppearance.currentPageIndicatorTintColor = UIColor.black
+        uiPageControlAppearance.pageIndicatorTintColor = UIColor.lightGray
+        let cardPartsMintTheme = CardPartsMintTheme()
+        cardPartsMintTheme.apply()
         return true
     }
 
