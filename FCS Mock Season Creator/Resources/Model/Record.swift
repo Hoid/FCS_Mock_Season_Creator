@@ -8,13 +8,22 @@
 
 import Foundation
 
-class Record: CustomStringConvertible {
+class Record: Equatable, CustomStringConvertible {
     
     public var numberOfWins: Int
     public var numberOfGamesPlayed: Int
     
-    private var numberOfLosses: Int {
-        return self.numberOfGamesPlayed - self.numberOfWins
+    init(numberOfWins: Int, numberOfGamesPlayed: Int) {
+        
+        self.numberOfWins = numberOfWins
+        self.numberOfGamesPlayed = numberOfGamesPlayed
+        
+    }
+    
+    static func == (lhs: Record, rhs: Record) -> Bool {
+        guard lhs.numberOfWins == rhs.numberOfWins else { return false }
+        guard lhs.numberOfGamesPlayed == rhs.numberOfGamesPlayed else { return false }
+        return true
     }
     
     public var recordStr: String {
@@ -29,11 +38,10 @@ class Record: CustomStringConvertible {
         }
     }
     
-    init(numberOfWins: Int, numberOfGamesPlayed: Int) {
-        self.numberOfWins = numberOfWins
-        self.numberOfGamesPlayed = numberOfGamesPlayed
+    public var numberOfLosses: Int {
+        return self.numberOfGamesPlayed - self.numberOfWins
     }
-
+    
     var description: String {
         return "Record: \(recordStr)"
     }

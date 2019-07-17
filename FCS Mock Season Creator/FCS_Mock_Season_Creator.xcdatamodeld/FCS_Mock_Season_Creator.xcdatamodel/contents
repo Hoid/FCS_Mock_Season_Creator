@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.99" systemVersion="18D42" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Game" representedClassName=".Game" syncable="YES">
-        <attribute name="conferences" attributeType="Transformable" customClassName="[String]" syncable="YES"/>
+    <entity name="ConferenceMO" representedClassName=".ConferenceMO" syncable="YES">
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="teamNames" attributeType="Transformable" customClassName=".[String]" syncable="YES"/>
+    </entity>
+    <entity name="GameMO" representedClassName=".GameMO" syncable="YES">
+        <attribute name="conferencesNames" attributeType="Transformable" customClassName="[String]" syncable="YES"/>
         <attribute name="confidence" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="contestants" attributeType="Transformable" customClassName="[String]" syncable="YES"/>
+        <attribute name="contestantsNames" attributeType="Transformable" customClassName="[String]" syncable="YES"/>
         <attribute name="id" attributeType="String" syncable="YES"/>
         <attribute name="week" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="winner" attributeType="String" syncable="YES"/>
+        <attribute name="winnerName" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="TeamMO" representedClassName=".TeamMO" syncable="YES">
+        <attribute name="conferenceName" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Game" positionX="-63" positionY="-18" width="128" height="135"/>
+        <element name="ConferenceMO" positionX="-54" positionY="36" width="128" height="75"/>
+        <element name="GameMO" positionX="-63" positionY="-18" width="128" height="135"/>
+        <element name="TeamMO" positionX="-36" positionY="45" width="128" height="75"/>
     </elements>
 </model>

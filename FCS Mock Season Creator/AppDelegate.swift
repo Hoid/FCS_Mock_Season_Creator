@@ -10,12 +10,12 @@ import UIKit
 import CoreData
 import RxCocoa
 import CardParts
+import os.log
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -24,6 +24,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         uiPageControlAppearance.pageIndicatorTintColor = UIColor.lightGray
         let cardPartsMintTheme = CardPartsMintTheme()
         cardPartsMintTheme.apply()
+        
+        let teamsByConferenceNetworkManager = TeamsByConferenceNetworkManager()
+        let dataModelManager = DataModelManager.shared
+        self.inputViewController!.showSpinner(onView: self.inputView!)
+        teamsByConferenceNetworkManager.getTeamsByConference(completion: { (data, error) in
+            guard let data = data else {
+                os_log("Could not unwrap data in AppDelegate.application(didFinishLaunchingWithOptions:)", type: .debug)
+                return
+            }
+            for conferenceName in data.keys {
+                guard let teamNamesInConference = data[conferenceName] else {
+                    os_log("Could not unwrap teamNamesInConference in AppDelegate.application(didFinishLaunchingWithOptions:)", type: .debug)
+                    return
+                }
+                let teamsInConference = teamNamesInConference.map({ (teamName) -> Team in
+                    return Team(teamName: teamName, conferenceName: conferenceName)
+                })
+                DispatchQueue.main.sync {
+                    teamsInConference.forEach({ dataModelManager.saveTeam(team: $0) })
+                    let conference = Conference(name: conferenceName, conferenceOption: nil, teams: teamsInConference)
+                    dataModelManager.saveConference(conference: conference)
+                }
+            }
+            self.inputViewController!.removeSpinner()
+        })
+        
         return true
     }
 

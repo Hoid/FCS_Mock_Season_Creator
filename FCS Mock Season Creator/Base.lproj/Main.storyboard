@@ -244,7 +244,7 @@
             </objects>
             <point key="canvasLocation" x="1126" y="138"/>
         </scene>
-        <!--Table View Controller-->
+        <!--FCS Mock Season Creator-->
         <scene sceneID="MHA-x3-crg">
             <objects>
                 <tableViewController id="Tqo-49-Wc4" sceneMemberID="viewController">
@@ -341,7 +341,7 @@
                             <outlet property="delegate" destination="Tqo-49-Wc4" id="2rB-ge-iHs"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="1Ke-1C-1wg"/>
+                    <navigationItem key="navigationItem" title="FCS Mock Season Creator" id="1Ke-1C-1wg"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B7L-Hn-27s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

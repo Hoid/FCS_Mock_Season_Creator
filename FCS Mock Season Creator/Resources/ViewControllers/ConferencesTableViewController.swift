@@ -78,7 +78,7 @@ class ConferencesTableViewController: UITableViewController {
                 return
             }
             os_log("conferenceSelected is %s", log: OSLog.default, type: .debug, ConferenceOptions.getStringValue(conferenceOption: conferenceSelected))
-            vc?.conference = self.conferenceSelected
+            vc?.conferenceOption = self.conferenceSelected
         }
         
     }

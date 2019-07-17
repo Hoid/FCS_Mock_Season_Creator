@@ -11,7 +11,7 @@ import os.log
 
 enum ConferenceOptions {
     
-    case all, caa, mvfc, bigsky, bigsouth, southern, southland, ivy, meac, nec, ovc, pioneer, swac, independent
+    case all, caa, mvfc, bigsky, bigsouth, southern, southland, ivy, meac, nec, ovc, patriot, pioneer, swac, independent
     
     public static func getStringValue(conferenceOption: ConferenceOptions) -> String {
         
@@ -36,6 +36,8 @@ enum ConferenceOptions {
             return "NEC"
         case .ovc:
             return "OVC"
+        case .patriot:
+            return "Patriot"
         case .pioneer:
             return "Pioneer"
         case .southern:
@@ -71,6 +73,8 @@ enum ConferenceOptions {
             return ConferenceOptions.nec
         case "OVC":
             return ConferenceOptions.ovc
+        case "Patriot":
+            return ConferenceOptions.patriot
         case "Pioneer":
             return ConferenceOptions.pioneer
         case "Southern":
@@ -80,7 +84,7 @@ enum ConferenceOptions {
         case "SWAC":
             return ConferenceOptions.swac
         default:
-            os_log("Could not find corresponding conference for string value in Conference.swift", type: .debug)
+            os_log("Could not find corresponding conference for string value (%s) in ConferenceOptions.swift", type: .debug, conferenceStr)
             return ConferenceOptions.all
         }
         

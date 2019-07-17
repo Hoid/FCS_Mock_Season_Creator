@@ -22,15 +22,20 @@ class ConferenceResultsTableViewCell: UITableViewCell {
         
         self.game = game
         self.gameWinnerControl.removeAllSegments()
-        self.gameWinnerControl.insertSegment(withTitle: game.contestants[0], at: 0, animated: true)
-        self.gameWinnerControl.insertSegment(withTitle: game.contestants[1], at: 1, animated: true)
-        self.confidenceTextField.text = String(game.confidence)
-        self.confidenceAverageAllUsersLabel.text = "0"
-        guard let winnerIndex = game.contestants.firstIndex(of: game.winner) else {
-            os_log("Could not unwrap selectedSegmentIndex for game winner in ConferenceResultsTableViewCell", type: .debug)
+        guard let team1Name = game.contestants.first?.name, let team2Name = game.contestants.last?.name else {
+            os_log("Could not unwrap team1Name in ConferenceResultsTableViewCell.setup()", type: .debug)
             return
         }
-        self.gameWinnerControl.selectedSegmentIndex = winnerIndex
+        self.gameWinnerControl.insertSegment(withTitle: team1Name, at: 0, animated: true)
+        self.gameWinnerControl.insertSegment(withTitle: team2Name, at: 1, animated: true)
+        self.confidenceTextField.text = String(game.confidence)
+        self.confidenceAverageAllUsersLabel.text = "0"
+        if team1Name == game.winner.name {
+            self.gameWinnerControl.selectedSegmentIndex = 0
+        } else {
+            self.gameWinnerControl.selectedSegmentIndex = 1
+        }
+        
         
     }
 

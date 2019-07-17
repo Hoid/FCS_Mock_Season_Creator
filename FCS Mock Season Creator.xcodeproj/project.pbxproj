@@ -20,7 +20,7 @@
 		1906C82522D2CF81007CD0D4 /* ConferencesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C82422D2CF81007CD0D4 /* ConferencesTableViewCell.swift */; };
 		1906C82722D2D14A007CD0D4 /* ConferenceOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C82622D2D14A007CD0D4 /* ConferenceOptions.swift */; };
 		1906C82922D2E9F0007CD0D4 /* ConferenceResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C82822D2E9F0007CD0D4 /* ConferenceResultsTableViewCell.swift */; };
-		1906C82B22D2EF56007CD0D4 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C82A22D2EF56007CD0D4 /* Game.swift */; };
+		1906C82B22D2EF56007CD0D4 /* GameMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C82A22D2EF56007CD0D4 /* GameMO.swift */; };
 		1906C82E22D81E0A007CD0D4 /* OverallFCSResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C82D22D81E0A007CD0D4 /* OverallFCSResultsViewController.swift */; };
 		1906C83322D827DA007CD0D4 /* OverallFCSResultsCardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C83222D827DA007CD0D4 /* OverallFCSResultsCardController.swift */; };
 		1906C83522D82F75007CD0D4 /* TeamResultsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C83422D82F75007CD0D4 /* TeamResultsData.swift */; };
@@ -40,12 +40,18 @@
 		1906C85A22DA5230007CD0D4 /* JSONParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C85922DA5230007CD0D4 /* JSONParameterEncoder.swift */; };
 		1906C85C22DA530D007CD0D4 /* NetworkRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C85B22DA530D007CD0D4 /* NetworkRouter.swift */; };
 		1906C85E22DA5417007CD0D4 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C85D22DA5417007CD0D4 /* Router.swift */; };
-		1906C86022DABEC1007CD0D4 /* MovieApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C85F22DABEC1007CD0D4 /* MovieApi.swift */; };
-		1906C86222DAC2CF007CD0D4 /* MovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C86122DAC2CF007CD0D4 /* MovieModel.swift */; };
 		1906C86422DAC2E8007CD0D4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C86322DAC2E8007CD0D4 /* NetworkManager.swift */; };
 		1906C86622DBC75B007CD0D4 /* ConferencesResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C86522DBC75B007CD0D4 /* ConferencesResultsViewController.swift */; };
 		1906C86A22DBC932007CD0D4 /* ConferenceResultsCardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C86922DBC932007CD0D4 /* ConferenceResultsCardController.swift */; };
 		1906C86C22DC036B007CD0D4 /* ResultsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C86B22DC036B007CD0D4 /* ResultsPageViewController.swift */; };
+		1906C86E22DE0992007CD0D4 /* TeamsByConferenceApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C86D22DE0992007CD0D4 /* TeamsByConferenceApi.swift */; };
+		1906C87022DE0BB9007CD0D4 /* TeamsByConferenceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C86F22DE0BB9007CD0D4 /* TeamsByConferenceModel.swift */; };
+		1906C87422DE0ED9007CD0D4 /* TeamsByConferenceNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C87322DE0ED9007CD0D4 /* TeamsByConferenceNetworkManager.swift */; };
+		1906C87622DEAEAA007CD0D4 /* ConferenceMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C87522DEAEAA007CD0D4 /* ConferenceMO.swift */; };
+		1906C87922DEB06A007CD0D4 /* TeamMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C87822DEB06A007CD0D4 /* TeamMO.swift */; };
+		1906C87D22DEB1CD007CD0D4 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C87C22DEB1CD007CD0D4 /* Game.swift */; };
+		1906C87F22DEC449007CD0D4 /* DataModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C87E22DEC449007CD0D4 /* DataModelManager.swift */; };
+		1906C88122DF6297007CD0D4 /* SpinnerVCExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C88022DF6297007CD0D4 /* SpinnerVCExt.swift */; };
 		528BCFF60D630AFA12291381 /* Pods_FCS_Mock_Season_Creator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EE1124AA8755D3890D0DBE6 /* Pods_FCS_Mock_Season_Creator.framework */; };
 		56FBDD6EA6F25962715F7B03 /* libPods-FCS Mock Season CreatorUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A1E02CAA473E05F58F785F8A /* libPods-FCS Mock Season CreatorUITests.a */; };
 		7503583BF9F4A8A9606EE989 /* libPods-FCS Mock Season CreatorTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EF0261113F1917FC249A8DD /* libPods-FCS Mock Season CreatorTests.a */; };
@@ -89,7 +95,7 @@
 		1906C82422D2CF81007CD0D4 /* ConferencesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferencesTableViewCell.swift; sourceTree = "<group>"; };
 		1906C82622D2D14A007CD0D4 /* ConferenceOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferenceOptions.swift; sourceTree = "<group>"; };
 		1906C82822D2E9F0007CD0D4 /* ConferenceResultsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferenceResultsTableViewCell.swift; sourceTree = "<group>"; };
-		1906C82A22D2EF56007CD0D4 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		1906C82A22D2EF56007CD0D4 /* GameMO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMO.swift; sourceTree = "<group>"; };
 		1906C82D22D81E0A007CD0D4 /* OverallFCSResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallFCSResultsViewController.swift; sourceTree = "<group>"; };
 		1906C83222D827DA007CD0D4 /* OverallFCSResultsCardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallFCSResultsCardController.swift; sourceTree = "<group>"; };
 		1906C83422D82F75007CD0D4 /* TeamResultsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamResultsData.swift; sourceTree = "<group>"; };
@@ -109,12 +115,18 @@
 		1906C85922DA5230007CD0D4 /* JSONParameterEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONParameterEncoder.swift; sourceTree = "<group>"; };
 		1906C85B22DA530D007CD0D4 /* NetworkRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRouter.swift; sourceTree = "<group>"; };
 		1906C85D22DA5417007CD0D4 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
-		1906C85F22DABEC1007CD0D4 /* MovieApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieApi.swift; sourceTree = "<group>"; };
-		1906C86122DAC2CF007CD0D4 /* MovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
 		1906C86322DAC2E8007CD0D4 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		1906C86522DBC75B007CD0D4 /* ConferencesResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferencesResultsViewController.swift; sourceTree = "<group>"; };
 		1906C86922DBC932007CD0D4 /* ConferenceResultsCardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferenceResultsCardController.swift; sourceTree = "<group>"; };
 		1906C86B22DC036B007CD0D4 /* ResultsPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsPageViewController.swift; sourceTree = "<group>"; };
+		1906C86D22DE0992007CD0D4 /* TeamsByConferenceApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsByConferenceApi.swift; sourceTree = "<group>"; };
+		1906C86F22DE0BB9007CD0D4 /* TeamsByConferenceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsByConferenceModel.swift; sourceTree = "<group>"; };
+		1906C87322DE0ED9007CD0D4 /* TeamsByConferenceNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamsByConferenceNetworkManager.swift; sourceTree = "<group>"; };
+		1906C87522DEAEAA007CD0D4 /* ConferenceMO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConferenceMO.swift; sourceTree = "<group>"; };
+		1906C87822DEB06A007CD0D4 /* TeamMO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamMO.swift; sourceTree = "<group>"; };
+		1906C87C22DEB1CD007CD0D4 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		1906C87E22DEC449007CD0D4 /* DataModelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModelManager.swift; sourceTree = "<group>"; };
+		1906C88022DF6297007CD0D4 /* SpinnerVCExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerVCExt.swift; sourceTree = "<group>"; };
 		1EE1124AA8755D3890D0DBE6 /* Pods_FCS_Mock_Season_Creator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FCS_Mock_Season_Creator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4115BD9DFDE47937034BC5F4 /* Pods-FCS Mock Season CreatorTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FCS Mock Season CreatorTests.release.xcconfig"; path = "Target Support Files/Pods-FCS Mock Season CreatorTests/Pods-FCS Mock Season CreatorTests.release.xcconfig"; sourceTree = "<group>"; };
 		422F6A7D5D69406A23ABBEB6 /* Pods-FCS Mock Season Creator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FCS Mock Season Creator.debug.xcconfig"; path = "Target Support Files/Pods-FCS Mock Season Creator/Pods-FCS Mock Season Creator.debug.xcconfig"; sourceTree = "<group>"; };
@@ -226,19 +238,17 @@
 			isa = PBXGroup;
 			children = (
 				1906C7ED22D1B097007CD0D4 /* AppDelegate.swift */,
+				1906C88022DF6297007CD0D4 /* SpinnerVCExt.swift */,
+				1906C87B22DEB18F007CD0D4 /* Model */,
+				1906C87A22DEB119007CD0D4 /* ViewCells */,
 				1906C82022D2CC19007CD0D4 /* ViewControllers */,
-				1906C82822D2E9F0007CD0D4 /* ConferenceResultsTableViewCell.swift */,
-				1906C82422D2CF81007CD0D4 /* ConferencesTableViewCell.swift */,
+				1906C87722DEAFAE007CD0D4 /* ManagedObjects */,
 				1906C83422D82F75007CD0D4 /* TeamResultsData.swift */,
 				1906C83622D84A10007CD0D4 /* ConferenceResultsData.swift */,
 				1906C83E22D8D538007CD0D4 /* ConferenceSeasonResult.swift */,
 				1906C84222D8F9CD007CD0D4 /* FCSSeasonResult.swift */,
-				1906C83822D84CCA007CD0D4 /* Conference.swift */,
 				1906C83C22D84F55007CD0D4 /* TeamsByConferenceOption.swift */,
-				1906C82622D2D14A007CD0D4 /* ConferenceOptions.swift */,
-				1906C83A22D84CFB007CD0D4 /* Team.swift */,
-				1906C82A22D2EF56007CD0D4 /* Game.swift */,
-				1906C84022D8D94A007CD0D4 /* Record.swift */,
+				1906C87E22DEC449007CD0D4 /* DataModelManager.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -248,7 +258,6 @@
 			children = (
 				1906C84522DA38B4007CD0D4 /* Application */,
 				1906C84622DA38D8007CD0D4 /* Model */,
-				1906C84722DA38FD007CD0D4 /* ViewController */,
 				1906C84822DA3906007CD0D4 /* Networking */,
 			);
 			path = NetworkLayer;
@@ -264,16 +273,9 @@
 		1906C84622DA38D8007CD0D4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				1906C86122DAC2CF007CD0D4 /* MovieModel.swift */,
+				1906C86F22DE0BB9007CD0D4 /* TeamsByConferenceModel.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		1906C84722DA38FD007CD0D4 /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewController;
 			sourceTree = "<group>";
 		};
 		1906C84822DA3906007CD0D4 /* Networking */ = {
@@ -314,6 +316,7 @@
 			isa = PBXGroup;
 			children = (
 				1906C86322DAC2E8007CD0D4 /* NetworkManager.swift */,
+				1906C87322DE0ED9007CD0D4 /* TeamsByConferenceNetworkManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -321,9 +324,40 @@
 		1906C84C22DA3940007CD0D4 /* EndPoint */ = {
 			isa = PBXGroup;
 			children = (
-				1906C85F22DABEC1007CD0D4 /* MovieApi.swift */,
+				1906C86D22DE0992007CD0D4 /* TeamsByConferenceApi.swift */,
 			);
 			path = EndPoint;
+			sourceTree = "<group>";
+		};
+		1906C87722DEAFAE007CD0D4 /* ManagedObjects */ = {
+			isa = PBXGroup;
+			children = (
+				1906C87522DEAEAA007CD0D4 /* ConferenceMO.swift */,
+				1906C82A22D2EF56007CD0D4 /* GameMO.swift */,
+				1906C87822DEB06A007CD0D4 /* TeamMO.swift */,
+			);
+			path = ManagedObjects;
+			sourceTree = "<group>";
+		};
+		1906C87A22DEB119007CD0D4 /* ViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				1906C82822D2E9F0007CD0D4 /* ConferenceResultsTableViewCell.swift */,
+				1906C82422D2CF81007CD0D4 /* ConferencesTableViewCell.swift */,
+			);
+			path = ViewCells;
+			sourceTree = "<group>";
+		};
+		1906C87B22DEB18F007CD0D4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1906C83822D84CCA007CD0D4 /* Conference.swift */,
+				1906C82622D2D14A007CD0D4 /* ConferenceOptions.swift */,
+				1906C83A22D84CFB007CD0D4 /* Team.swift */,
+				1906C84022D8D94A007CD0D4 /* Record.swift */,
+				1906C87C22DEB1CD007CD0D4 /* Game.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		87F1DE71854C5180AA961CD4 /* Frameworks */ = {
@@ -572,17 +606,19 @@
 			files = (
 				1906C85422DA3AF1007CD0D4 /* ParameterEncoding.swift in Sources */,
 				1906C7F022D1B097007CD0D4 /* LoginViewController.swift in Sources */,
-				1906C82B22D2EF56007CD0D4 /* Game.swift in Sources */,
-				1906C86022DABEC1007CD0D4 /* MovieApi.swift in Sources */,
+				1906C82B22D2EF56007CD0D4 /* GameMO.swift in Sources */,
 				1906C85022DA3A1A007CD0D4 /* HTTPMethod.swift in Sources */,
+				1906C87922DEB06A007CD0D4 /* TeamMO.swift in Sources */,
 				1906C85A22DA5230007CD0D4 /* JSONParameterEncoder.swift in Sources */,
 				1906C84122D8D94A007CD0D4 /* Record.swift in Sources */,
 				1906C7EE22D1B097007CD0D4 /* AppDelegate.swift in Sources */,
 				1906C83B22D84CFB007CD0D4 /* Team.swift in Sources */,
 				1906C83922D84CCA007CD0D4 /* Conference.swift in Sources */,
+				1906C87622DEAEAA007CD0D4 /* ConferenceMO.swift in Sources */,
 				1906C83522D82F75007CD0D4 /* TeamResultsData.swift in Sources */,
 				1906C85622DA4FDD007CD0D4 /* NetworkError.swift in Sources */,
-				1906C86222DAC2CF007CD0D4 /* MovieModel.swift in Sources */,
+				1906C87F22DEC449007CD0D4 /* DataModelManager.swift in Sources */,
+				1906C86E22DE0992007CD0D4 /* TeamsByConferenceApi.swift in Sources */,
 				1906C83322D827DA007CD0D4 /* OverallFCSResultsCardController.swift in Sources */,
 				1906C84E22DA39A4007CD0D4 /* EndPointType.swift in Sources */,
 				1906C83D22D84F55007CD0D4 /* TeamsByConferenceOption.swift in Sources */,
@@ -596,12 +632,16 @@
 				1906C82722D2D14A007CD0D4 /* ConferenceOptions.swift in Sources */,
 				1906C82922D2E9F0007CD0D4 /* ConferenceResultsTableViewCell.swift in Sources */,
 				1906C85222DA3A5B007CD0D4 /* HTTPTask.swift in Sources */,
+				1906C88122DF6297007CD0D4 /* SpinnerVCExt.swift in Sources */,
 				1906C86C22DC036B007CD0D4 /* ResultsPageViewController.swift in Sources */,
 				1906C82522D2CF81007CD0D4 /* ConferencesTableViewCell.swift in Sources */,
 				1906C85E22DA5417007CD0D4 /* Router.swift in Sources */,
 				1906C86A22DBC932007CD0D4 /* ConferenceResultsCardController.swift in Sources */,
+				1906C87422DE0ED9007CD0D4 /* TeamsByConferenceNetworkManager.swift in Sources */,
 				1906C7F622D1B097007CD0D4 /* FCS_Mock_Season_Creator.xcdatamodeld in Sources */,
+				1906C87D22DEB1CD007CD0D4 /* Game.swift in Sources */,
 				1906C86622DBC75B007CD0D4 /* ConferencesResultsViewController.swift in Sources */,
+				1906C87022DE0BB9007CD0D4 /* TeamsByConferenceModel.swift in Sources */,
 				1906C82222D2CC3E007CD0D4 /* ConferencesTableViewController.swift in Sources */,
 				1906C85C22DA530D007CD0D4 /* NetworkRouter.swift in Sources */,
 			);

@@ -9,13 +9,17 @@
 import Foundation
 import RxCocoa
 import CardParts
+import os.log
 
 class ConferencesResultsViewController: CardsViewController {
     
-    let cards: [CardController] = TeamsByConferenceOption.data.keys.map({ (conferenceOption) in
-        let conference = Conference(conferenceOption: conferenceOption)
-        return ConferenceResultsCardController(conference: conference)
-    })
+    var cards: [CardController] {
+        let dataModelManager = DataModelManager.shared
+        let allConferences = dataModelManager.getAllConferences()
+
+        let conferenceResultsCardControllers = allConferences.map({ ConferenceResultsCardController(conference: $0) })
+        return conferenceResultsCardControllers
+    }
         
     override func viewDidLoad() {
         super.viewDidLoad()
