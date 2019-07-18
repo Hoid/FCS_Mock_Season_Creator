@@ -20,26 +20,20 @@ class ConferenceMO: NSManagedObject {
 
 extension ConferenceMO {
     
-    public static func newConferenceMO(name: String, teamNames: [String]) -> ConferenceMO? {
+    public static func newConferenceMO(name: String, teamNames: [String], withContext managedContext: NSManagedObjectContext) -> ConferenceMO? {
         
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return nil
-        }
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let newConferenceMO = ConferenceMO(context: managedContext)
+        let entity = NSEntityDescription.entity(forEntityName: "ConferenceMO", in: managedContext)!
+        let newConferenceMO = ConferenceMO(entity: entity, insertInto: managedContext)
         newConferenceMO.name = name
         newConferenceMO.teamNames = teamNames
         return newConferenceMO
         
     }
     
-    public static func newConferenceMO(fromConference conference: Conference) -> ConferenceMO? {
+    public static func newConferenceMO(fromConference conference: Conference, withContext managedContext: NSManagedObjectContext) -> ConferenceMO? {
         
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return nil
-        }
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let newConferenceMO = ConferenceMO(context: managedContext)
+        let entity = NSEntityDescription.entity(forEntityName: "ConferenceMO", in: managedContext)!
+        let newConferenceMO = ConferenceMO(entity: entity, insertInto: managedContext)
         newConferenceMO.name = conference.name
         newConferenceMO.teamNames = conference.teams.map({ $0.name })
         return newConferenceMO

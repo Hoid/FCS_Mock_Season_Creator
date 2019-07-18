@@ -101,13 +101,9 @@ class ConferenceGamesTableViewController: UITableViewController {
             return
         }
         game.winner = Team(teamName: winnerName, conferenceName: winnerConferenceName)
-        guard let gameMO = GameMO.newGameMO(fromGame: game) else {
-            os_log("Could not unwrap gameMO from game in ConferenceGamesTableViewController", type: .debug)
-            return
-        }
         
         let dataModelManager = DataModelManager.shared
-        dataModelManager.saveOrCreateGameMO(gameMO: gameMO)
+        dataModelManager.saveOrCreateGameMO(withGame: game)
     }
     
     @IBAction func confidenceChanged(_ sender: UITextField) {
@@ -131,13 +127,9 @@ class ConferenceGamesTableViewController: UITableViewController {
             return
         }
         game.confidence = confidence
-        guard let gameMO = GameMO.newGameMO(fromGame: game) else {
-            os_log("Could not unwrap gameMO in confidenceChanged in ConferenceGamesTableViewController", type: .debug)
-            return
-        }
         
         let dataModelManager = DataModelManager.shared
-        dataModelManager.saveOrCreateGameMO(gameMO: gameMO)
+        dataModelManager.saveOrCreateGameMO(withGame: game)
         
     }
     

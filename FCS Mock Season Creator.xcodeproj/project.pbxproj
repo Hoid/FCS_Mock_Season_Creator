@@ -332,9 +332,9 @@
 		1906C87722DEAFAE007CD0D4 /* ManagedObjects */ = {
 			isa = PBXGroup;
 			children = (
-				1906C87522DEAEAA007CD0D4 /* ConferenceMO.swift */,
 				1906C82A22D2EF56007CD0D4 /* GameMO.swift */,
 				1906C87822DEB06A007CD0D4 /* TeamMO.swift */,
+				1906C87522DEAEAA007CD0D4 /* ConferenceMO.swift */,
 			);
 			path = ManagedObjects;
 			sourceTree = "<group>";
@@ -351,11 +351,11 @@
 		1906C87B22DEB18F007CD0D4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				1906C87C22DEB1CD007CD0D4 /* Game.swift */,
+				1906C83A22D84CFB007CD0D4 /* Team.swift */,
 				1906C83822D84CCA007CD0D4 /* Conference.swift */,
 				1906C82622D2D14A007CD0D4 /* ConferenceOptions.swift */,
-				1906C83A22D84CFB007CD0D4 /* Team.swift */,
 				1906C84022D8D94A007CD0D4 /* Record.swift */,
-				1906C87C22DEB1CD007CD0D4 /* Game.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

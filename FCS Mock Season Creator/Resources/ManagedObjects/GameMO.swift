@@ -24,77 +24,70 @@ class GameMO: NSManagedObject {
 
 extension GameMO {
     
-    public static func newGameMO(id: String?, contestants: [String]?, winner: String?, confidence: Int?, conferences: [ConferenceOptions]?, week: Int?) -> GameMO? {
+    public static func newGameMO(id: String?, contestants: [String]?, winner: String?, confidence: Int?, conferences: [ConferenceOptions]?, week: Int?, withContext managedContext: NSManagedObjectContext) -> GameMO? {
         
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return nil
-        }
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let newGame = GameMO(context: managedContext)
+        let entity = NSEntityDescription.entity(forEntityName: "GameMO", in: managedContext)!
+        let newGameMO = GameMO(entity: entity, insertInto: managedContext)
         
         if let id = id {
-            newGame.id = id
+            newGameMO.id = id
         } else {
-            newGame.id = UUID().uuidString
+            newGameMO.id = UUID().uuidString
         }
         if let contestants = contestants {
-            newGame.contestantsNames = contestants
+            newGameMO.contestantsNames = contestants
         } else {
-            newGame.contestantsNames = ["None", "None"]
+            newGameMO.contestantsNames = ["None", "None"]
         }
         if let winner = winner {
-            newGame.winnerName = winner
+            newGameMO.winnerName = winner
         } else {
-            newGame.winnerName = "None"
+            newGameMO.winnerName = "None"
         }
         if let confidence = confidence {
-            newGame.confidence = confidence
+            newGameMO.confidence = confidence
         } else {
-            newGame.confidence = 0
+            newGameMO.confidence = 0
         }
         if let conferences = conferences {
-            newGame.conferencesNames.removeAll()
+            newGameMO.conferencesNames.removeAll()
             for conference in conferences {
-                newGame.conferencesNames.append(ConferenceOptions.getStringValue(conferenceOption: conference))
+                newGameMO.conferencesNames.append(ConferenceOptions.getStringValue(conferenceOption: conference))
             }
         } else {
-            newGame.conferencesNames.removeAll()
-            newGame.conferencesNames.append("CAA")
+            newGameMO.conferencesNames.removeAll()
+            newGameMO.conferencesNames.append("CAA")
         }
         if let week = week {
-            newGame.week = week
+            newGameMO.week = week
         } else {
-            newGame.week = 0
+            newGameMO.week = 0
         }
         
-        return newGame
+        return newGameMO
     
     }
     
-    public static func newGameMO(fromGame game: Game) -> GameMO? {
+    public static func newGameMO(fromGame game: Game, withContext managedContext: NSManagedObjectContext) -> GameMO? {
         
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return nil
-        }
-        let managedContext = appDelegate.persistentContainer.viewContext
-        
-        let gameMO = GameMO(context: managedContext)
-        gameMO.id = game.id
+        let entity = NSEntityDescription.entity(forEntityName: "GameMO", in: managedContext)!
+        let newGameMO = GameMO(entity: entity, insertInto: managedContext)
+        newGameMO.id = game.id
         guard let teamName1 = game.contestants.first?.name, let teamName2 = game.contestants.last?.name else {
             os_log("Could not unwrap team names in GameMO.newGameMO(fromGame:)", type: .debug)
             return nil
         }
-        gameMO.contestantsNames = [teamName1, teamName2]
-        gameMO.confidence = game.confidence
+        newGameMO.contestantsNames = [teamName1, teamName2]
+        newGameMO.confidence = game.confidence
         guard let conferenceName1 = game.contestants.first?.conferenceName, let conferenceName2 = game.contestants.last?.conferenceName else {
             os_log("Could not unwrap conference names in GameMO.newGameMO(fromGame:)", type: .debug)
             return nil
         }
-        gameMO.conferencesNames = [conferenceName1, conferenceName2]
-        gameMO.week = game.week
-        gameMO.winnerName = game.winner.name
+        newGameMO.conferencesNames = [conferenceName1, conferenceName2]
+        newGameMO.week = game.week
+        newGameMO.winnerName = game.winner.name
         
-        return gameMO
+        return newGameMO
         
     }
     

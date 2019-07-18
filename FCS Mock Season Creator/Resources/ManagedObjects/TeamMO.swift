@@ -20,28 +20,20 @@ class TeamMO: NSManagedObject {
 
 extension TeamMO {
     
-    public static func newTeamMO(name: String, conferenceName: String) -> TeamMO? {
+    public static func newTeamMO(name: String, conferenceName: String, withContext managedContext: NSManagedObjectContext) -> TeamMO? {
         
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            os_log("Could not get appDelegate in TeamMO.newTeamMO()", type: .default)
-            return nil
-        }
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let newTeamMO = TeamMO(context: managedContext)
+        let entity = NSEntityDescription.entity(forEntityName: "TeamMO", in: managedContext)!
+        let newTeamMO = TeamMO(entity: entity, insertInto: managedContext)
         newTeamMO.name = name
         newTeamMO.conferenceName = conferenceName
         return newTeamMO
         
     }
     
-    public static func newTeamMO(fromTeam team: Team) -> TeamMO? {
+    public static func newTeamMO(fromTeam team: Team, withContext managedContext: NSManagedObjectContext) -> TeamMO? {
         
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            os_log("Could not get appDelegate in TeamMO.newTeamMO()", type: .default)
-            return nil
-        }
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let newTeamMO = TeamMO(context: managedContext)
+        let entity = NSEntityDescription.entity(forEntityName: "TeamMO", in: managedContext)!
+        let newTeamMO = TeamMO(entity: entity, insertInto: managedContext)
         newTeamMO.name = team.name
         newTeamMO.conferenceName = team.conferenceName
         return newTeamMO
