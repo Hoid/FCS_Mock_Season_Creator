@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import os.log
 
-class ConferenceResultsTableViewCell: UITableViewCell {
+class ConferenceGamesTableViewCell: UITableViewCell {
     
     @IBOutlet weak var gameWinnerControl: UISegmentedControl!
     @IBOutlet weak var confidenceTextField: UITextField!
@@ -23,7 +23,7 @@ class ConferenceResultsTableViewCell: UITableViewCell {
         self.game = game
         self.gameWinnerControl.removeAllSegments()
         guard let team1Name = game.contestants.first?.name, let team2Name = game.contestants.last?.name else {
-            os_log("Could not unwrap team1Name in ConferenceResultsTableViewCell.setup()", type: .debug)
+            os_log("Could not unwrap team1Name in ConferenceGamesTableViewCell.setup()", type: .debug)
             return
         }
         self.gameWinnerControl.insertSegment(withTitle: team1Name, at: 0, animated: true)

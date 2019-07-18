@@ -40,16 +40,24 @@ class Game: Equatable {
         
         self.id = id
         
-        guard let team1ConferenceName = Conference.name(forTeamName: contestantsNames[0]) else {
+        guard contestantsNames.count > 0 else {
+            os_log("contestantsNames had no values in Game.init()", type: .debug)
+            return nil
+        }
+        var team1ConferenceName: String?
+        var team2ConferenceName: String?
+        if let team1ConferenceNameStr = Conference.name(forTeamName: contestantsNames[0]) {
+            team1ConferenceName = team1ConferenceNameStr
+        } else {
             os_log("Could not unwrap team1ConferenceName in Game.init()", type: .debug)
-            return nil
         }
-        guard let team2ConferenceName = Conference.name(forTeamName: contestantsNames[1]) else {
+        if contestantsNames.count == 2, let team2ConferenceNameStr = Conference.name(forTeamName: contestantsNames[1]) {
+            team2ConferenceName = team2ConferenceNameStr
+        } else {
             os_log("Could not unwrap team2ConferenceName in Game.init()", type: .debug)
-            return nil
         }
-        let team1 = Team(teamName: contestantsNames[0], conferenceName: team1ConferenceName)
-        let team2 = Team(teamName: contestantsNames[1], conferenceName: team2ConferenceName)
+        let team1 = Team(teamName: contestantsNames[0], conferenceName: team1ConferenceName ?? "None")
+        let team2 = Team(teamName: contestantsNames[1], conferenceName: team2ConferenceName ?? "None")
         self.contestants = [team1, team2]
         
         guard let winnerTeamConferenceName = Conference.name(forTeamName: winnerName) else {
@@ -66,11 +74,13 @@ class Game: Equatable {
             return nil
         }
         self.conferences.append(conference1)
-        guard let conference2 = Conference.newConference(withName: conferencesNames[1]) else {
-            os_log("Could not unwrap conference2 in Game.init()", type: .debug)
-            return nil
+        if conferencesNames.count == 2 {
+            guard let conference2 = Conference.newConference(withName: conferencesNames[1]) else {
+                os_log("Could not unwrap conference2 in Game.init()", type: .debug)
+                return nil
+            }
+            self.conferences.append(conference2)
         }
-        self.conferences.append(conference2)
         
         self.week = week
         

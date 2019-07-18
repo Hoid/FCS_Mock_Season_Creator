@@ -19,20 +19,26 @@ class DataModelManager {
     var allTeams: [Team]?
     var allConferences: [Conference]?
     
-    init() {
-        self.shared = DataModelManager(teamNamesByConferenceName: <#T##[String : [String]]#>)
-    }
+    init() {}
     
-    init(teamNamesByConferenceName: [String : [String]]) {
+    convenience init(teamNamesByConferenceName: [String : [String]]) {
         
+        self.init()
+        if let _ = self.allGames, let _ = self.allTeams, let _ = self.allConferences {
+            loadTeams()
+            loadConferences()
+            loadGames()
+        } else {
+            for (conferenceName, teamNamesForConference) in teamNamesByConferenceName {
+                let teamsInConference = teamNamesForConference.map { (teamName) -> Team in
+                    return Team(teamName: teamName, conferenceName: conferenceName)
+                }
+                teamsInConference.forEach({ saveOrCreateTeam(team: $0) })
+                let conference = Conference(name: conferenceName, conferenceOption: nil, teams: teamsInConference)
+                saveOrCreateConference(conference: conference)
+            }
+        }
         
-        
-    }
-    
-    private func load() {
-        loadTeams()
-        loadConferences()
-        loadGames()
     }
     
     public func getAllGames() -> [Game] {
@@ -84,12 +90,12 @@ class DataModelManager {
         }
         let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "GameMO")
-        fetchRequest.predicate = NSPredicate(format: "contestantsNames = %@", gameMO.contestantsNames)
+        fetchRequest.predicate = NSPredicate(format: "id == %@", gameMO.id)
         
         do {
             let test = try managedContext.fetch(fetchRequest)
             
-            let objectUpdate = test[0] as! NSManagedObject
+            let objectUpdate = test[0] as! GameMO
             objectUpdate.setValue(gameMO.id, forKey: "id")
             objectUpdate.setValue(gameMO.conferencesNames, forKeyPath: "conferencesNames")
             objectUpdate.setValue(gameMO.confidence, forKeyPath: "confidence")
@@ -98,6 +104,7 @@ class DataModelManager {
             
             do {
                 try managedContext.save()
+                os_log("Updating Game to CoreData", type: .debug)
             } catch let error as NSError {
                 print("Could not update game to CoreData. \(error), \(error.userInfo)")
             }
@@ -122,54 +129,92 @@ class DataModelManager {
         
     }
     
-    public func saveTeam(team: Team) {
+    public func saveOrCreateTeam(team: Team) {
         
-        os_log("saveTeam() called", type: .debug)
+        os_log("saveOrCreateTeam() called", type: .debug)
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
         }
         let managedContext = appDelegate.persistentContainer.viewContext
         guard let teamMO = TeamMO.newTeamMO(fromTeam: team) else {
-            os_log("Could not get new TeamMO from team in DataModelManager.saveTeam()", type: .debug)
+            os_log("Could not get new TeamMO from team in DataModelManager.saveOrCreateTeam()", type: .debug)
             return
         }
         
-        let entity = NSEntityDescription.entity(forEntityName: "TeamMO", in: managedContext)!
-        let newTeamMO = TeamMO(entity: entity, insertInto: managedContext)
-        
-        newTeamMO.setValue(teamMO.name, forKey: "name")
-        newTeamMO.setValue(teamMO.conferenceName, forKey: "conferenceName")
-        
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "TeamMO")
+        fetchRequest.predicate = NSPredicate(format: "name == %@", teamMO.name)
         do {
-            try managedContext.save()
-        } catch let error as NSError {
-            print("Could not save new team to CoreData. \(error), \(error.userInfo)")
+            let test = try managedContext.fetch(fetchRequest)
+            
+            let objectUpdate = test[0] as! TeamMO
+            objectUpdate.setValue(teamMO.name, forKey: "name")
+            objectUpdate.setValue(teamMO.conferenceName, forKey: "conferenceName")
+            
+            do {
+                try managedContext.save()
+                os_log("Updating Team to CoreData", type: .debug)
+            } catch let error as NSError {
+                print("Could not update team to CoreData. \(error), \(error.userInfo)")
+            }
+        } catch {
+            os_log("Could not fetch team from CoreData. Saving it as a new team.", type: .debug)
+            
+            let entity = NSEntityDescription.entity(forEntityName: "TeamMO", in: managedContext)!
+            let newTeamMO = TeamMO(entity: entity, insertInto: managedContext)
+            
+            newTeamMO.setValue(teamMO.name, forKey: "name")
+            newTeamMO.setValue(teamMO.conferenceName, forKey: "conferenceName")
+            
+            do {
+                try managedContext.save()
+            } catch let error as NSError {
+                print("Could not save new team to CoreData. \(error), \(error.userInfo)")
+            }
         }
         
     }
     
-    public func saveConference(conference: Conference) {
+    public func saveOrCreateConference(conference: Conference) {
         
-        os_log("saveConference() called", type: .debug)
+        os_log("saveOrCreateConference() called", type: .debug)
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
         }
         let managedContext = appDelegate.persistentContainer.viewContext
         guard let conferenceMO = ConferenceMO.newConferenceMO(fromConference: conference) else {
-            os_log("Could not get new TeamMO from team in DataModelManager.saveTeam()", type: .debug)
+            os_log("Could not get new ConferenceMO from conference in DataModelManager.saveOrCreateConference()", type: .debug)
             return
         }
         
-        let entity = NSEntityDescription.entity(forEntityName: "ConferenceMO", in: managedContext)!
-        let newConferenceMO = ConferenceMO(entity: entity, insertInto: managedContext)
-        
-        newConferenceMO.setValue(conferenceMO.name, forKey: "name")
-        newConferenceMO.setValue(conferenceMO.teamNames, forKey: "teamNames")
-        
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "ConferenceMO")
+        fetchRequest.predicate = NSPredicate(format: "name == %@", conferenceMO.name)
         do {
-            try managedContext.save()
-        } catch let error as NSError {
-            print("Could not save new team to CoreData. \(error), \(error.userInfo)")
+            let test = try managedContext.fetch(fetchRequest)
+            
+            let objectUpdate = test[0] as! ConferenceMO
+            objectUpdate.setValue(conferenceMO.name, forKey: "name")
+            objectUpdate.setValue(conferenceMO.teamNames, forKey: "teamNames")
+            
+            do {
+                try managedContext.save()
+                os_log("Updating Conference to CoreData", type: .debug)
+            } catch let error as NSError {
+                print("Could not update team to CoreData. \(error), \(error.userInfo)")
+            }
+        } catch {
+            os_log("Could not fetch team from CoreData. Saving it as a new team.", type: .debug)
+            
+            let entity = NSEntityDescription.entity(forEntityName: "ConferenceMO", in: managedContext)!
+            let newConferenceMO = ConferenceMO(entity: entity, insertInto: managedContext)
+            
+            newConferenceMO.setValue(conferenceMO.name, forKey: "name")
+            newConferenceMO.setValue(conferenceMO.teamNames, forKey: "teamNames")
+            
+            do {
+                try managedContext.save()
+            } catch let error as NSError {
+                print("Could not save new team to CoreData. \(error), \(error.userInfo)")
+            }
         }
         
     }
@@ -188,11 +233,11 @@ class DataModelManager {
             var gamesMO = try managedContext.fetch(fetchRequest)
             os_log("Loading %d games", log: OSLog.default, type: .debug, gamesMO.count)
             if gamesMO.count == 0 {
-                guard let game1 = GameMO.newGameMO(contestants: ["Elon", "NC A&T"], winner: "Elon", confidence: 65, conferences: [.caa], week: 0),
-                    let game2 = GameMO.newGameMO(contestants: ["JMU", "WVU"], winner: "WVU", confidence: 85, conferences: [.caa], week: 0),
-                    let game3 = GameMO.newGameMO(contestants: ["Samford", "Youngstown State"], winner: "Samford", confidence: 75, conferences: [.mvfc], week: 0),
-                    let game4 = GameMO.newGameMO(contestants: ["Elon", "The Citadel"], winner: "Elon", confidence: 60, conferences: [.caa, .southern], week: 1),
-                    let game5 = GameMO.newGameMO(contestants: ["Elon", "Richmond"], winner: "Elon", confidence: 80, conferences: [.caa], week: 2) else {
+                guard let game1 = GameMO.newGameMO(id: UUID().uuidString, contestants: ["Elon", "NC A&T"], winner: "Elon", confidence: 65, conferences: [.caa], week: 0),
+                    let game2 = GameMO.newGameMO(id: UUID().uuidString, contestants: ["James Madison", "Towson"], winner: "James Madison", confidence: 85, conferences: [.caa], week: 0),
+                    let game3 = GameMO.newGameMO(id: UUID().uuidString, contestants: ["Samford", "Youngstown State"], winner: "Samford", confidence: 75, conferences: [.mvfc], week: 0),
+                    let game4 = GameMO.newGameMO(id: UUID().uuidString, contestants: ["Elon", "The Citadel"], winner: "Elon", confidence: 60, conferences: [.caa, .southern], week: 1),
+                    let game5 = GameMO.newGameMO(id: UUID().uuidString, contestants: ["Elon", "Richmond"], winner: "Elon", confidence: 80, conferences: [.caa], week: 2) else {
                         os_log("Could not create stub games in DataModelManager.loadGames()", type: .default)
                         return
                 }
@@ -275,7 +320,7 @@ class DataModelManager {
                 if let conference = Conference(fromConferenceMO: conferenceMO) {
                     return conference
                 } else {
-                    return Conference(name: "None", conferenceOption: .all, teams: [Team(teamName: "None", conferenceName: "None")])
+                    return Conference(name: "None", conferenceOption: .none, teams: [Team(teamName: "None", conferenceName: "None")])
                 }
             }
         } catch let error as NSError {

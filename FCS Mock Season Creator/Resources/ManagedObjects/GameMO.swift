@@ -24,7 +24,7 @@ class GameMO: NSManagedObject {
 
 extension GameMO {
     
-    public static func newGameMO(contestants: [String]?, winner: String?, confidence: Int?, conferences: [ConferenceOptions]?, week: Int?) -> GameMO? {
+    public static func newGameMO(id: String?, contestants: [String]?, winner: String?, confidence: Int?, conferences: [ConferenceOptions]?, week: Int?) -> GameMO? {
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return nil
@@ -32,6 +32,11 @@ extension GameMO {
         let managedContext = appDelegate.persistentContainer.viewContext
         let newGame = GameMO(context: managedContext)
         
+        if let id = id {
+            newGame.id = id
+        } else {
+            newGame.id = UUID().uuidString
+        }
         if let contestants = contestants {
             newGame.contestantsNames = contestants
         } else {
@@ -61,7 +66,6 @@ extension GameMO {
         } else {
             newGame.week = 0
         }
-        newGame.id = UUID().uuidString
         
         return newGame
     
@@ -77,13 +81,13 @@ extension GameMO {
         let gameMO = GameMO(context: managedContext)
         gameMO.id = game.id
         guard let teamName1 = game.contestants.first?.name, let teamName2 = game.contestants.last?.name else {
-            os_log("Could not unwrap team names in confidenceChanged in ConferenceResultsTableViewController", type: .debug)
+            os_log("Could not unwrap team names in GameMO.newGameMO(fromGame:)", type: .debug)
             return nil
         }
         gameMO.contestantsNames = [teamName1, teamName2]
         gameMO.confidence = game.confidence
         guard let conferenceName1 = game.contestants.first?.conferenceName, let conferenceName2 = game.contestants.last?.conferenceName else {
-            os_log("Could not unwrap conference names in confidenceChanged in ConferenceResultsTableViewController", type: .debug)
+            os_log("Could not unwrap conference names in GameMO.newGameMO(fromGame:)", type: .debug)
             return nil
         }
         gameMO.conferencesNames = [conferenceName1, conferenceName2]

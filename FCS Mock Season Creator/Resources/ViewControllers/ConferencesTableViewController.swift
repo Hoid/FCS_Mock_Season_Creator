@@ -56,7 +56,6 @@ class ConferencesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        os_log("tableView(didSelectRowAtIndexPath:) called in ConferencesTableViewController", log: OSLog.default, type: .debug)
         let indexPath = tableView.indexPathForSelectedRow!
         let currentCell = tableView.cellForRow(at: indexPath)! as! ConferencesTableViewCell
         
@@ -72,7 +71,7 @@ class ConferencesTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "showConferenceResultsSeque" {
-            let vc = segue.destination as? ConferenceResultsTableViewController
+            let vc = segue.destination as? ConferenceGamesTableViewController
             guard let conferenceSelected = self.conferenceSelected else {
                 os_log("Could not unwrap conferenceSelected in prepare(for:sender:) in ConferencesTableViewController", log: OSLog.default, type: .debug)
                 return
@@ -92,9 +91,7 @@ class ConferencesTableViewController: UITableViewController {
         self.tableView.isEditing = false
         self.tableView.allowsSelection = true
         self.view = tableView
-        
-        print(self.view.subviews)
-        
+                
     }
     
     private func populateConferences() {

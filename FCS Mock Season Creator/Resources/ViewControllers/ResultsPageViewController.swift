@@ -112,7 +112,6 @@ extension ResultsPageViewController: UIPageViewControllerDataSource, UIPageViewC
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        print("didFinishAnimating")
         let pageContentViewController = pageViewController.viewControllers![0]
         self.pageControl.currentPage = orderedViewControllers.firstIndex(of: pageContentViewController)!
     }

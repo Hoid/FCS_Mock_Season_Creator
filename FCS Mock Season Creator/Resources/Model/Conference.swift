@@ -90,15 +90,19 @@ class Conference {
             return nil
         }
         let conferenceOptionsValues = data.keys
-        let conferenceOptionForTeamName = conferenceOptionsValues.filter { (conferenceOption) -> Bool in
+        let conferenceOptionsForTeamName = conferenceOptionsValues.filter { (conferenceOption) -> Bool in
             guard let teamNamesForConferenceOption = data[conferenceOption] else {
-                os_log("Could not unwrap data[conferenceOption] in Conference.newConference(withTeam:)", type: .debug)
+                os_log("Could not unwrap data[conferenceOption] in Conference.name(forTeamName:)", type: .debug)
                 return false
             }
             return teamNamesForConferenceOption.contains(teamName)
-        }[0]
+        }
+        guard conferenceOptionsForTeamName.count > 0 else {
+            os_log("TeamsByConferenceOption has no values for teamName (%s) in Conference.name(forTeamName:)", type: .debug, teamName)
+            return nil
+        }
         
-        return ConferenceOptions.getStringValue(conferenceOption: conferenceOptionForTeamName)
+        return ConferenceOptions.getStringValue(conferenceOption: conferenceOptionsForTeamName[0])
         
     }
     

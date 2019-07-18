@@ -20,8 +20,6 @@ class FCSSeasonResult {
             teamNamesAndRecords.append((teamResult.teamName, mostLikelyRecord))
         }
         self.sortedTeamsAndRecords = teamNamesAndRecords.sorted(by: { $0.1.percentOfGamesWon > $1.1.percentOfGamesWon })
-        print(sortedTeamsAndRecords)
-
     }
     
 }

@@ -101,7 +101,6 @@ class ConferenceResultsTableViewModel {
             teamResultsForConference.append(TeamResultsData(teamName: team.name, games: gamesPlayedByTeam))
         }
         let conferenceSeasonResult = ConferenceSeasonResult(conference: self.conference, teamResults: teamResultsForConference)
-        print(conferenceSeasonResult.placementMappedToTeamAndRecord)
         
         let sortedTeamsAndRecords = conferenceSeasonResult.placementMappedToTeamAndRecord.values.enumerated()
         for (index, (teamName, record)) in sortedTeamsAndRecords {
