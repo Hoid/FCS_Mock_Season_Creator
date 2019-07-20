@@ -96,7 +96,6 @@ class OverallFCSResultsTableViewModel {
             }
         }
         let fcsSeasonResult = FCSSeasonResult(teamResults: allTeamResults)
-        print(fcsSeasonResult.sortedTeamsAndRecords)
         for (index, (teamName, record)) in fcsSeasonResult.sortedTeamsAndRecords.enumerated() {
             tableData.append((index, teamName, record))
         }

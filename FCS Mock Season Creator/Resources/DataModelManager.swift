@@ -21,24 +21,53 @@ class DataModelManager {
     
     init() {}
     
-    convenience init(teamNamesByConferenceName: [String : [String]]) {
+    public func loadTeamNamesByConference(teamNamesByConferenceName: [String : [String]]) {
         
-        self.init()
-        if let _ = self.allGames, let _ = self.allTeams, let _ = self.allConferences {
-            loadTeams()
-            loadConferences()
-            loadGames()
-        } else {
-            os_log("Needed to initialize data in CoreData", type: .debug)
-            for (conferenceName, teamNamesForConference) in teamNamesByConferenceName {
-                let teamsInConference = teamNamesForConference.map { (teamName) -> Team in
-                    return Team(teamName: teamName, conferenceName: conferenceName)
-                }
-                teamsInConference.forEach({ saveOrCreateTeamMO(withTeam: $0) })
-                let conference = Conference(name: conferenceName, conferenceOption: nil, teams: teamsInConference)
-                saveOrCreateConferenceMO(withConference: conference)
+        self.allTeams = [Team]()
+        self.allConferences = [Conference]()
+        for (conferenceName, teamNamesForConference) in teamNamesByConferenceName {
+            let teamsInConference = teamNamesForConference.map { (teamName) -> Team in
+                return Team(teamName: teamName, conferenceName: conferenceName)
             }
+            teamsInConference.forEach({ (team) in
+                saveOrCreateTeamMO(withTeam: team)
+                self.allTeams?.append(team)
+            })
+            let conference = Conference(name: conferenceName, conferenceOption: nil, teams: teamsInConference)
+            saveOrCreateConferenceMO(withConference: conference)
+            self.allConferences?.append(conference)
         }
+        
+    }
+    
+    // Please note that this method WILL FAIL unless teams and conferences have been loaded into
+    // the DataModelManager already
+    public func loadGames(gameApiResponses: [GameApiResponse]) {
+        
+        let games = gameApiResponses.map { (gameApiResponse) -> Game in
+            let contestantNames = gameApiResponse.contestants
+            guard let week = Int(gameApiResponse.week) else {
+                os_log("Could not unwrap week from gameApiResponse in loadGames(gameApiResponses:) in DataModelManager", type: .debug)
+                return Game()
+            }
+            let conferenceNamesInGame = contestantNames.map({ (contestantName) -> String in
+                if let conferenceName = Conference.name(forTeamName: contestantName) {
+                    return conferenceName
+                } else {
+                    return "None"
+                }
+            })
+            guard let game = Game(id: UUID().uuidString, contestantsNames: gameApiResponse.contestants, winnerName: gameApiResponse.contestants[0], confidence: 0, conferencesNames: conferenceNamesInGame, week: week) else {
+                os_log("Could not unwrap new game object in loadGames(gameApiResponses:) in DataModelManager", type: .debug)
+                return Game()
+            }
+            return game
+        }
+        self.allGames = [Game]()
+        games.forEach({ (game) in
+            saveOrCreateGameMO(withGame: game)
+            self.allGames?.append(game)
+        })
         
     }
     
@@ -47,7 +76,7 @@ class DataModelManager {
         if let allGames = self.allGames {
             return allGames
         } else {
-            loadGames()
+            loadGamesFromCoreData()
             guard let allGames = self.allGames else {
                 fatalError("Could not get allGames in DataModelManager, even after calling loadGames(). Quitting...")
             }
@@ -61,7 +90,7 @@ class DataModelManager {
         if let allTeams = self.allTeams {
             return allTeams
         } else {
-            loadTeams()
+            loadTeamsFromCoreData()
             guard let allTeams = self.allTeams else {
                 fatalError("Could not get allTeams in DataModelManager, even after calling loadTeams(). Quitting...")
             }
@@ -75,7 +104,7 @@ class DataModelManager {
         if let allConferences = self.allConferences {
             return allConferences
         } else {
-            loadConferences()
+            loadConferencesFromCoreData()
             guard let allConferences = self.allConferences else {
                 fatalError("Could not get allConferences in DataModelManager, even after calling loadConferences(). Quitting...")
             }
@@ -104,7 +133,6 @@ class DataModelManager {
             
             let objectToDelete = test[0] as! GameMO
             managedContext.delete(objectToDelete)
-            os_log("Deleting game from CoreData with contestants: (%s, %s)", type: .debug, objectToDelete.contestantsNames[0], objectToDelete.contestantsNames[1])
             
             guard let gameMO = GameMO.newGameMO(fromGame: game, withContext: managedContext) else {
                 os_log("Could not unwrap gameMO from game in ConferenceGamesTableViewController", type: .debug)
@@ -119,7 +147,6 @@ class DataModelManager {
             
             do {
                 try managedContext.save()
-                os_log("Inserting game into CoreData with contestants: (%s, %s)", type: .debug, gameMO.contestantsNames[0], gameMO.contestantsNames[1])
             } catch let error as NSError {
                 print("Could not update game to CoreData. \(error), \(error.userInfo)")
             }
@@ -130,8 +157,6 @@ class DataModelManager {
     }
     
     private func saveNewGameMO(game: Game, withContext managedContext: NSManagedObjectContext) {
-        
-        os_log("Could not fetch game from CoreData. Saving it as a new game.", type: .debug)
         
         guard let newGameMO = GameMO.newGameMO(fromGame: game, withContext: managedContext) else {
             os_log("Could not unwrap newGameMO from game in DataModelManager", type: .debug)
@@ -172,7 +197,6 @@ class DataModelManager {
             
             let objectToDelete = test[0] as! TeamMO
             managedContext.delete(objectToDelete)
-            os_log("Deleting team from CoreData with name: (%s)", type: .debug, objectToDelete.name)
             
             guard let teamMO = TeamMO.newTeamMO(fromTeam: team, withContext: managedContext) else {
                 os_log("Could not unwrap teamMO from team in DataModelManager", type: .debug)
@@ -184,7 +208,6 @@ class DataModelManager {
             
             do {
                 try managedContext.save()
-                os_log("Inserting team into CoreData with name: (%s)", type: .debug, teamMO.name)
             } catch let error as NSError {
                 print("Could not update team to CoreData. \(error), \(error.userInfo)")
             }
@@ -195,8 +218,6 @@ class DataModelManager {
     }
     
     private func saveNewTeamMO(team: Team, withContext managedContext: NSManagedObjectContext) {
-        
-        os_log("Could not fetch team from CoreData. Saving it as a new team.", type: .debug)
         
         guard let newTeamMO = TeamMO.newTeamMO(fromTeam: team, withContext: managedContext) else {
             os_log("Could not unwrap newTeamMO from team in DataModelManager", type: .debug)
@@ -234,7 +255,6 @@ class DataModelManager {
             
             let objectToDelete = test[0] as! ConferenceMO
             managedContext.delete(objectToDelete)
-            os_log("Deleting conference from CoreData with name: (%s)", type: .debug, objectToDelete.name)
             
             guard let conferenceMO = ConferenceMO.newConferenceMO(fromConference: conference, withContext: managedContext) else {
                 os_log("Could not unwrap conferenceMO from conference in DataModelManager", type: .debug)
@@ -246,7 +266,6 @@ class DataModelManager {
             
             do {
                 try managedContext.save()
-                os_log("Inserting conference into CoreData with name: (%s)", type: .debug, conferenceMO.name)
             } catch let error as NSError {
                 print("Could not update conference to CoreData. \(error), \(error.userInfo)")
             }
@@ -257,8 +276,6 @@ class DataModelManager {
     }
     
     private func saveNewConferenceMO(conference: Conference, withContext managedContext: NSManagedObjectContext) {
-        
-        os_log("Could not fetch team from CoreData. Saving it as a new team.", type: .debug)
         
         guard let newConferenceMO = ConferenceMO.newConferenceMO(fromConference: conference, withContext: managedContext) else {
             os_log("Could not unwrap newConferenceMO from conference in DataModelManager", type: .debug)
@@ -276,9 +293,9 @@ class DataModelManager {
         
     }
     
-    public func loadGames() {
+    public func loadGamesFromCoreData() {
         
-        os_log("loadGames() called", log: OSLog.default, type: .debug)
+        os_log("loadGamesFromCoreData() called", log: OSLog.default, type: .debug)
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
         }
@@ -287,25 +304,12 @@ class DataModelManager {
         let fetchRequest = NSFetchRequest<GameMO>(entityName: "GameMO")
         
         do {
-            var gamesMO = try managedContext.fetch(fetchRequest)
-            os_log("Loading %d games", log: OSLog.default, type: .debug, gamesMO.count)
-            if gamesMO.count == 0 {
-                guard let game1 = GameMO.newGameMO(id: UUID().uuidString, contestants: ["Elon", "NC A&T"], winner: "Elon", confidence: 65, conferences: [.caa], week: 0, withContext: managedContext),
-                    let game2 = GameMO.newGameMO(id: UUID().uuidString, contestants: ["James Madison", "Towson"], winner: "James Madison", confidence: 85, conferences: [.caa], week: 0, withContext: managedContext),
-                    let game3 = GameMO.newGameMO(id: UUID().uuidString, contestants: ["Samford", "Youngstown State"], winner: "Samford", confidence: 75, conferences: [.mvfc], week: 0, withContext: managedContext),
-                    let game4 = GameMO.newGameMO(id: UUID().uuidString, contestants: ["Elon", "Citadel"], winner: "Elon", confidence: 60, conferences: [.caa, .southern], week: 1, withContext: managedContext),
-                    let game5 = GameMO.newGameMO(id: UUID().uuidString, contestants: ["Elon", "Richmond"], winner: "Elon", confidence: 80, conferences: [.caa], week: 2, withContext: managedContext) else {
-                        os_log("Could not create stub games in DataModelManager.loadGames()", type: .default)
-                        return
-                }
-                gamesMO = [game1, game2, game3, game4, game5]
-                os_log("Needed to load games for the first time", log: OSLog.default, type: .debug)
-                do {
-                    try managedContext.save()
-                } catch let error as NSError {
-                    print("Could not save game to CoreData. \(error), \(error.userInfo)")
-                }
+            let gamesMO = try managedContext.fetch(fetchRequest)
+            guard gamesMO.count > 0 else {
+                os_log("Could not find any games in CoreData", type: .debug)
+                return
             }
+            os_log("Loading %d games", log: OSLog.default, type: .debug, gamesMO.count)
             self.allGames = gamesMO.map { (gameMO) -> Game in
                 if let game = Game(fromGameMO: gameMO) {
                     return game
@@ -319,9 +323,9 @@ class DataModelManager {
         
     }
     
-    public func loadTeams() {
+    public func loadTeamsFromCoreData() {
         
-        os_log("loadTeams() called", type: .debug)
+        os_log("loadTeamsFromCoreData() called", type: .debug)
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
         }
@@ -330,25 +334,12 @@ class DataModelManager {
         let fetchRequest = NSFetchRequest<TeamMO>(entityName: "TeamMO")
         
         do {
-            var teamsMO = try managedContext.fetch(fetchRequest)
-            os_log("Loading %d teams", log: OSLog.default, type: .debug, teamsMO.count)
-            if teamsMO.count == 0 {
-                guard let team1 = TeamMO.newTeamMO(name: "Elon", conferenceName: "CAA", withContext: managedContext),
-                    let team2 = TeamMO.newTeamMO(name: "JMU", conferenceName: "CAA", withContext: managedContext),
-                    let team3 = TeamMO.newTeamMO(name: "Youngstown State", conferenceName: "MVFC", withContext: managedContext),
-                    let team4 = TeamMO.newTeamMO(name: "The Citadel", conferenceName: "Southern", withContext: managedContext)
-                    else {
-                        os_log("Could not create stub teams in DataModelManager.loadTeams()", type: .default)
-                        return
-                }
-                teamsMO = [team1, team2, team3, team4]
-                os_log("Needed to load teams for the first time", type: .debug)
-                do {
-                    try managedContext.save()
-                } catch let error as NSError {
-                    print("Could not save team to CoreData. \(error), \(error.userInfo)")
-                }
+            let teamsMO = try managedContext.fetch(fetchRequest)
+            guard teamsMO.count > 0 else {
+                os_log("Could not find any teams in CoreData", type: .debug)
+                return
             }
+            os_log("Loading %d teams", log: OSLog.default, type: .debug, teamsMO.count)
             self.allTeams = teamsMO.map { (teamMO) -> Team in
                 if let team = Team(fromTeamMO: teamMO) {
                     return team
@@ -362,9 +353,9 @@ class DataModelManager {
         
     }
     
-    public func loadConferences() {
+    public func loadConferencesFromCoreData() {
         
-        os_log("loadConferences() called", type: .debug)
+        os_log("loadConferencesFromCoreData() called", type: .debug)
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
         }
@@ -373,21 +364,12 @@ class DataModelManager {
         let fetchRequest = NSFetchRequest<ConferenceMO>(entityName: "ConferenceMO")
         
         do {
-            var conferencesMO = try managedContext.fetch(fetchRequest)
-            os_log("Loading %d conferences", log: OSLog.default, type: .debug, conferencesMO.count)
-            if conferencesMO.count == 0 {
-                guard let conference1 = ConferenceMO.newConferenceMO(name: "None", teamNames: ["None"], withContext: managedContext) else {
-                        os_log("Could not create stub conference in DataModelManager.loadTeams()", type: .default)
-                        return
-                }
-                conferencesMO = [conference1]
-                os_log("Needed to load conferences for the first time", type: .debug)
-                do {
-                    try managedContext.save()
-                } catch let error as NSError {
-                    print("Could not save game to CoreData. \(error), \(error.userInfo)")
-                }
+            let conferencesMO = try managedContext.fetch(fetchRequest)
+            guard conferencesMO.count > 0 else {
+                os_log("Could not find any conferences in CoreData", type: .debug)
+                return
             }
+            os_log("Loading %d conferences", log: OSLog.default, type: .debug, conferencesMO.count)
             self.allConferences = conferencesMO.map { (conferenceMO) -> Conference in
                 if let conference = Conference(fromConferenceMO: conferenceMO) {
                     return conference

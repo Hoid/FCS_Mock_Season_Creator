@@ -15,13 +15,13 @@ struct TeamsByConferenceApiResponse {
 extension TeamsByConferenceApiResponse: Decodable {
     
     private enum TeamsByConferenceApiResponseCodingKeys: String, CodingKey {
-        case teamsByConference = "data"
+        case data = "data"
     }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: TeamsByConferenceApiResponseCodingKeys.self)
         
-        teamsByConference = try container.decode([String : [String]].self, forKey: .teamsByConference)
+        teamsByConference = try container.decode([String : [String]].self, forKey: .data)
         
     }
 }
@@ -34,13 +34,13 @@ struct TeamsByConference {
 extension TeamsByConference: Decodable {
     
     enum TeamsByConferenceCodingKeys: String, CodingKey {
-        case teamsByConference = "data"
+        case data = "data"
     }
     
     
     init(from decoder: Decoder) throws {
         let teamsByConferenceContainer = try decoder.container(keyedBy: TeamsByConferenceCodingKeys.self)
         
-        teamsByConference = try teamsByConferenceContainer.decode([String : [String]].self, forKey: .teamsByConference)
+        teamsByConference = try teamsByConferenceContainer.decode([String : [String]].self, forKey: .data)
     }
 }
