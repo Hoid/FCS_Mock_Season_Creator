@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1906C7EE22D1B097007CD0D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C7ED22D1B097007CD0D4 /* AppDelegate.swift */; };
-		1906C7F022D1B097007CD0D4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C7EF22D1B097007CD0D4 /* LoginViewController.swift */; };
 		1906C7F322D1B097007CD0D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1906C7F122D1B097007CD0D4 /* Main.storyboard */; };
 		1906C7F622D1B097007CD0D4 /* FCS_Mock_Season_Creator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1906C7F422D1B097007CD0D4 /* FCS_Mock_Season_Creator.xcdatamodeld */; };
 		1906C7F822D1B098007CD0D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1906C7F722D1B098007CD0D4 /* Assets.xcassets */; };
@@ -55,6 +54,7 @@
 		1906C88322E152F9007CD0D4 /* GamesApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C88222E152F9007CD0D4 /* GamesApi.swift */; };
 		1906C88522E1534D007CD0D4 /* GamesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C88422E1534D007CD0D4 /* GamesModel.swift */; };
 		1906C88722E21FA1007CD0D4 /* GamesNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C88622E21FA1007CD0D4 /* GamesNetworkManager.swift */; };
+		19D5826A22E3EA920024A545 /* HomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D5826922E3EA920024A545 /* HomeScreenViewController.swift */; };
 		528BCFF60D630AFA12291381 /* Pods_FCS_Mock_Season_Creator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EE1124AA8755D3890D0DBE6 /* Pods_FCS_Mock_Season_Creator.framework */; };
 		56FBDD6EA6F25962715F7B03 /* libPods-FCS Mock Season CreatorUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A1E02CAA473E05F58F785F8A /* libPods-FCS Mock Season CreatorUITests.a */; };
 		7503583BF9F4A8A9606EE989 /* libPods-FCS Mock Season CreatorTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EF0261113F1917FC249A8DD /* libPods-FCS Mock Season CreatorTests.a */; };
@@ -81,7 +81,6 @@
 		005C61658A425F55E5DA0BDB /* Pods-FCS Mock Season CreatorTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FCS Mock Season CreatorTests.debug.xcconfig"; path = "Target Support Files/Pods-FCS Mock Season CreatorTests/Pods-FCS Mock Season CreatorTests.debug.xcconfig"; sourceTree = "<group>"; };
 		1906C7EA22D1B097007CD0D4 /* FCS Mock Season Creator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FCS Mock Season Creator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1906C7ED22D1B097007CD0D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ../AppDelegate.swift; sourceTree = "<group>"; };
-		1906C7EF22D1B097007CD0D4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1906C7F222D1B097007CD0D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1906C7F522D1B097007CD0D4 /* FCS_Mock_Season_Creator.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FCS_Mock_Season_Creator.xcdatamodel; sourceTree = "<group>"; };
 		1906C7F722D1B098007CD0D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -133,6 +132,7 @@
 		1906C88222E152F9007CD0D4 /* GamesApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesApi.swift; sourceTree = "<group>"; };
 		1906C88422E1534D007CD0D4 /* GamesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesModel.swift; sourceTree = "<group>"; };
 		1906C88622E21FA1007CD0D4 /* GamesNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesNetworkManager.swift; sourceTree = "<group>"; };
+		19D5826922E3EA920024A545 /* HomeScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenViewController.swift; sourceTree = "<group>"; };
 		1EE1124AA8755D3890D0DBE6 /* Pods_FCS_Mock_Season_Creator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FCS_Mock_Season_Creator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4115BD9DFDE47937034BC5F4 /* Pods-FCS Mock Season CreatorTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FCS Mock Season CreatorTests.release.xcconfig"; path = "Target Support Files/Pods-FCS Mock Season CreatorTests/Pods-FCS Mock Season CreatorTests.release.xcconfig"; sourceTree = "<group>"; };
 		422F6A7D5D69406A23ABBEB6 /* Pods-FCS Mock Season Creator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FCS Mock Season Creator.debug.xcconfig"; path = "Target Support Files/Pods-FCS Mock Season Creator/Pods-FCS Mock Season Creator.debug.xcconfig"; sourceTree = "<group>"; };
@@ -228,7 +228,7 @@
 		1906C82022D2CC19007CD0D4 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				1906C7EF22D1B097007CD0D4 /* LoginViewController.swift */,
+				19D5826922E3EA920024A545 /* HomeScreenViewController.swift */,
 				1906C82122D2CC3E007CD0D4 /* ConferencesTableViewController.swift */,
 				1906C81E22D2CA07007CD0D4 /* ConferenceGamesTableViewController.swift */,
 				1906C82D22D81E0A007CD0D4 /* OverallFCSResultsViewController.swift */,
@@ -606,10 +606,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				1906C85422DA3AF1007CD0D4 /* ParameterEncoding.swift in Sources */,
-				1906C7F022D1B097007CD0D4 /* LoginViewController.swift in Sources */,
 				1906C82B22D2EF56007CD0D4 /* GameMO.swift in Sources */,
 				1906C85022DA3A1A007CD0D4 /* HTTPMethod.swift in Sources */,
 				1906C87922DEB06A007CD0D4 /* TeamMO.swift in Sources */,
+				19D5826A22E3EA920024A545 /* HomeScreenViewController.swift in Sources */,
 				1906C85A22DA5230007CD0D4 /* JSONParameterEncoder.swift in Sources */,
 				1906C84122D8D94A007CD0D4 /* Record.swift in Sources */,
 				1906C7EE22D1B097007CD0D4 /* AppDelegate.swift in Sources */,
