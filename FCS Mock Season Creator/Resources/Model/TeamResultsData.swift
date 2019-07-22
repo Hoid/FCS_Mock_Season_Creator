@@ -22,9 +22,12 @@ class TeamResultsData {
     }
     
     public func calculateProbOfWinningXNumberOfGames(gamesWon: Int) -> Double {
+        if gamesWon > self.numberOfGamesPlayed {
+            return 0.0
+        }
         let n = self.numberOfGamesPlayed
         let k = gamesWon
-        return (fact(n) / (fact(k) * fact(n-k))) * pow(avgConfidenceToWinEachGame, Double(n)) * pow(1-avgConfidenceToWinEachGame, Double(n-k))
+        return (fact(n) / (fact(k) * fact(n-k))) * pow(avgConfidenceToWinEachGame, Double(k)) * pow(1.0-avgConfidenceToWinEachGame, Double(n-k))
     }
     
     public func calculateProbOfWinningAtLeast8Games() -> Double {
@@ -46,13 +49,21 @@ class TeamResultsData {
         return mostLikelyRecord
     }
     
-    private var numberOfGamesPlayed: Int {
+    public var numberOfGamesPlayed: Int {
         return games.count
     }
     
-    private var avgConfidenceToWinEachGame: Double {
+    public var avgConfidenceToWinEachGame: Double {
         let confidences: [Int] = self.games.map({ $0.confidence })
-        return Double(confidences.reduce(0,+))/Double(confidences.count)
+        let normalizedConfidences = confidences.map { (confidence) -> Double in
+            if confidence < 50 {
+                let confidenceInt = 100 - confidence
+                return Double(confidenceInt) / 100.0
+            } else {
+                return Double(confidence) / 100.0
+            }
+        }
+        return Double(normalizedConfidences.reduce(0,+))/Double(normalizedConfidences.count)
     }
     
     // helper function for calculating the factorial of a number

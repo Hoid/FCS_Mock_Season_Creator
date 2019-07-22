@@ -15,7 +15,6 @@ class HomeScreenTableViewController: UITableViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
         self.showSpinner(onView: self.view)
         let teamsByConferenceNetworkManager = TeamsByConferenceNetworkManager()
         teamsByConferenceNetworkManager.getTeamsByConference(completion: { (data, error) in

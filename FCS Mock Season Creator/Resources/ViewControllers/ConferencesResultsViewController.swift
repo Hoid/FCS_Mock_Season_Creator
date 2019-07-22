@@ -16,8 +16,9 @@ class ConferencesResultsViewController: CardsViewController {
     var cards: [CardController] {
         let dataModelManager = DataModelManager.shared
         let allConferences = dataModelManager.getAllConferences()
-
-        let conferenceResultsCardControllers = allConferences.map({ ConferenceResultsCardController(conference: $0) })
+        let allConferencesExceptNamedNone = allConferences.filter({ $0.name != "None" })
+        var conferenceResultsCardControllers = allConferencesExceptNamedNone.map({ ConferenceResultsCardController(conference: $0) })
+        conferenceResultsCardControllers.sort(by: { $0.conference.name < $1.conference.name })
         return conferenceResultsCardControllers
     }
         

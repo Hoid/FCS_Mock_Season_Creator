@@ -15,8 +15,8 @@ import Bond
 
 class ConferenceResultsCardController: CardPartsViewController, RoundedCardTrait, NoTopBottomMarginsCardTrait {
     
-    var allGames = [Game]()
-    var conference: Conference
+    public var allGames = [Game]()
+    public var conference: Conference
     var viewModel: ConferenceResultsTableViewModel
     var titlePart = CardPartTitleView(type: .titleOnly)
     var tableViewPart = CardPartTableView()
