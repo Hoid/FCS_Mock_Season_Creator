@@ -50,7 +50,7 @@ class ConferenceGamesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return String.init(format: "Week %d", section)
+        return String(format: "Week %d", section)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -82,7 +82,6 @@ class ConferenceGamesTableViewController: UITableViewController {
     }
     
     @IBAction func winnerChanged(_ sender: UISegmentedControl) {
-        os_log("Saving game because winner was changed", type: .debug)
         let viewcell = sender.superview?.superview as? ConferenceGamesTableViewCell
         guard viewcell != nil else {
             os_log("viewcell is nil in winnerChanged in ConferenceGamesTableViewController", type: .debug)
@@ -108,7 +107,6 @@ class ConferenceGamesTableViewController: UITableViewController {
     
     @IBAction func confidenceChanged(_ sender: UITextField) {
         
-        os_log("Saving game because confidence was changed", type: .debug)
         let viewcell = sender.superview?.superview as? ConferenceGamesTableViewCell
         guard viewcell != nil else {
             os_log("viewcell is nil in winnerChanged in ConferenceGamesTableViewController", type: .debug)

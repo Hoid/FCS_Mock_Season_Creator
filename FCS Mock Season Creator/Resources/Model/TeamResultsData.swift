@@ -53,15 +53,17 @@ class TeamResultsData {
         return games.count
     }
     
+    // "Normalized" in this context means it takes into account the winner of the game
     public var avgConfidenceToWinEachGame: Double {
-        let confidences: [Int] = self.games.map({ $0.confidence })
-        let normalizedConfidences = confidences.map { (confidence) -> Double in
-            if confidence < 50 {
-                let confidenceInt = 100 - confidence
-                return Double(confidenceInt) / 100.0
+        let confidencesAndTeams: [(Int, Team)] = self.games.map({ ($0.confidence, $0.winner) })
+        let normalizedConfidences = confidencesAndTeams.map { (confidence, winner) -> Double in
+            var normalizedConfidence: Int = 0
+            if winner.name != self.teamName {
+                normalizedConfidence = 100 - confidence
             } else {
-                return Double(confidence) / 100.0
+                normalizedConfidence = confidence
             }
+            return Double(normalizedConfidence) / 100.0
         }
         return Double(normalizedConfidences.reduce(0,+))/Double(normalizedConfidences.count)
     }

@@ -77,6 +77,7 @@ class OverallFCSResultsTableViewModel {
     var allGames = [Game]()
     var allTeamResults = [TeamResultsData]()
     var tableData = MutableObservableArray([])
+    private let NONE = "None"
     
     var title = BehaviorRelay(value: "")
     var text = BehaviorRelay(value: "")
@@ -88,11 +89,13 @@ class OverallFCSResultsTableViewModel {
         let allConferences = dataModelManager.getAllConferences()
         
         for conference in allConferences {
-            for team in conference.teams {
-                let gamesPlayedByTeam = self.allGames.filter { (game) -> Bool in
-                    return game.contestants.contains(team)
+            if conference.name != NONE {
+                for team in conference.teams {
+                    let gamesPlayedByTeam = self.allGames.filter { (game) -> Bool in
+                        return game.contestants.contains(team)
+                    }
+                    allTeamResults.append(TeamResultsData(teamName: team.name, games: gamesPlayedByTeam))
                 }
-                allTeamResults.append(TeamResultsData(teamName: team.name, games: gamesPlayedByTeam))
             }
         }
         let fcsSeasonResult = FCSSeasonResult(teamResults: allTeamResults)

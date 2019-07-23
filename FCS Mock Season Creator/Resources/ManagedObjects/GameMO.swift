@@ -47,7 +47,7 @@ extension GameMO {
         if let confidence = confidence {
             newGameMO.confidence = confidence
         } else {
-            newGameMO.confidence = 100
+            newGameMO.confidence = 0
         }
         if let conferences = conferences {
             newGameMO.conferencesNames.removeAll()

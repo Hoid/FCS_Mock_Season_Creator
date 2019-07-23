@@ -47,7 +47,7 @@ class FCS_Mock_Season_CreatorTests: XCTestCase {
         XCTAssert(teamResultsData.numberOfGamesPlayed == 4)
         let avgConfidenceToWinEachGame = teamResultsData.avgConfidenceToWinEachGame
         print(avgConfidenceToWinEachGame)
-        XCTAssert(avgConfidenceToWinEachGame.distance(to: 0.7) < 0.1)
+        XCTAssert(avgConfidenceToWinEachGame.distance(to: 0.575) < 0.01)
         let likelihoodOfWinningTwoGames = teamResultsData.calculateProbOfWinningXNumberOfGames(gamesWon: 2)
         print(likelihoodOfWinningTwoGames)
         XCTAssert(likelihoodOfWinningTwoGames.distance(to: 0.2646) < 0.01)
@@ -58,7 +58,7 @@ class FCS_Mock_Season_CreatorTests: XCTestCase {
         print("Likelihood of going 3-1: " + String(teamResultsData.calculateProbOfWinningXNumberOfGames(gamesWon: 3)))
         print("Likelihood of going 4-0: " + String(teamResultsData.calculateProbOfWinningXNumberOfGames(gamesWon: 4)))
         print("Most likely record: " + mostLikelyRecord)
-        XCTAssert(mostLikelyRecord == "3-1")
+        XCTAssert(mostLikelyRecord == "2-2")
         
     }
 

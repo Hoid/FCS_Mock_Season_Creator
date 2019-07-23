@@ -15,8 +15,8 @@ class ResultsPageViewController: UIPageViewController {
     
     var pageControl = UIPageControl()
     private(set) lazy var orderedViewControllers: [UIViewController] = {
-        return [self.newResultsViewController(withPrefix: "OverallFCS"),
-                self.newResultsViewController(withPrefix: "Conferences")]
+        return [self.newResultsViewController(withPrefix: "Conferences"),
+                self.newResultsViewController(withPrefix: "OverallFCS")]
     }()
     
     override func viewDidLoad() {

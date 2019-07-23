@@ -44,14 +44,14 @@ class ConferenceResultsCardController: CardPartsViewController, RoundedCardTrait
                 return UITableViewCell()
             }
             
-            guard let tableDataTuple = tableData as? [(Int, String, Record)] else {
+            guard let tableDataTuples = tableData as? [(Int, String, Record)] else {
                 return UITableViewCell()
             }
             
-            let placement = tableDataTuple[indexPath.row].0 + 1
-            let teamName = tableDataTuple[indexPath.row].1
+            let placement = tableDataTuples[indexPath.row].0 + 1
+            let teamName = tableDataTuples[indexPath.row].1
             cell.leftTitleLabel.text = "\(placement). \(teamName)"
-            cell.rightTitleLabel.text = tableDataTuple[indexPath.row].2.recordStr
+            cell.rightTitleLabel.text = tableDataTuples[indexPath.row].2.recordStr
             
             return cell
             
@@ -100,14 +100,24 @@ class ConferenceResultsTableViewModel {
             }
             teamResultsForConference.append(TeamResultsData(teamName: team.name, games: gamesPlayedByTeam))
         }
-        let conferenceSeasonResult = ConferenceSeasonResult(conference: self.conference, teamResults: teamResultsForConference)
-        
-        let sortedTeamsAndRecords = conferenceSeasonResult.placementMappedToTeamAndRecord.values.enumerated()
-        for (index, (teamName, record)) in sortedTeamsAndRecords {
+        guard let conferenceSeasonResult = ConferenceSeasonResult(conference: self.conference, teamResults: teamResultsForConference) else {
+            os_log("Could not unwrap conferenceSeasonResult in ConferenceResultsCardController.init()", type: .debug)
+            return
+        }
+        let unsortedResults = conferenceSeasonResult.placementMappedToResults
+        var sortedResults = [(String, Double, Record)]()
+        for i in 0...unsortedResults.keys.count {
+            for result in unsortedResults {
+                if result.key == i {
+                    sortedResults.append(result.value)
+                }
+            }
+        }
+        for (index, (teamName, _, record)) in sortedResults.enumerated() {
             tableData.append((index, teamName, record))
         }
         
-        // When these values change, the UI in the TestCardController
+        // When these values change, the UI in the CardController
         // will automatically update
         title.accept(self.conference.name)
         

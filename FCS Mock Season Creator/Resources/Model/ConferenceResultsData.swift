@@ -27,9 +27,13 @@ class ConferenceResultsData {
         
     }
     
-    public func calculateConferenceSeasonResult() -> ConferenceSeasonResult {
+    public func calculateConferenceSeasonResult() -> ConferenceSeasonResult? {
         
-        return ConferenceSeasonResult(conference: self.conference, teamResults: self.teamResults)
+        guard let conferenceSeasonResult = ConferenceSeasonResult(conference: self.conference, teamResults: self.teamResults) else {
+            os_log("Could not unwrap conferenceSeasonResult in ConferenceResultsData.calculateConferenceSeasonResult()", type: .debug)
+            return nil
+        }
+        return conferenceSeasonResult
         
     }
     

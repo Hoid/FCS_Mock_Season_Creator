@@ -16,6 +16,13 @@ class FCSSeasonResult {
     init(teamResults: [TeamResultsData]) {
         var teamNamesAndRecords = [(String, Record)]()
         for teamResult in teamResults {
+            guard let conferenceName = Conference.name(forTeamName: teamResult.teamName) else {
+                os_log("Could not unwrap conference in FCSSeasonResult.init()", type: .debug)
+                continue
+            }
+            guard conferenceName != "None" else {
+                continue
+            }
             let mostLikelyRecord = teamResult.calculateMostLikelyRecord()
             teamNamesAndRecords.append((teamResult.teamName, mostLikelyRecord))
         }

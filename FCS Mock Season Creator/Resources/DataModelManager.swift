@@ -57,7 +57,7 @@ class DataModelManager {
                     return "None"
                 }
             })
-            guard let game = Game(id: UUID().uuidString, contestantsNames: gameApiResponse.contestants, winnerName: gameApiResponse.contestants[0], confidence: 0, conferencesNames: conferenceNamesInGame, week: week) else {
+            guard let game = Game(id: UUID().uuidString, contestantsNames: gameApiResponse.contestants, winnerName: gameApiResponse.contestants[0], confidence: 50, conferencesNames: conferenceNamesInGame, week: week) else {
                 os_log("Could not unwrap new game object in loadGames(gameApiResponses:) in DataModelManager", type: .debug)
                 return Game()
             }

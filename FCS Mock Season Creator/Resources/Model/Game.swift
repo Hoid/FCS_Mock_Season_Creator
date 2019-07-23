@@ -28,7 +28,7 @@ class Game: Equatable {
         let team2 = Team(teamName: "None", conferenceName: "None")
         self.contestants = [team1, team2]
         self.winner = team1
-        self.confidence = 100
+        self.confidence = 0
         let conference1 = Conference(name: "None", conferenceOption: .all, teams: [team1, team2])
         let conference2 = Conference(name: "None", conferenceOption: .all, teams: [team1, team2])
         self.conferences = [conference1, conference2]
