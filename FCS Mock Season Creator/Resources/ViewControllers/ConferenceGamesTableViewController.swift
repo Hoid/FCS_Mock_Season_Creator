@@ -105,6 +105,35 @@ class ConferenceGamesTableViewController: UITableViewController {
         dataModelManager.saveOrCreateGameMO(withGame: game)
     }
     
+    @IBAction func confidenceEditingDidEnd(_ sender: UITextField) {
+    
+        let viewcell = sender.superview?.superview as? ConferenceGamesTableViewCell
+        guard viewcell != nil else {
+            os_log("viewcell is nil in winnerChanged in ConferenceGamesTableViewController.confidenceEditingDidEnd()", type: .debug)
+            return
+        }
+        guard let confidenceStr = sender.text else {
+            os_log("Could not unwrap confidenceStr in confidenceChanged in ConferenceGamesTableViewController.confidenceFinishedChanging()", type: .debug)
+            return
+        }
+        if confidenceStr == "" {
+            os_log("confidenceStr was empty in ConferenceGamesTableViewController.confidenceEditingDidEnd()", type: .debug)
+            return
+        }
+        guard let confidence = Int(confidenceStr) else {
+            os_log("Could not unwrap confidence from confidenceStr (%s) in confidenceChanged in ConferenceGamesTableViewController.confidenceEditingDidEnd()", type: .debug, confidenceStr)
+            return
+        }
+        if confidence < 50 || confidence > 100 {
+            let alert = UIAlertController(title: "Error", message: "Confidence value must be between 50 and 100", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (alert) in
+                sender.text = "50"
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
+    
+    }
+    
     @IBAction func confidenceChanged(_ sender: UITextField) {
         
         let viewcell = sender.superview?.superview as? ConferenceGamesTableViewCell
@@ -120,8 +149,15 @@ class ConferenceGamesTableViewController: UITableViewController {
             os_log("Could not unwrap confidenceStr in confidenceChanged in ConferenceGamesTableViewController", type: .debug)
             return
         }
+        if confidenceStr == "" {
+            os_log("confidenceStr was empty in ConferenceGamesTableViewController.confidenceChanged()", type: .debug)
+            return
+        }
         guard let confidence = Int(confidenceStr) else {
-            os_log("Could not unwrap confidence from confidenceStr in confidenceChanged in ConferenceGamesTableViewController", type: .debug)
+            os_log("Could not unwrap confidence from confidenceStr (%s) in confidenceChanged in ConferenceGamesTableViewController", type: .debug, confidenceStr)
+            return
+        }
+        if confidence < 50 || confidence > 100 {
             return
         }
         game.confidence = confidence

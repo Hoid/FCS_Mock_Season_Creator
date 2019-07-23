@@ -97,7 +97,8 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                             <connections>
-                                                <action selector="confidenceChanged:" destination="xPE-9N-cHJ" eventType="editingChanged" id="VN7-81-x1k"/>
+                                                <action selector="confidenceChanged:" destination="xPE-9N-cHJ" eventType="editingChanged" id="7d1-4G-FSC"/>
+                                                <action selector="confidenceEditingDidEnd:" destination="xPE-9N-cHJ" eventType="editingDidEnd" id="NZl-Ai-hZV"/>
                                             </connections>
                                         </textField>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UvQ-Op-GRq">
@@ -230,6 +231,10 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="EVd-Z2-lXE">
+                                                    <rect key="frame" x="198" y="14" width="20" height="20"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Faa-W0-Jcj" firstAttribute="top" secondItem="ogV-6h-Alc" secondAttribute="top" id="CTb-fJ-eVF"/>
@@ -274,6 +279,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="FCS Mock Season Creator" id="1Ke-1C-1wg"/>
+                    <connections>
+                        <outlet property="spinner" destination="EVd-Z2-lXE" id="wJS-yD-aU4"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B7L-Hn-27s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
