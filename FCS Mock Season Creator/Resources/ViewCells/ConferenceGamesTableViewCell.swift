@@ -21,6 +21,7 @@ class ConferenceGamesTableViewCell: UITableViewCell {
     public func setup(game: Game) {
         
         self.game = game
+        self.confidenceTextField.keyboardType = UIKeyboardType.numberPad
         self.gameWinnerControl.removeAllSegments()
         guard let team1Name = game.contestants.first?.name, let team2Name = game.contestants.last?.name else {
             os_log("Could not unwrap team1Name in ConferenceGamesTableViewCell.setup()", type: .debug)
