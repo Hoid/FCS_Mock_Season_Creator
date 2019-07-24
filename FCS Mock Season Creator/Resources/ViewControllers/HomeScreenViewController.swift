@@ -13,19 +13,20 @@ import os.log
 class HomeScreenTableViewController: UITableViewController {
     
     @IBOutlet weak var spinner: UIActivityIndicatorView!
+    @IBOutlet weak var gamesTableViewCell: UITableViewCell!
+    @IBOutlet weak var resultsTableViewCell: UITableViewCell!
+    @IBOutlet weak var statsTableViewCell: UITableViewCell!
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        DispatchQueue.main.async {
-            self.spinner.startAnimating()
-        }
+        pause()
         let teamsByConferenceNetworkManager = TeamsByConferenceNetworkManager()
         teamsByConferenceNetworkManager.getTeamsByConference(completion: { (data, error) in
             guard let data = data else {
                 os_log("Could not unwrap teamsByConference data in LoginViewController.viewDidLoad()", type: .debug)
+                self.resume()
                 DispatchQueue.main.async {
-                    self.spinner.stopAnimating()
                     let alert = UIAlertController(title: "Network unavailable", message: "Please check your network connection, close the app, and reopen", preferredStyle: .alert)
                     self.present(alert, animated: true, completion: nil)
                 }
@@ -37,18 +38,14 @@ class HomeScreenTableViewController: UITableViewController {
                 dataModelManager.loadGamesFromCoreData()
             }
             if let _ = dataModelManager.allGames {
-                DispatchQueue.main.async {
-                    self.spinner.stopAnimating()
-                }
+                self.resume()
                 return
             } else {
                 let gamesNetworkManager = GamesNetworkManager()
                 gamesNetworkManager.getGames { (data, error) in
                     guard let data = data else {
                         os_log("Could not unwrap games data in LoginViewController.viewDidLoad()", type: .debug)
-                        DispatchQueue.main.async {
-                            self.spinner.stopAnimating()
-                        }
+                        self.resume()
                         let _ = UIAlertAction(title: "Network unavailable", style: .cancel, handler: { (alert) in
                             alert.isEnabled = true
                         })
@@ -57,10 +54,30 @@ class HomeScreenTableViewController: UITableViewController {
                     DispatchQueue.main.sync {
                         dataModelManager.loadGames(gameApiResponses: data)
                     }
+                    self.resume()
                 }
             }
         })
+        
+    }
+    
+    private func pause() {
+        
         DispatchQueue.main.async {
+            self.gamesTableViewCell.isUserInteractionEnabled = false
+            self.resultsTableViewCell.isUserInteractionEnabled = false
+            self.statsTableViewCell.isUserInteractionEnabled = false
+            self.spinner.startAnimating()
+        }
+        
+    }
+    
+    private func resume() {
+        
+        DispatchQueue.main.async {
+            self.gamesTableViewCell.isUserInteractionEnabled = true
+            self.resultsTableViewCell.isUserInteractionEnabled = true
+            self.statsTableViewCell.isUserInteractionEnabled = true
             self.spinner.stopAnimating()
         }
         

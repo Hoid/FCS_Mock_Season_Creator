@@ -280,7 +280,10 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="FCS Mock Season Creator" id="1Ke-1C-1wg"/>
                     <connections>
+                        <outlet property="gamesTableViewCell" destination="T9w-7G-1mM" id="F8Q-Tl-cos"/>
+                        <outlet property="resultsTableViewCell" destination="0Fy-PK-o1C" id="z01-9B-FrT"/>
                         <outlet property="spinner" destination="EVd-Z2-lXE" id="wJS-yD-aU4"/>
+                        <outlet property="statsTableViewCell" destination="8Wh-T4-5Tl" id="wv7-rm-7qJ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B7L-Hn-27s" userLabel="First Responder" sceneMemberID="firstResponder"/>
