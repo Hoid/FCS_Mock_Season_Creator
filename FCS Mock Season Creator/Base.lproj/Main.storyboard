@@ -232,7 +232,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="EVd-Z2-lXE">
-                                                    <rect key="frame" x="198" y="14" width="20" height="20"/>
+                                                    <rect key="frame" x="197" y="14" width="20" height="20"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </activityIndicatorView>
                                             </subviews>
@@ -269,6 +269,9 @@
                                                 <constraint firstItem="U45-4o-S56" firstAttribute="top" secondItem="y7t-lb-tz8" secondAttribute="top" id="qSx-aJ-xYJ"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="bBI-iN-kz7" kind="show" id="J3t-H0-zNg"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -326,7 +329,68 @@
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Irt-pI-Gyk" customClass="ResultsPageViewController" customModule="FCS_Mock_Season_Creator" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qaN-tC-MTJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3088" y="138"/>
+            <point key="canvasLocation" x="3154" y="138"/>
+        </scene>
+        <!--Stats Table View Controller-->
+        <scene sceneID="dLh-Ot-vX5">
+            <objects>
+                <tableViewController id="bBI-iN-kz7" customClass="StatsTableViewController" customModule="FCS_Mock_Season_Creator" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Him-vn-C14">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="StatsTableViewCell" rowHeight="50" id="Gvz-xf-OkU" customClass="StatsTableViewCell" customModule="FCS_Mock_Season_Creator" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="50"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Gvz-xf-OkU" id="X6F-dz-JX5" customClass="StatsTableViewCell" customModule="FCS_Mock_Season_Creator" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="49.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Elon" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="22" translatesAutoresizingMaskIntoConstraints="NO" id="3uU-13-EjU">
+                                            <rect key="frame" x="20" y="0.0" width="43.5" height="49.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3uU-13-EjU" secondAttribute="trailing" constant="20" symbolic="YES" id="3hX-lY-F7c"/>
+                                        <constraint firstItem="3uU-13-EjU" firstAttribute="top" secondItem="X6F-dz-JX5" secondAttribute="top" id="7WT-3G-U7F"/>
+                                        <constraint firstAttribute="bottom" secondItem="3uU-13-EjU" secondAttribute="bottom" id="WR5-90-6tk"/>
+                                        <constraint firstItem="3uU-13-EjU" firstAttribute="leading" secondItem="X6F-dz-JX5" secondAttribute="leading" constant="20" id="seH-3T-tKW"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="teamNameLabel" destination="3uU-13-EjU" id="k3T-0Q-6jM"/>
+                                    <segue destination="Oyo-JJ-zaG" kind="show" identifier="ShowTeamStatsSegue" id="GOA-El-PQo"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="bBI-iN-kz7" id="FSa-1a-umY"/>
+                            <outlet property="delegate" destination="bBI-iN-kz7" id="Qwh-Ag-Noq"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KKc-XD-QV3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3153.6231884057975" y="862.5"/>
+        </scene>
+        <!--Team Stats View Controller-->
+        <scene sceneID="pSe-mb-Jnm">
+            <objects>
+                <viewController id="Oyo-JJ-zaG" customClass="TeamStatsViewController" customModule="FCS_Mock_Season_Creator" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hyb-KR-QDv">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="lb3-fA-bsB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YmR-oO-zXW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4003" y="863"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="qfm-56-aLS">

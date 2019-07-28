@@ -32,6 +32,9 @@ class TeamResultsData {
     
     public func calculateProbOfWinningAtLeast8Games() -> Double {
         var result: Double = 0.0
+        if numberOfGamesPlayed < 8 {
+            return 0.0
+        }
         for i in 8...numberOfGamesPlayed {
             result = result + calculateProbOfWinningXNumberOfGames(gamesWon: i)
         }
@@ -66,6 +69,18 @@ class TeamResultsData {
             return Double(normalizedConfidence) / 100.0
         }
         return Double(normalizedConfidences.reduce(0,+))/Double(normalizedConfidences.count)
+    }
+    
+    public var possibleRecords: [Record] {
+        var possibleRecordsData = [Record]()
+        for i in 0...numberOfGamesPlayed {
+            let record = Record(numberOfWins: i, numberOfGamesPlayed: numberOfGamesPlayed)
+            possibleRecordsData.append(record)
+        }
+        possibleRecordsData.sort { (record1, record2) -> Bool in
+            return record1.numberOfWins > record2.numberOfWins
+        }
+        return possibleRecordsData
     }
     
     // helper function for calculating the factorial of a number

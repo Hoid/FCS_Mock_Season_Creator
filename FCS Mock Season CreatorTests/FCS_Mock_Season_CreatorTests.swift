@@ -59,6 +59,12 @@ class FCS_Mock_Season_CreatorTests: XCTestCase {
         print("Likelihood of going 4-0: " + String(teamResultsData.calculateProbOfWinningXNumberOfGames(gamesWon: 4)))
         print("Most likely record: " + mostLikelyRecord)
         XCTAssert(mostLikelyRecord == "2-2")
+        let correctPossibleRecordsForFourGames = [Record(numberOfWins: 4, numberOfGamesPlayed: 4),
+                                                  Record(numberOfWins: 3, numberOfGamesPlayed: 4),
+                                                  Record(numberOfWins: 2, numberOfGamesPlayed: 4),
+                                                  Record(numberOfWins: 1, numberOfGamesPlayed: 4),
+                                                  Record(numberOfWins: 0, numberOfGamesPlayed: 4)]
+        XCTAssert(teamResultsData.possibleRecords == correctPossibleRecordsForFourGames)
         
     }
 
