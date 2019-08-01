@@ -35,8 +35,10 @@ class ConferenceGamesTableViewController: UITableViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
         let goToResultsButton = UIBarButtonItem(title: "Results", style: .done, target: self, action: #selector(goToResults))
         self.navigationItem.rightBarButtonItem = goToResultsButton
+        
         let dataModelManager = DataModelManager.shared
         self.allGames = dataModelManager.getAllGames()
         self.tableView.reloadData()
@@ -170,6 +172,7 @@ class ConferenceGamesTableViewController: UITableViewController {
     @objc func goToResults() {
         
         print("goToResults() called")
+        performSegue(withIdentifier: "ResultsButtonUnwindSegue", sender: self)
         
     }
     

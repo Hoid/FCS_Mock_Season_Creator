@@ -27,7 +27,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CAA" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="22" translatesAutoresizingMaskIntoConstraints="NO" id="3O1-mV-n5l">
-                                            <rect key="frame" x="20" y="0.0" width="44" height="49.5"/>
+                                            <rect key="frame" x="20" y="0.0" width="44" height="50"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -141,10 +141,14 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
+                    <connections>
+                        <segue destination="GYc-8t-Zel" kind="unwind" identifier="ResultsButtonUnwindSegue" unwindAction="unwindToHomeVCWithSegue:" id="hmL-Fg-QKY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="adE-9v-4Hr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="GYc-8t-Zel" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4162" y="-565"/>
+            <point key="canvasLocation" x="4070" y="-565"/>
         </scene>
         <!--FCS Mock Season Creator-->
         <scene sceneID="MHA-x3-crg">
@@ -212,7 +216,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="Irt-pI-Gyk" kind="show" id="EL3-kU-CzQ"/>
+                                            <segue destination="Irt-pI-Gyk" kind="show" identifier="" id="EL3-kU-CzQ"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="50" id="8Wh-T4-5Tl">
@@ -256,6 +260,7 @@
                         <outlet property="resultsTableViewCell" destination="0Fy-PK-o1C" id="z01-9B-FrT"/>
                         <outlet property="spinner" destination="EVd-Z2-lXE" id="wJS-yD-aU4"/>
                         <outlet property="statsTableViewCell" destination="8Wh-T4-5Tl" id="wv7-rm-7qJ"/>
+                        <segue destination="Irt-pI-Gyk" kind="show" identifier="ShowResultsSegue" id="5sR-zN-Fiq"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B7L-Hn-27s" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -316,22 +321,17 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="49.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Elon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="22" translatesAutoresizingMaskIntoConstraints="NO" id="3uU-13-EjU">
-                                            <rect key="frame" x="20" y="0.0" width="41.5" height="49.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BcS-cH-aw8">
+                                            <rect key="frame" x="20" y="11" width="374" height="27"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3uU-13-EjU" secondAttribute="trailing" constant="20" symbolic="YES" id="FI9-SU-faZ"/>
-                                        <constraint firstAttribute="bottom" secondItem="3uU-13-EjU" secondAttribute="bottom" id="TVg-F7-RMd"/>
-                                        <constraint firstItem="3uU-13-EjU" firstAttribute="leading" secondItem="X6F-dz-JX5" secondAttribute="leading" constant="20" id="bbC-hH-45W"/>
-                                        <constraint firstItem="3uU-13-EjU" firstAttribute="top" secondItem="X6F-dz-JX5" secondAttribute="top" id="h5A-63-ikY"/>
-                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="teamNameLabel" destination="3uU-13-EjU" id="k3T-0Q-6jM"/>
+                                    <outlet property="teamNameLabel" destination="BcS-cH-aw8" id="h1d-ks-YfZ"/>
                                     <segue destination="Oyo-JJ-zaG" kind="show" identifier="ShowTeamStatsSegue" id="GOA-El-PQo"/>
                                 </connections>
                             </tableViewCell>
@@ -380,4 +380,7 @@
             <point key="canvasLocation" x="1233" y="138"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="5sR-zN-Fiq"/>
+    </inferredMetricsTieBreakers>
 </document>

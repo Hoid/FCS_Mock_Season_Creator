@@ -61,6 +61,14 @@ class HomeScreenTableViewController: UITableViewController {
         
     }
     
+    @IBAction func unwindToHomeVC(segue: UIStoryboardSegue) {
+        if segue.identifier == "ResultsButtonUnwindSegue" {
+            DispatchQueue.main.async {
+                self.performSegue(withIdentifier: "ShowResultsSegue", sender: self)
+            }
+        }
+    }
+    
     private func pause() {
         
         DispatchQueue.main.async {
