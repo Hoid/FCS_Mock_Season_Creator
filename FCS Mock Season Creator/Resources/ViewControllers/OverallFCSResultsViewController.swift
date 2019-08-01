@@ -12,7 +12,7 @@ import CardParts
 
 class OverallFCSResultsViewController: CardsViewController {
     
-    let cards: [CardController] = [OverallFCSResultsCardController()]
+    let cards: [CardController] = [SpacerCardController(), OverallFCSResultsCardController()]
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -18,7 +18,7 @@ class TeamStatsViewController: CardsViewController {
             let team = Team(teamName: "None", conferenceName: "None")
             return [TeamStatsCardController(team: team)]
         }
-        return [TeamStatsCardController(team: team)]
+        return [SpacerCardController(), TeamStatsCardController(team: team)]
     }
     
     override func viewDidLoad() {

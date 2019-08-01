@@ -24,6 +24,11 @@ class StatsTableViewController: UITableViewController, UISearchResultsUpdating {
     var filteredTableData = [String]()
     var resultSearchController = UISearchController()
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.automaticallyAdjustsScrollViewInsets = false
+        self.definesPresentationContext = true
+    }
+    
     override func viewDidLoad() {
         
         let dataModelManager = DataModelManager.shared
@@ -34,8 +39,18 @@ class StatsTableViewController: UITableViewController, UISearchResultsUpdating {
             controller.searchResultsUpdater = self
             controller.dimsBackgroundDuringPresentation = false
             controller.searchBar.sizeToFit()
+            controller.searchBar.searchBarStyle = UISearchBar.Style.minimal
             
-            tableView.tableHeaderView = controller.searchBar
+            if #available(iOS 11.0, *) {
+                // For iOS 11 and later, place the search bar in the navigation bar.
+                navigationItem.searchController = controller
+                
+                // Make the search bar always visible.
+                navigationItem.hidesSearchBarWhenScrolling = false
+            } else {
+                // For iOS 10 and earlier, place the search controller's search bar in the table view's header.
+                tableView.tableHeaderView = controller.searchBar
+            }
             
             return controller
         })()

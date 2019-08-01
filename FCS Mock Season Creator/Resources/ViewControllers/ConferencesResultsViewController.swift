@@ -17,9 +17,12 @@ class ConferencesResultsViewController: CardsViewController {
         let dataModelManager = DataModelManager.shared
         let allConferences = dataModelManager.getAllConferences()
         let allConferencesExceptNamedNone = allConferences.filter({ $0.name != "None" })
+        var cardControllers = [CardController]()
         var conferenceResultsCardControllers = allConferencesExceptNamedNone.map({ ConferenceResultsCardController(conference: $0) })
         conferenceResultsCardControllers.sort(by: { $0.conference.name < $1.conference.name })
-        return conferenceResultsCardControllers
+        cardControllers.append(SpacerCardController())
+        conferenceResultsCardControllers.forEach({ cardControllers.append($0) })
+        return cardControllers
     }
         
     override func viewDidLoad() {

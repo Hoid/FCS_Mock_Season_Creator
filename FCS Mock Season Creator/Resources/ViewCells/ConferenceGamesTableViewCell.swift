@@ -14,7 +14,6 @@ class ConferenceGamesTableViewCell: UITableViewCell {
     
     @IBOutlet weak var gameWinnerControl: UISegmentedControl!
     @IBOutlet weak var confidenceTextField: UITextField!
-    @IBOutlet weak var confidenceAverageAllUsersLabel: UILabel!
     
     var game: Game?
     
@@ -30,13 +29,11 @@ class ConferenceGamesTableViewCell: UITableViewCell {
         self.gameWinnerControl.insertSegment(withTitle: team1Name, at: 0, animated: true)
         self.gameWinnerControl.insertSegment(withTitle: team2Name, at: 1, animated: true)
         self.confidenceTextField.text = String(game.confidence)
-        self.confidenceAverageAllUsersLabel.text = "0"
         if team1Name == game.winner.name {
             self.gameWinnerControl.selectedSegmentIndex = 0
         } else {
             self.gameWinnerControl.selectedSegmentIndex = 1
         }
-        
         
     }
 
