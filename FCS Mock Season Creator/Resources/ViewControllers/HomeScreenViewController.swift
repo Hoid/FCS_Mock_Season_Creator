@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import PopupDialog
 import os.log
 
 class HomeScreenTableViewController: UITableViewController {
@@ -20,6 +21,12 @@ class HomeScreenTableViewController: UITableViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        let infoButton = UIButton(type: .infoLight)
+        infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
+        let barButton = UIBarButtonItem(customView: infoButton)
+        self.navigationItem.rightBarButtonItem = barButton
+        
         pause()
         let teamsByConferenceNetworkManager = TeamsByConferenceNetworkManager()
         teamsByConferenceNetworkManager.getTeamsByConference(completion: { (data, error) in
@@ -58,6 +65,20 @@ class HomeScreenTableViewController: UITableViewController {
                 }
             }
         })
+        
+    }
+    
+    @objc func infoButtonTapped() {
+        
+        let title = "About FCS Mock Season Creator"
+        let message = "Welcome! This app allows you to make predictions about all FCS football games in the current season or just in one conference and then see the most likely results for your predictions. You can not only make predictions about who will win each game, but also how confident you are in that result! If you are very certain (perhaps 95% confident) one team will win some game, but only 55% confident they will win a different game, the first game will count more towards the likelihood of a win than the second game. The app will get better at predicting the end of season results as the season goes on, with the winners of each game being updated automatically by the API and confidences for each game already played set to 100%. As a result, you can take note of your predictions before the season starts, and see how accurate you were as the season goes on!\n\nThe FCS Mock Season Creator uses statistical binomial theorem on the backend to predict the likelihood of a team going a certain record given the number of games they play (n) and the number of wins (k). The application calculates the probability of each possible record and then presents the most likely record in the Results page. The Stats page shows the likelihood of each individual record for each team.\n\nIf you have any comments, questions about how the app works, or suggestions please leave a review on the App Store or email the developer directly at fcsmockseasoncreator@gmail.com, and thanks!"
+        let popup = PopupDialog(title: title, message: message, image: nil)
+        let vc = popup.viewController as! PopupDialogDefaultViewController
+        vc.messageTextAlignment = NSTextAlignment.left
+        vc.view
+        let buttonOne = CancelButton(title: "Okay", dismissOnTap: true, action: nil)
+        popup.addButton(buttonOne)
+        self.present(popup, animated: true, completion: nil)
         
     }
     

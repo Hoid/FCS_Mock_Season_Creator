@@ -11,6 +11,7 @@ target 'FCS Mock Season Creator' do
   # Pods for FCS Mock Season Creator
   pod 'CardParts'
   pod 'Bond'
+  pod 'PopupDialog'
 
 end
 

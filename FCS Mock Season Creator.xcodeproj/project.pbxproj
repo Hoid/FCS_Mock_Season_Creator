@@ -65,6 +65,7 @@
 		19D9BFDC22ED275100CCD4C1 /* StatsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D9BFDB22ED275100CCD4C1 /* StatsTableViewCell.swift */; };
 		19D9BFE022F2885700CCD4C1 /* SpacerCardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D9BFDF22F2885700CCD4C1 /* SpacerCardController.swift */; };
 		19D9BFE222F28A9B00CCD4C1 /* SpacerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D9BFE122F28A9B00CCD4C1 /* SpacerViewController.swift */; };
+		19D9BFE422F3457400CCD4C1 /* PopupDialog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19D9BFE322F3457400CCD4C1 /* PopupDialog.framework */; };
 		528BCFF60D630AFA12291381 /* Pods_FCS_Mock_Season_Creator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EE1124AA8755D3890D0DBE6 /* Pods_FCS_Mock_Season_Creator.framework */; };
 		56FBDD6EA6F25962715F7B03 /* libPods-FCS Mock Season CreatorUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A1E02CAA473E05F58F785F8A /* libPods-FCS Mock Season CreatorUITests.a */; };
 		7503583BF9F4A8A9606EE989 /* libPods-FCS Mock Season CreatorTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EF0261113F1917FC249A8DD /* libPods-FCS Mock Season CreatorTests.a */; };
@@ -153,6 +154,7 @@
 		19D9BFDB22ED275100CCD4C1 /* StatsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsTableViewCell.swift; sourceTree = "<group>"; };
 		19D9BFDF22F2885700CCD4C1 /* SpacerCardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacerCardController.swift; sourceTree = "<group>"; };
 		19D9BFE122F28A9B00CCD4C1 /* SpacerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacerViewController.swift; sourceTree = "<group>"; };
+		19D9BFE322F3457400CCD4C1 /* PopupDialog.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PopupDialog.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EE1124AA8755D3890D0DBE6 /* Pods_FCS_Mock_Season_Creator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FCS_Mock_Season_Creator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4115BD9DFDE47937034BC5F4 /* Pods-FCS Mock Season CreatorTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FCS Mock Season CreatorTests.release.xcconfig"; path = "Target Support Files/Pods-FCS Mock Season CreatorTests/Pods-FCS Mock Season CreatorTests.release.xcconfig"; sourceTree = "<group>"; };
 		422F6A7D5D69406A23ABBEB6 /* Pods-FCS Mock Season Creator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FCS Mock Season Creator.debug.xcconfig"; path = "Target Support Files/Pods-FCS Mock Season Creator/Pods-FCS Mock Season Creator.debug.xcconfig"; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19D9BFE422F3457400CCD4C1 /* PopupDialog.framework in Frameworks */,
 				528BCFF60D630AFA12291381 /* Pods_FCS_Mock_Season_Creator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -402,6 +405,7 @@
 		87F1DE71854C5180AA961CD4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				19D9BFE322F3457400CCD4C1 /* PopupDialog.framework */,
 				1EE1124AA8755D3890D0DBE6 /* Pods_FCS_Mock_Season_Creator.framework */,
 				6EF0261113F1917FC249A8DD /* libPods-FCS Mock Season CreatorTests.a */,
 				A1E02CAA473E05F58F785F8A /* libPods-FCS Mock Season CreatorUITests.a */,
