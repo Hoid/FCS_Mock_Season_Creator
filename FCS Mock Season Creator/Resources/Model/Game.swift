@@ -11,7 +11,7 @@ import os.log
 
 class Game: Equatable {
     
-    var id: String
+    var id: Int
     var contestants: [Team]
     var winner: Team
     var confidence: Int
@@ -23,7 +23,7 @@ class Game: Equatable {
      */
     init() {
         
-        self.id = UUID().uuidString
+        self.id = Int.random(in: 1...65535)
         let team1 = Team(teamName: "None", conferenceName: "None")
         let team2 = Team(teamName: "None", conferenceName: "None")
         self.contestants = [team1, team2]
@@ -36,7 +36,7 @@ class Game: Equatable {
         
     }
     
-    init?(id: String, contestantsNames: [String], winnerName: String, confidence: Int, conferencesNames: [String], week: Int) {
+    init?(id: Int, contestantsNames: [String], winnerName: String, confidence: Int, conferencesNames: [String], week: Int) {
         
         self.id = id
         

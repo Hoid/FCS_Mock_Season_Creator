@@ -46,10 +46,6 @@ class DataModelManager {
         
         let games = gameApiResponses.map { (gameApiResponse) -> Game in
             let contestantNames = gameApiResponse.contestants
-            guard let week = Int(gameApiResponse.week) else {
-                os_log("Could not unwrap week from gameApiResponse in loadGames(gameApiResponses:) in DataModelManager", type: .debug)
-                return Game()
-            }
             let conferenceNamesInGame = contestantNames.map({ (contestantName) -> String in
                 if let conferenceName = Conference.name(forTeamName: contestantName) {
                     return conferenceName
@@ -57,7 +53,32 @@ class DataModelManager {
                     return "None"
                 }
             })
-            guard let game = Game(id: UUID().uuidString, contestantsNames: gameApiResponse.contestants, winnerName: gameApiResponse.contestants[0], confidence: 50, conferencesNames: conferenceNamesInGame, week: week) else {
+            guard let game = Game(id: Int.random(in: 1...65535), contestantsNames: gameApiResponse.contestants, winnerName: gameApiResponse.contestants[0], confidence: 50, conferencesNames: conferenceNamesInGame, week: gameApiResponse.week) else {
+                os_log("Could not unwrap new game object in loadGames(gameApiResponses:) in DataModelManager", type: .debug)
+                return Game()
+            }
+            return game
+        }
+        self.allGames = [Game]()
+        games.forEach({ (game) in
+            saveOrCreateGameMO(withGame: game)
+            self.allGames?.append(game)
+        })
+        
+    }
+    
+    public func loadGames(gameApiResponses: [GameNewApiResponse]) {
+        
+        let games = gameApiResponses.map { (gameApiResponse) -> Game in
+            let contestantNames = gameApiResponse.contestants
+            let conferenceNamesInGame = contestantNames.map({ (contestantName) -> String in
+                if let conferenceName = Conference.name(forTeamName: contestantName) {
+                    return conferenceName
+                } else {
+                    return "None"
+                }
+            })
+            guard let game = Game(id: gameApiResponse.id, contestantsNames: gameApiResponse.contestants, winnerName: gameApiResponse.contestants[0], confidence: 50, conferencesNames: conferenceNamesInGame, week: gameApiResponse.week) else {
                 os_log("Could not unwrap new game object in loadGames(gameApiResponses:) in DataModelManager", type: .debug)
                 return Game()
             }
@@ -121,7 +142,7 @@ class DataModelManager {
         let managedContext = appDelegate.persistentContainer.viewContext
         
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "GameMO")
-        fetchRequest.predicate = NSPredicate(format: "id == %@", game.id)
+        fetchRequest.predicate = NSPredicate(format: "id == %d", game.id)
         
         do {
             let test = try managedContext.fetch(fetchRequest)

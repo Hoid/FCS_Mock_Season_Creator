@@ -29,7 +29,8 @@ extension GamesApiResponse: Decodable {
 
 struct GameApiResponse {
     let contestants: [String]
-    let week: String
+    let week: Int
+    let winner: String?
 }
 
 extension GameApiResponse: Decodable {
@@ -37,13 +38,62 @@ extension GameApiResponse: Decodable {
     private enum GameApiResponseCodingKeys: String, CodingKey {
         case contestants = "contestants"
         case week = "week"
+        case winner = "winner"
     }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: GameApiResponseCodingKeys.self)
         
         contestants = try container.decode([String].self, forKey: .contestants)
-        week = try container.decode(String.self, forKey: .week)
+        week = try container.decode(Int.self, forKey: .week)
+        winner = try container.decode(String?.self, forKey: .winner)
+        
+    }
+    
+}
+
+struct GamesNewApiResponse {
+    let games: [GameNewApiResponse]
+}
+
+extension GamesNewApiResponse: Decodable {
+    
+    private enum GamesNewApiResponseCodingKeys: String, CodingKey {
+        case games = "games"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: GamesNewApiResponseCodingKeys.self)
+        
+        games = try container.decode([GameNewApiResponse].self, forKey: .games)
+        
+    }
+    
+}
+
+struct GameNewApiResponse {
+    let id: Int
+    let contestants: [String]
+    let week: Int
+    let winner: String?
+}
+
+extension GameNewApiResponse: Decodable {
+    
+    private enum GameNewApiResponseCodingKeys: String, CodingKey {
+        case id = "id"
+        case contestants = "contestants"
+        case week = "week"
+        case winner = "winner"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: GameNewApiResponseCodingKeys.self)
+        
+        id = try container.decode(Int.self, forKey: .id)
+        contestants = try container.decode([String].self, forKey: .contestants)
+        week = try container.decode(Int.self, forKey: .week)
+        winner = try container.decode(String?.self, forKey: .winner)
         
     }
     

@@ -28,10 +28,15 @@ class HomeScreenTableViewController: UITableViewController {
         self.navigationItem.rightBarButtonItem = barButton
         
         pause()
+        getTeamsByConferenceAndGamesFromApi()
+        
+    }
+    
+    fileprivate func getTeamsByConferenceAndGamesFromApi() {
         let teamsByConferenceNetworkManager = TeamsByConferenceNetworkManager()
         teamsByConferenceNetworkManager.getTeamsByConference(completion: { (data, error) in
             guard let data = data else {
-                os_log("Could not unwrap teamsByConference data in LoginViewController.viewDidLoad()", type: .debug)
+                os_log("Could not unwrap teamsByConference data in HomeScreenViewController.getTeamsByConferenceAndGamesFromApi()", type: .debug)
                 self.resume()
                 DispatchQueue.main.async {
                     let alert = UIAlertController(title: "Network unavailable", message: "Please check your network connection, close the app, and reopen", preferredStyle: .alert)
@@ -44,28 +49,26 @@ class HomeScreenTableViewController: UITableViewController {
                 dataModelManager.loadTeamNamesByConference(teamNamesByConferenceName: data)
                 dataModelManager.loadGamesFromCoreData()
             }
-            if let _ = dataModelManager.allGames {
-                self.resume()
-                return
-            } else {
-                let gamesNetworkManager = GamesNetworkManager()
-                gamesNetworkManager.getGames { (data, error) in
-                    guard let data = data else {
-                        os_log("Could not unwrap games data in LoginViewController.viewDidLoad()", type: .debug)
-                        self.resume()
-                        let _ = UIAlertAction(title: "Network unavailable", style: .cancel, handler: { (alert) in
-                            alert.isEnabled = true
-                        })
-                        return
-                    }
-                    DispatchQueue.main.sync {
-                        dataModelManager.loadGames(gameApiResponses: data)
-                    }
-                    self.resume()
-                }
-            }
+            
+            self.getGamesFromApi(dataModelManager: dataModelManager)
         })
-        
+    }
+    
+    fileprivate func getGamesFromApi(dataModelManager: DataModelManager) {
+        let gamesNetworkManager = GamesNetworkManager()
+        gamesNetworkManager.getGamesNew { (data, error) in
+            guard let data = data else {
+                os_log("Could not unwrap games data in HomeScreenViewController.getGamesFromApi()", type: .debug)
+                self.resume()
+                let alert = UIAlertController(title: "Network unavailable", message: "The API isn't available right now.", preferredStyle: .alert)
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+            DispatchQueue.main.sync {
+                dataModelManager.loadGames(gameApiResponses: data)
+            }
+            self.resume()
+        }
     }
     
     @objc func infoButtonTapped() {
@@ -75,7 +78,6 @@ class HomeScreenTableViewController: UITableViewController {
         let popup = PopupDialog(title: title, message: message, image: nil)
         let vc = popup.viewController as! PopupDialogDefaultViewController
         vc.messageTextAlignment = NSTextAlignment.left
-        vc.view
         let buttonOne = CancelButton(title: "Okay", dismissOnTap: true, action: nil)
         popup.addButton(buttonOne)
         self.present(popup, animated: true, completion: nil)

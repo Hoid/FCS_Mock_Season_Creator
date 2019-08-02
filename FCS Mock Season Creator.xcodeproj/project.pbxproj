@@ -350,9 +350,9 @@
 		1906C84C22DA3940007CD0D4 /* EndPoint */ = {
 			isa = PBXGroup;
 			children = (
+				1906C88222E152F9007CD0D4 /* GamesApi.swift */,
 				19D9BFD322ED21F500CCD4C1 /* TeamsApi.swift */,
 				1906C86D22DE0992007CD0D4 /* TeamsByConferenceApi.swift */,
-				1906C88222E152F9007CD0D4 /* GamesApi.swift */,
 			);
 			path = EndPoint;
 			sourceTree = "<group>";

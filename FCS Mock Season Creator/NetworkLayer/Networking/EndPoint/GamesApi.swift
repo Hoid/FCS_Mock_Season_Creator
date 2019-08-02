@@ -10,6 +10,7 @@ import Foundation
 
 public enum GamesApi {
     case games
+    case gamesNew
 }
 
 extension GamesApi: EndPointType {
@@ -32,6 +33,8 @@ extension GamesApi: EndPointType {
         switch self {
         case .games:
             return "games"
+        case .gamesNew:
+            return "new/games"
         }
     }
     
@@ -39,12 +42,14 @@ extension GamesApi: EndPointType {
         switch self {
         case .games:
             return .get
+        case .gamesNew:
+            return .get
         }
     }
     
     var task: HTTPTask {
         switch self {
-        case .games:
+        case .games, .gamesNew:
             return .requestWithParameters(bodyParameters: nil, urlParameters: nil)
         }
     }

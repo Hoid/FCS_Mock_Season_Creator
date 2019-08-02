@@ -13,7 +13,7 @@ import os.log
 
 class GameMO: NSManagedObject {
     
-    @NSManaged var id: String
+    @NSManaged var id: Int
     @NSManaged var contestantsNames: [String]
     @NSManaged var winnerName: String
     @NSManaged var confidence: Int
@@ -24,7 +24,7 @@ class GameMO: NSManagedObject {
 
 extension GameMO {
     
-    public static func newGameMO(id: String?, contestants: [String]?, winner: String?, confidence: Int?, conferences: [ConferenceOptions]?, week: Int?, withContext managedContext: NSManagedObjectContext) -> GameMO? {
+    public static func newGameMO(id: Int?, contestants: [String]?, winner: String?, confidence: Int?, conferences: [ConferenceOptions]?, week: Int?, withContext managedContext: NSManagedObjectContext) -> GameMO? {
         
         let entity = NSEntityDescription.entity(forEntityName: "GameMO", in: managedContext)!
         let newGameMO = GameMO(entity: entity, insertInto: managedContext)
@@ -32,7 +32,7 @@ extension GameMO {
         if let id = id {
             newGameMO.id = id
         } else {
-            newGameMO.id = UUID().uuidString
+            newGameMO.id = Int.random(in: 1...65535)
         }
         if let contestants = contestants {
             newGameMO.contestantsNames = contestants
