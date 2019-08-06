@@ -9,7 +9,7 @@
 import Foundation
 import os.log
 
-class Conference {
+class Conference: Equatable {
     
     var name: String
     var conferenceOption: ConferenceOptions
@@ -84,6 +84,10 @@ class Conference {
     
     static func name(forTeamName teamName: String) -> String? {
         
+        if teamName.count == 0 {
+            os_log("Team Name passed into Conference.name(forTeamName:) is an empty string.")
+            return nil
+        }
         let teamsByConferenceOption = TeamsByConferenceOption.shared
         guard let data = teamsByConferenceOption.data else {
             os_log("Could not unwrap teamsByConferenceOption.data in Conference.name(forTeamName:).... It may have not been initialized yet.", type: .debug)
@@ -104,6 +108,13 @@ class Conference {
         
         return ConferenceOptions.getStringValue(conferenceOption: conferenceOptionsForTeamName[0])
         
+    }
+    
+    static func == (lhs: Conference, rhs: Conference) -> Bool {
+        guard lhs.name == rhs.name else { return false }
+        guard lhs.conferenceOption == rhs.conferenceOption else { return false }
+        guard lhs.teams == rhs.teams else { return false }
+        return true
     }
     
 }

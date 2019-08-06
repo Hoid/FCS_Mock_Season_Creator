@@ -126,8 +126,8 @@ class ConferenceGamesTableViewController: UITableViewController {
             os_log("Could not unwrap confidence from confidenceStr (%s) in confidenceChanged in ConferenceGamesTableViewController.confidenceEditingDidEnd()", type: .debug, confidenceStr)
             return
         }
-        if confidence < 50 || confidence > 100 {
-            let alert = UIAlertController(title: "Error", message: "Confidence value must be between 50 and 100", preferredStyle: .alert)
+        if confidence < 50 || confidence >= 100 {
+            let alert = UIAlertController(title: "Error", message: "Confidence value must be between 50 and 99", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (alert) in
                 sender.text = "50"
             }))
@@ -159,7 +159,7 @@ class ConferenceGamesTableViewController: UITableViewController {
             os_log("Could not unwrap confidence from confidenceStr (%s) in confidenceChanged in ConferenceGamesTableViewController", type: .debug, confidenceStr)
             return
         }
-        if confidence < 50 || confidence > 100 {
+        if confidence < 50 || confidence >= 100 {
             return
         }
         game.confidence = confidence
@@ -171,7 +171,6 @@ class ConferenceGamesTableViewController: UITableViewController {
     
     @objc func goToResults() {
         
-        print("goToResults() called")
         performSegue(withIdentifier: "ResultsButtonUnwindSegue", sender: self)
         
     }

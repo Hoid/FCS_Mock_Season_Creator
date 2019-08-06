@@ -65,7 +65,7 @@ class HomeScreenTableViewController: UITableViewController {
                 return
             }
             DispatchQueue.main.sync {
-                dataModelManager.loadGames(gameApiResponses: data)
+                dataModelManager.loadGames(gameNewApiResponses: data)
             }
             self.resume()
         }

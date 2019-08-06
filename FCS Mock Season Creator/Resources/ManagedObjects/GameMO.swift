@@ -42,7 +42,7 @@ extension GameMO {
         if let winner = winner {
             newGameMO.winnerName = winner
         } else {
-            newGameMO.winnerName = "None"
+            newGameMO.winnerName = newGameMO.contestantsNames[0]
         }
         if let confidence = confidence {
             newGameMO.confidence = confidence

@@ -9,7 +9,7 @@
 import Foundation
 import os.log
 
-class Game: Equatable {
+class Game: Equatable, CustomStringConvertible {
     
     var id: Int
     var contestants: [Team]
@@ -29,10 +29,21 @@ class Game: Equatable {
         self.contestants = [team1, team2]
         self.winner = team1
         self.confidence = 0
-        let conference1 = Conference(name: "None", conferenceOption: .all, teams: [team1, team2])
-        let conference2 = Conference(name: "None", conferenceOption: .all, teams: [team1, team2])
+        let conference1 = Conference(name: "None", conferenceOption: .none, teams: [team1, team2])
+        let conference2 = Conference(name: "None", conferenceOption: .none, teams: [team1, team2])
         self.conferences = [conference1, conference2]
         self.week = 0
+        
+    }
+    
+    init(id: Int, contestants: [Team], winner: Team, confidence: Int, conferences: [Conference], week: Int) {
+        
+        self.id = id
+        self.contestants = contestants
+        self.winner = winner
+        self.confidence = confidence
+        self.conferences = conferences
+        self.week = week
         
     }
     
@@ -92,9 +103,21 @@ class Game: Equatable {
         
     }
     
+    convenience init(fromGameFromApi gameFromApi: GameFromApi) {
+        
+        self.init(id: gameFromApi.id, contestants: gameFromApi.contestants, winner: gameFromApi.winner ?? gameFromApi.contestants[0], confidence: gameFromApi.confidence, conferences: gameFromApi.conferences, week: gameFromApi.week)
+        
+    }
+    
     static func == (lhs: Game, rhs: Game) -> Bool {
         guard lhs.id == rhs.id else { return false }
         return true
+    }
+    
+    var description: String {
+        
+        return "(Id: \(self.id), Contestants: \(self.contestants), Winner: \(self.winner), Confidence: \(self.confidence), Week: \(self.week))"
+        
     }
     
 }

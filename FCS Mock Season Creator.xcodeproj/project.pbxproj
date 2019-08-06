@@ -54,6 +54,8 @@
 		1906C88322E152F9007CD0D4 /* GamesApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C88222E152F9007CD0D4 /* GamesApi.swift */; };
 		1906C88522E1534D007CD0D4 /* GamesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C88422E1534D007CD0D4 /* GamesModel.swift */; };
 		1906C88722E21FA1007CD0D4 /* GamesNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C88622E21FA1007CD0D4 /* GamesNetworkManager.swift */; };
+		1934404022FA3D430073664C /* ProfileViewModelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1934403F22FA3D430073664C /* ProfileViewModelItem.swift */; };
+		1985047222F896E7000EEDC4 /* GameFromApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1985047122F896E7000EEDC4 /* GameFromApi.swift */; };
 		19D5826A22E3EA920024A545 /* HomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D5826922E3EA920024A545 /* HomeScreenViewController.swift */; };
 		19D5826D22E536510024A545 /* GameError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D5826C22E536510024A545 /* GameError.swift */; };
 		19D9BFCE22ED16AB00CCD4C1 /* StatsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D9BFCD22ED16AB00CCD4C1 /* StatsTableViewController.swift */; };
@@ -143,6 +145,8 @@
 		1906C88222E152F9007CD0D4 /* GamesApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesApi.swift; sourceTree = "<group>"; };
 		1906C88422E1534D007CD0D4 /* GamesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesModel.swift; sourceTree = "<group>"; };
 		1906C88622E21FA1007CD0D4 /* GamesNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesNetworkManager.swift; sourceTree = "<group>"; };
+		1934403F22FA3D430073664C /* ProfileViewModelItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModelItem.swift; sourceTree = "<group>"; };
+		1985047122F896E7000EEDC4 /* GameFromApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFromApi.swift; sourceTree = "<group>"; };
 		19D5826922E3EA920024A545 /* HomeScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenViewController.swift; sourceTree = "<group>"; };
 		19D5826C22E536510024A545 /* GameError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameError.swift; sourceTree = "<group>"; };
 		19D9BFCD22ED16AB00CCD4C1 /* StatsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsTableViewController.swift; sourceTree = "<group>"; };
@@ -373,6 +377,7 @@
 				1906C82422D2CF81007CD0D4 /* ConferencesTableViewCell.swift */,
 				1906C82822D2E9F0007CD0D4 /* ConferenceGamesTableViewCell.swift */,
 				19D9BFDB22ED275100CCD4C1 /* StatsTableViewCell.swift */,
+				1934403F22FA3D430073664C /* ProfileViewModelItem.swift */,
 			);
 			path = ViewCells;
 			sourceTree = "<group>";
@@ -385,6 +390,7 @@
 				1906C83E22D8D538007CD0D4 /* ConferenceSeasonResult.swift */,
 				1906C84222D8F9CD007CD0D4 /* FCSSeasonResult.swift */,
 				1906C87C22DEB1CD007CD0D4 /* Game.swift */,
+				1985047122F896E7000EEDC4 /* GameFromApi.swift */,
 				1906C83A22D84CFB007CD0D4 /* Team.swift */,
 				1906C83822D84CCA007CD0D4 /* Conference.swift */,
 				1906C82622D2D14A007CD0D4 /* ConferenceOptions.swift */,
@@ -667,6 +673,7 @@
 				1906C84E22DA39A4007CD0D4 /* EndPointType.swift in Sources */,
 				1906C83D22D84F55007CD0D4 /* TeamsByConferenceOption.swift in Sources */,
 				1906C85822DA5024007CD0D4 /* URLParameterEncoder.swift in Sources */,
+				1985047222F896E7000EEDC4 /* GameFromApi.swift in Sources */,
 				1906C83F22D8D538007CD0D4 /* ConferenceSeasonResult.swift in Sources */,
 				1906C86422DAC2E8007CD0D4 /* NetworkManager.swift in Sources */,
 				1906C82E22D81E0A007CD0D4 /* OverallFCSResultsViewController.swift in Sources */,
@@ -699,6 +706,7 @@
 				1906C86622DBC75B007CD0D4 /* ConferencesResultsViewController.swift in Sources */,
 				1906C87022DE0BB9007CD0D4 /* TeamsByConferenceModel.swift in Sources */,
 				1906C82222D2CC3E007CD0D4 /* ConferencesTableViewController.swift in Sources */,
+				1934404022FA3D430073664C /* ProfileViewModelItem.swift in Sources */,
 				1906C85C22DA530D007CD0D4 /* NetworkRouter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

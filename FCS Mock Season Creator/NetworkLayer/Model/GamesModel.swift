@@ -46,7 +46,7 @@ extension GameApiResponse: Decodable {
         
         contestants = try container.decode([String].self, forKey: .contestants)
         week = try container.decode(Int.self, forKey: .week)
-        winner = try container.decode(String?.self, forKey: .winner)
+        winner = try container.decodeIfPresent(String.self, forKey: .winner)
         
     }
     
@@ -93,7 +93,7 @@ extension GameNewApiResponse: Decodable {
         id = try container.decode(Int.self, forKey: .id)
         contestants = try container.decode([String].self, forKey: .contestants)
         week = try container.decode(Int.self, forKey: .week)
-        winner = try container.decode(String?.self, forKey: .winner)
+        winner = try container.decodeIfPresent(String.self, forKey: .winner)
         
     }
     

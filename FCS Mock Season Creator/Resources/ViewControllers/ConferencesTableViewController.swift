@@ -72,11 +72,10 @@ class ConferencesTableViewController: UITableViewController {
         
         if segue.identifier == "showConferenceResultsSeque" {
             let vc = segue.destination as? ConferenceGamesTableViewController
-            guard let conferenceSelected = self.conferenceSelected else {
+            guard self.conferenceSelected != nil else {
                 os_log("Could not unwrap conferenceSelected in prepare(for:sender:) in ConferencesTableViewController", log: OSLog.default, type: .debug)
                 return
             }
-            os_log("conferenceSelected is %s", log: OSLog.default, type: .debug, ConferenceOptions.getStringValue(conferenceOption: conferenceSelected))
             vc?.conferenceOption = self.conferenceSelected
         }
         
@@ -95,7 +94,6 @@ class ConferencesTableViewController: UITableViewController {
     }
     
     private func populateConferences() {
-        os_log("Populating conferences...", log: OSLog.default, type: .debug)
         conferences = [String]()
         conferences.append(ConferenceOptions.getStringValue(conferenceOption: ConferenceOptions.all))
         conferences.append(ConferenceOptions.getStringValue(conferenceOption: ConferenceOptions.bigsky))

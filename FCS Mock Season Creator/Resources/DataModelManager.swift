@@ -67,10 +67,10 @@ class DataModelManager {
         
     }
     
-    public func loadGames(gameApiResponses: [GameNewApiResponse]) {
+    public func loadGames(gameNewApiResponses: [GameNewApiResponse]) {
         
-        let games = gameApiResponses.map { (gameApiResponse) -> Game in
-            let contestantNames = gameApiResponse.contestants
+        let gamesFromApi = gameNewApiResponses.map { (gameNewApiResponse) -> GameFromApi in
+            let contestantNames = gameNewApiResponse.contestants
             let conferenceNamesInGame = contestantNames.map({ (contestantName) -> String in
                 if let conferenceName = Conference.name(forTeamName: contestantName) {
                     return conferenceName
@@ -78,17 +78,62 @@ class DataModelManager {
                     return "None"
                 }
             })
-            guard let game = Game(id: gameApiResponse.id, contestantsNames: gameApiResponse.contestants, winnerName: gameApiResponse.contestants[0], confidence: 50, conferencesNames: conferenceNamesInGame, week: gameApiResponse.week) else {
-                os_log("Could not unwrap new game object in loadGames(gameApiResponses:) in DataModelManager", type: .debug)
-                return Game()
+            if let winnerName = gameNewApiResponse.winner {
+                guard let gameFromApi = GameFromApi(id: gameNewApiResponse.id, contestantsNames: gameNewApiResponse.contestants, winnerName: winnerName, confidence: 50, conferencesNames: conferenceNamesInGame, week: gameNewApiResponse.week) else {
+                    os_log("Could not unwrap new game object in loadGames(gameApiResponses:) in DataModelManager", type: .debug)
+                    return GameFromApi()
+                }
+                return gameFromApi
+            } else {
+                guard let gameFromApi = GameFromApi(id: gameNewApiResponse.id, contestantsNames: gameNewApiResponse.contestants, winnerName: nil, confidence: 50, conferencesNames: conferenceNamesInGame, week: gameNewApiResponse.week) else {
+                    os_log("Could not unwrap new game object in loadGames(gameApiResponses:) in DataModelManager", type: .debug)
+                    return GameFromApi()
+                }
+                return gameFromApi
             }
-            return game
         }
-        self.allGames = [Game]()
-        games.forEach({ (game) in
-            saveOrCreateGameMO(withGame: game)
-            self.allGames?.append(game)
-        })
+        
+        loadGamesFromCoreData()
+        var newGamesList = [Game]()
+        if let gamesFromCoreData = self.allGames {
+            let gameIdsMappedToGamesFromCoreData = gamesFromCoreData.reduce([Int : Game]()) { (dict, game) -> [Int : Game] in
+                var dict = dict
+                dict[game.id] = game
+                return dict
+            }
+            gamesFromApi.forEach { (gameFromApi) in
+                let gameId = gameFromApi.id
+                let game = Game(fromGameFromApi: gameFromApi)
+                if let winner = gameFromApi.winner {
+                    game.confidence = 100
+                    game.winner = winner
+                    newGamesList.append(game)
+                    return
+                }
+                if gameFromApi.contestants != gameIdsMappedToGamesFromCoreData[gameId]?.contestants ||
+                    gameFromApi.conferences != gameIdsMappedToGamesFromCoreData[gameId]!.conferences {
+                    newGamesList.append(game)
+                    return
+                }
+                if let gameFromCoreData = gameIdsMappedToGamesFromCoreData[gameId] {
+                    newGamesList.append(gameFromCoreData)
+                } else {
+                    newGamesList.append(game)
+                }
+            }
+            self.allGames?.removeAll()
+            newGamesList.forEach { (game) in
+                saveOrCreateGameMO(withGame: game)
+                self.allGames?.append(game)
+            }
+        } else {
+            self.allGames = [Game]()
+            gamesFromApi.forEach({ (gameFromApi) in
+                let game = Game(fromGameFromApi: gameFromApi)
+                saveOrCreateGameMO(withGame: game)
+                self.allGames?.append(game)
+            })
+        }
         
     }
     

@@ -34,6 +34,10 @@ class ConferenceGamesTableViewCell: UITableViewCell {
         } else {
             self.gameWinnerControl.selectedSegmentIndex = 1
         }
+        if game.confidence == 100 {
+            self.confidenceTextField.isUserInteractionEnabled = false
+            self.gameWinnerControl.isUserInteractionEnabled = false
+        }
         
     }
 

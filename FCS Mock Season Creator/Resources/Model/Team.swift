@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Team: Equatable {
+class Team: Equatable, CustomStringConvertible {
     
     var name: String
     var conferenceName: String
@@ -30,6 +30,12 @@ class Team: Equatable {
         guard lhs.name == rhs.name else { return false }
         guard lhs.conferenceName == rhs.conferenceName else { return false }
         return true
+    }
+    
+    var description: String {
+        
+        return "Team(Name: \(self.name), Conference: \(self.conferenceName)"
+        
     }
     
 }
