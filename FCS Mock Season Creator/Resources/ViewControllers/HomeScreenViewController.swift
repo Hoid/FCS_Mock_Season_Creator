@@ -49,7 +49,6 @@ class HomeScreenTableViewController: UITableViewController {
                 dataModelManager.loadTeamNamesByConference(teamNamesByConferenceName: data)
                 dataModelManager.loadGamesFromCoreData()
             }
-            
             self.getGamesFromApi(dataModelManager: dataModelManager)
         })
     }

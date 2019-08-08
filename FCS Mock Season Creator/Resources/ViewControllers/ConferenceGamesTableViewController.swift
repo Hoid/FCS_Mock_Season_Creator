@@ -35,7 +35,7 @@ class ConferenceGamesTableViewController: UITableViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
+                
         let goToResultsButton = UIBarButtonItem(title: "Results", style: .done, target: self, action: #selector(goToResults))
         self.navigationItem.rightBarButtonItem = goToResultsButton
         
@@ -81,6 +81,18 @@ class ConferenceGamesTableViewController: UITableViewController {
         
         return cell
         
+    }
+    
+    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        var indexTitles = [String]()
+        for i in 0...self.numberOfWeeksInSeason {
+            indexTitles.append(String(i))
+        }
+        return indexTitles
+    }
+    
+    override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+        return index
     }
     
     @IBAction func winnerChanged(_ sender: UISegmentedControl) {

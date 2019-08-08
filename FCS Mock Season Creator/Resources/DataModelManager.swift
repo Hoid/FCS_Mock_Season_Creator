@@ -93,7 +93,6 @@ class DataModelManager {
             }
         }
         
-        loadGamesFromCoreData()
         var newGamesList = [Game]()
         if let gamesFromCoreData = self.allGames {
             let gameIdsMappedToGamesFromCoreData = gamesFromCoreData.reduce([Int : Game]()) { (dict, game) -> [Int : Game] in
