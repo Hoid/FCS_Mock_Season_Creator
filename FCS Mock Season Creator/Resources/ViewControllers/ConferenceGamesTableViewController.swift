@@ -35,7 +35,7 @@ class ConferenceGamesTableViewController: UITableViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-                
+        
         let goToResultsButton = UIBarButtonItem(title: "Results", style: .done, target: self, action: #selector(goToResults))
         self.navigationItem.rightBarButtonItem = goToResultsButton
         
@@ -136,6 +136,11 @@ class ConferenceGamesTableViewController: UITableViewController {
         }
         guard let confidence = Int(confidenceStr) else {
             os_log("Could not unwrap confidence from confidenceStr (%s) in confidenceChanged in ConferenceGamesTableViewController.confidenceEditingDidEnd()", type: .debug, confidenceStr)
+            let alert = UIAlertController(title: "Error", message: "Confidence value cannot be anything but a number between 50 and 99", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { (alert) in
+                sender.text = "50"
+            }))
+            self.present(alert, animated: true, completion: nil)
             return
         }
         if confidence < 50 || confidence >= 100 {

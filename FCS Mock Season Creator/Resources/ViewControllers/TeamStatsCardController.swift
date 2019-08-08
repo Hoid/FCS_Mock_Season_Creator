@@ -54,7 +54,7 @@ class TeamStatsCardController: CardPartsViewController, RoundedCardTrait, NoTopB
             }
             
             let recordString = tableDataTuples[indexPath.row - 1].0
-            let probabilityToGetRecordTimes100 = tableDataTuples[indexPath.row].1 * 10000
+            let probabilityToGetRecordTimes100 = tableDataTuples[indexPath.row-1].1 * 10000
             let probabilityToGetRecord = probabilityToGetRecordTimes100.rounded(.down) / 100
             cell.leftTitleLabel.text = recordString
             cell.rightTitleLabel.text = String(probabilityToGetRecord) + " %"
