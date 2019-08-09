@@ -53,8 +53,8 @@ class TeamStatsCardController: CardPartsViewController, RoundedCardTrait, NoTopB
                 return UITableViewCell()
             }
             
-            let recordString = tableDataTuples[indexPath.row - 1].0
-            let probabilityToGetRecordTimes100 = tableDataTuples[indexPath.row-1].1 * 10000
+            let recordString = tableDataTuples[indexPath.row].0
+            let probabilityToGetRecordTimes100 = tableDataTuples[indexPath.row].1 * 10000
             let probabilityToGetRecord = probabilityToGetRecordTimes100.rounded(.down) / 100
             cell.leftTitleLabel.text = recordString
             cell.rightTitleLabel.text = String(probabilityToGetRecord) + " %"
@@ -104,6 +104,7 @@ class TeamStatsTableViewModel {
         }
         self.teamResultsData = TeamResultsData(teamName: team.name, games: gamesPlayedByTeam)
         
+        tableData.append(("dummy", 0.0))
         tableData.append((">= 8 wins", self.teamResultsData.calculateProbOfWinningAtLeast8Games()))
         for record in self.teamResultsData.possibleRecords {
             let probOfWinningXGames = self.teamResultsData.calculateProbOfWinningXNumberOfGames(gamesWon: record.numberOfWins)

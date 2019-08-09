@@ -37,6 +37,7 @@ class ConferenceGamesTableViewCell: UITableViewCell {
         if game.confidence == 100 {
             self.confidenceTextField.isUserInteractionEnabled = false
             self.gameWinnerControl.isUserInteractionEnabled = false
+            self.backgroundColor = UIColor.init(red: 224, green: 224, blue: 224)
         }
         
     }
