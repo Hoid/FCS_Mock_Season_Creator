@@ -103,6 +103,7 @@ class DataModelManager {
             gamesFromApi.forEach { (gameFromApi) in
                 let gameId = gameFromApi.id
                 let game = Game(fromGameFromApi: gameFromApi)
+                let isWinnerSetByApi = false
                 if let winner = gameFromApi.winner {
                     game.confidence = 100
                     game.winner = winner
@@ -115,6 +116,9 @@ class DataModelManager {
                     return
                 }
                 if let gameFromCoreData = gameIdsMappedToGamesFromCoreData[gameId] {
+                    if !isWinnerSetByApi && gameFromCoreData.confidence == 100 {
+                        gameFromCoreData.confidence = 50 // this is because the game used to have the winner set by the API but now it doesn't, so we need to reset the confidence back to 50 so it's not disabled
+                    }
                     newGamesList.append(gameFromCoreData)
                 } else {
                     newGamesList.append(game)

@@ -15,7 +15,7 @@
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="46O-zt-KOU" userLabel="Conferences Table View Controller" customClass="ConferencesTableViewController" customModule="FCS_Mock_Season_Creator" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="6Jq-bu-GgM">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
@@ -46,6 +46,7 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="Conferences" id="1jO-6H-FuD"/>
                     <connections>
                         <segue destination="xPE-9N-cHJ" kind="show" identifier="showConferenceResultsSeque" id="LzT-0O-VQg"/>

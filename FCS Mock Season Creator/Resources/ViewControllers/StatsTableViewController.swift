@@ -27,6 +27,7 @@ class StatsTableViewController: UITableViewController, UISearchResultsUpdating {
     override func viewWillAppear(_ animated: Bool) {
         self.automaticallyAdjustsScrollViewInsets = false
         self.definesPresentationContext = true
+        self.navigationController?.navigationBar.isTranslucent = false
     }
     
     override func viewDidLoad() {

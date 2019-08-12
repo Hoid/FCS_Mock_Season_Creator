@@ -23,7 +23,7 @@ class ConferenceGamesTableViewCell: UITableViewCell {
         self.confidenceTextField.keyboardType = UIKeyboardType.numberPad
         self.gameWinnerControl.removeAllSegments()
         guard let team1Name = game.contestants.first?.name, let team2Name = game.contestants.last?.name else {
-            os_log("Could not unwrap team1Name in ConferenceGamesTableViewCell.setup()", type: .debug)
+            os_log("Could not unwrap team1Name or team2namein ConferenceGamesTableViewCell.setup()", type: .debug)
             return
         }
         self.gameWinnerControl.insertSegment(withTitle: team1Name, at: 0, animated: true)
@@ -35,9 +35,14 @@ class ConferenceGamesTableViewCell: UITableViewCell {
             self.gameWinnerControl.selectedSegmentIndex = 1
         }
         if game.confidence == 100 {
+            print("Game with contestants (\(team1Name), \(team2Name)) has the winner set to \(game.winner.name)")
             self.confidenceTextField.isUserInteractionEnabled = false
             self.gameWinnerControl.isUserInteractionEnabled = false
             self.backgroundColor = UIColor.init(red: 224, green: 224, blue: 224)
+        } else {
+            self.confidenceTextField.isUserInteractionEnabled = true
+            self.gameWinnerControl.isUserInteractionEnabled = true
+            self.backgroundColor = UIColor.init(red: 255, green: 255, blue: 255)
         }
         
     }
