@@ -15,19 +15,19 @@ class FCS_Mock_Season_CreatorTests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        guard let game1 = Game(id: "game1", contestantsNames: ["Elon", "NC A&T"], winnerName: "Elon", confidence: 65, conferencesNames: ["CAA", "MEAC"], week: 1) else {
+        guard let game1 = Game(id: 1, contestantsNames: ["Elon", "NC A&T"], winnerName: "Elon", confidence: 65, conferencesNames: ["CAA", "MEAC"], week: 1) else {
             XCTFail("Could not create game in setUp of FCS_Mock_Season_CreatorTests")
             return
         }
-        guard let game2 = Game(id: "game2", contestantsNames: ["Elon", "The Citadel"], winnerName: "Elon", confidence: 60, conferencesNames: ["CAA", "Southern"], week: 2) else {
+        guard let game2 = Game(id: 2, contestantsNames: ["Elon", "The Citadel"], winnerName: "Elon", confidence: 60, conferencesNames: ["CAA", "Southern"], week: 2) else {
             XCTFail("Could not create game in setUp of FCS_Mock_Season_CreatorTests")
             return
         }
-        guard let game3 = Game(id: "game3", contestantsNames: ["Elon", "Richmond"], winnerName: "Elon", confidence: 80, conferencesNames: ["CAA"], week: 3) else {
+        guard let game3 = Game(id: 3, contestantsNames: ["Elon", "Richmond"], winnerName: "Elon", confidence: 80, conferencesNames: ["CAA"], week: 3) else {
             XCTFail("Could not create game in setUp of FCS_Mock_Season_CreatorTests")
             return
         }
-        guard let game4 = Game(id: "game4", contestantsNames: ["Elon", "Wake Forest"], winnerName: "Wake Forest", confidence: 75, conferencesNames: ["CAA", "None"], week: 4) else {
+        guard let game4 = Game(id: 4, contestantsNames: ["Elon", "Wake Forest"], winnerName: "Wake Forest", confidence: 75, conferencesNames: ["CAA", "None"], week: 4) else {
             XCTFail("Could not create game in setUp of FCS_Mock_Season_CreatorTests")
             return
         }
