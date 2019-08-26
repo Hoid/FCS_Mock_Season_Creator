@@ -56,6 +56,9 @@
 		1906C88722E21FA1007CD0D4 /* GamesNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1906C88622E21FA1007CD0D4 /* GamesNetworkManager.swift */; };
 		1934404022FA3D430073664C /* ProfileViewModelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1934403F22FA3D430073664C /* ProfileViewModelItem.swift */; };
 		1934404222FCFC3D0073664C /* TeamStatsTableViewXWinsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1934404122FCFC3D0073664C /* TeamStatsTableViewXWinsCell.swift */; };
+		19344045230D9FD90073664C /* CoreDataMigrationVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19344044230D9FD90073664C /* CoreDataMigrationVersion.swift */; };
+		19344047230F43CA0073664C /* GameMOMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19344046230F43C90073664C /* GameMOMapping.swift */; };
+		19344049230F4AD30073664C /* ModelMapper.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 19344048230F4AD30073664C /* ModelMapper.xcmappingmodel */; };
 		1985047222F896E7000EEDC4 /* GameFromApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1985047122F896E7000EEDC4 /* GameFromApi.swift */; };
 		19D5826A22E3EA920024A545 /* HomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D5826922E3EA920024A545 /* HomeScreenViewController.swift */; };
 		19D5826D22E536510024A545 /* GameError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D5826C22E536510024A545 /* GameError.swift */; };
@@ -148,6 +151,10 @@
 		1906C88622E21FA1007CD0D4 /* GamesNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesNetworkManager.swift; sourceTree = "<group>"; };
 		1934403F22FA3D430073664C /* ProfileViewModelItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModelItem.swift; sourceTree = "<group>"; };
 		1934404122FCFC3D0073664C /* TeamStatsTableViewXWinsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamStatsTableViewXWinsCell.swift; sourceTree = "<group>"; };
+		19344043230D9DBF0073664C /* FCS_Mock_Season_Creator2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FCS_Mock_Season_Creator2.xcdatamodel; sourceTree = "<group>"; };
+		19344044230D9FD90073664C /* CoreDataMigrationVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataMigrationVersion.swift; sourceTree = "<group>"; };
+		19344046230F43C90073664C /* GameMOMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMOMapping.swift; sourceTree = "<group>"; };
+		19344048230F4AD30073664C /* ModelMapper.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = ModelMapper.xcmappingmodel; sourceTree = "<group>"; };
 		1985047122F896E7000EEDC4 /* GameFromApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFromApi.swift; sourceTree = "<group>"; };
 		19D5826922E3EA920024A545 /* HomeScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenViewController.swift; sourceTree = "<group>"; };
 		19D5826C22E536510024A545 /* GameError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameError.swift; sourceTree = "<group>"; };
@@ -282,7 +289,7 @@
 				1906C87E22DEC449007CD0D4 /* DataModelManager.swift */,
 				1906C82022D2CC19007CD0D4 /* ViewControllers */,
 				1906C87A22DEB119007CD0D4 /* ViewCells */,
-				1906C87722DEAFAE007CD0D4 /* ManagedObjects */,
+				1906C87722DEAFAE007CD0D4 /* CoreData */,
 				1906C87B22DEB18F007CD0D4 /* Model */,
 				19D5826B22E535AE0024A545 /* Errors */,
 			);
@@ -363,14 +370,17 @@
 			path = EndPoint;
 			sourceTree = "<group>";
 		};
-		1906C87722DEAFAE007CD0D4 /* ManagedObjects */ = {
+		1906C87722DEAFAE007CD0D4 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
 				1906C82A22D2EF56007CD0D4 /* GameMO.swift */,
 				1906C87822DEB06A007CD0D4 /* TeamMO.swift */,
 				1906C87522DEAEAA007CD0D4 /* ConferenceMO.swift */,
+				19344044230D9FD90073664C /* CoreDataMigrationVersion.swift */,
+				19344046230F43C90073664C /* GameMOMapping.swift */,
+				19344048230F4AD30073664C /* ModelMapper.xcmappingmodel */,
 			);
-			path = ManagedObjects;
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		1906C87A22DEB119007CD0D4 /* ViewCells */ = {
@@ -661,6 +671,7 @@
 				1934404222FCFC3D0073664C /* TeamStatsTableViewXWinsCell.swift in Sources */,
 				1906C85022DA3A1A007CD0D4 /* HTTPMethod.swift in Sources */,
 				19D9BFD822ED239A00CCD4C1 /* TeamStatsViewController.swift in Sources */,
+				19344047230F43CA0073664C /* GameMOMapping.swift in Sources */,
 				1906C87922DEB06A007CD0D4 /* TeamMO.swift in Sources */,
 				19D5826A22E3EA920024A545 /* HomeScreenViewController.swift in Sources */,
 				1906C85A22DA5230007CD0D4 /* JSONParameterEncoder.swift in Sources */,
@@ -698,6 +709,7 @@
 				1906C88322E152F9007CD0D4 /* GamesApi.swift in Sources */,
 				19D9BFE022F2885700CCD4C1 /* SpacerCardController.swift in Sources */,
 				1906C82522D2CF81007CD0D4 /* ConferencesTableViewCell.swift in Sources */,
+				19344045230D9FD90073664C /* CoreDataMigrationVersion.swift in Sources */,
 				19D9BFCE22ED16AB00CCD4C1 /* StatsTableViewController.swift in Sources */,
 				1906C85E22DA5417007CD0D4 /* Router.swift in Sources */,
 				1906C86A22DBC932007CD0D4 /* ConferenceResultsCardController.swift in Sources */,
@@ -707,6 +719,7 @@
 				1906C87D22DEB1CD007CD0D4 /* Game.swift in Sources */,
 				19D5826D22E536510024A545 /* GameError.swift in Sources */,
 				1906C88722E21FA1007CD0D4 /* GamesNetworkManager.swift in Sources */,
+				19344049230F4AD30073664C /* ModelMapper.xcmappingmodel in Sources */,
 				1906C86622DBC75B007CD0D4 /* ConferencesResultsViewController.swift in Sources */,
 				1906C87022DE0BB9007CD0D4 /* TeamsByConferenceModel.swift in Sources */,
 				1906C82222D2CC3E007CD0D4 /* ConferencesTableViewController.swift in Sources */,
@@ -1053,9 +1066,10 @@
 		1906C7F422D1B097007CD0D4 /* FCS_Mock_Season_Creator.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				19344043230D9DBF0073664C /* FCS_Mock_Season_Creator2.xcdatamodel */,
 				1906C7F522D1B097007CD0D4 /* FCS_Mock_Season_Creator.xcdatamodel */,
 			);
-			currentVersion = 1906C7F522D1B097007CD0D4 /* FCS_Mock_Season_Creator.xcdatamodel */;
+			currentVersion = 19344043230D9DBF0073664C /* FCS_Mock_Season_Creator2.xcdatamodel */;
 			path = FCS_Mock_Season_Creator.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

@@ -55,7 +55,7 @@ class HomeScreenTableViewController: UITableViewController {
     
     fileprivate func getGamesFromApi(dataModelManager: DataModelManager) {
         let gamesNetworkManager = GamesNetworkManager()
-        gamesNetworkManager.getGamesNew { (data, error) in
+        gamesNetworkManager.getGames { (data, error) in
             guard let data = data else {
                 os_log("Could not unwrap games data in HomeScreenViewController.getGamesFromApi()", type: .debug)
                 self.resume()
@@ -64,7 +64,7 @@ class HomeScreenTableViewController: UITableViewController {
                 return
             }
             DispatchQueue.main.sync {
-                dataModelManager.loadGames(gameNewApiResponses: data)
+                dataModelManager.loadGames(gameApiResponses: data)
             }
             self.resume()
         }

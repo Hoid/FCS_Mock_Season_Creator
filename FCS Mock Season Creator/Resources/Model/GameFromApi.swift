@@ -12,52 +12,64 @@ import os.log
 class GameFromApi {
     
     var id: Int
-    var contestants: [Team]
     var winner: Team?
-    var confidence: Int
-    var conferences: [Conference]
+    var homeTeam: Team
+    var awayTeam: Team
+    var homeConference: Conference
+    var awayConference: Conference
+    var avgConfidence: Double
+    var avgHomeTeamScore: Double
+    var avgAwayTeamScore: Double
     var week: Int
+    
+    var contestants: [Team] {
+        return [awayTeam, homeTeam]
+    }
+    
+    var conferences: [Conference] {
+        return [awayConference, homeConference]
+    }
     
     /*
      Default initializer. Should only be used to indicate an error occurred and plug a hole with a default Game object.
      */
     init() {
         
-        self.id = 0
+        self.id = Int.random(in: 1...65535)
         let team1 = Team(teamName: "None", conferenceName: "None")
         let team2 = Team(teamName: "None", conferenceName: "None")
-        self.contestants = [team1, team2]
+        self.homeTeam = team1
+        self.awayTeam = team2
         self.winner = team1
-        self.confidence = 0
-        let conference1 = Conference(name: "None", conferenceOption: .none, teams: [team1, team2])
-        let conference2 = Conference(name: "None", conferenceOption: .none, teams: [team1, team2])
-        self.conferences = [conference1, conference2]
+        self.avgConfidence = 0
+        self.avgHomeTeamScore = 50.0
+        self.avgAwayTeamScore = 50.0
+        self.homeConference = Conference(name: "None", conferenceOption: .none, teams: [team1, team2])
+        self.awayConference = Conference(name: "None", conferenceOption: .none, teams: [team1, team2])
         self.week = 0
         
     }
     
-    init?(id: Int, contestantsNames: [String], winnerName: String?, confidence: Int, conferencesNames: [String], week: Int) {
+    init?(id: Int, homeTeamName: String, awayTeamName: String, winnerName: String?, avgConfidence: Double, homeConferenceName: String, awayConferenceName: String, avgHomeTeamScore: Double, avgAwayTeamScore: Double, week: Int) {
         
         self.id = id
-        self.confidence = confidence
+        self.avgConfidence = avgConfidence
         self.week = week
+        self.avgHomeTeamScore = avgHomeTeamScore
+        self.avgAwayTeamScore = avgAwayTeamScore
         
-        guard contestantsNames.count > 0 else {
-            os_log("contestantsNames had no values in Game.init()", type: .debug)
+        guard let homeConference = Conference(withName: homeConferenceName) else {
+            os_log("Could not unwrap homeConference in Game.init()", type: .debug)
             return nil
         }
-        guard let team1Conference = Conference.newConference(withTeamName: contestantsNames[0]) else {
-            os_log("Could not unwrap team1Conference in Game.init()", type: .debug)
+        guard let awayConference = Conference(withName: awayConferenceName) else {
+            os_log("Could not unwrap awayConference in Game.init()", type: .debug)
             return nil
         }
-        guard let team2Conference = Conference.newConference(withTeamName: contestantsNames[1]) else {
-            os_log("Could not unwrap team2Conference in Game.init()", type: .debug)
-            return nil
-        }
-        let team1 = Team(teamName: contestantsNames[0], conferenceName: team1Conference.name)
-        let team2 = Team(teamName: contestantsNames[1], conferenceName: team2Conference.name)
-        self.contestants = [team1, team2]
-        self.conferences = [team1Conference, team2Conference]
+        self.homeConference = homeConference
+        self.awayConference = awayConference
+        self.homeTeam = Team(teamName: homeTeamName, conferenceName: homeConference.name)
+        self.awayTeam = Team(teamName: awayTeamName, conferenceName: awayConference.name)
         
         if let winnerName = winnerName {
             guard let winnerTeamConferenceName = Conference.name(forTeamName: winnerName) else {

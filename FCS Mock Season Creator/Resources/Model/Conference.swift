@@ -36,7 +36,7 @@ class Conference: Equatable {
         
     }
     
-    static func newConference(withName conferenceName: String) -> Conference? {
+    convenience init?(withName conferenceName: String) {
         
         let teamsByConferenceOption = TeamsByConferenceOption.shared
         guard let data = teamsByConferenceOption.data else {
@@ -51,12 +51,12 @@ class Conference: Equatable {
         let teams = teamNames.map { (name) -> Team in
             return Team(teamName: name, conferenceName: conferenceName)
         }
-        return Conference(name: conferenceName, conferenceOption: conferenceOption, teams: teams)
+        self.init(name: conferenceName, conferenceOption: conferenceOption, teams: teams)
         
     }
     
-    static func newConference(withTeamName teamName: String) -> Conference? {
-        
+    convenience init?(withTeamName teamName: String) {
+    
         let teamsByConferenceOption = TeamsByConferenceOption.shared
         guard let data = teamsByConferenceOption.data else {
             os_log("Could not unwrap teamsByConferenceOption.data in Conference.newConference(withTeam:).... It may have not been initialized yet.", type: .debug)
@@ -69,7 +69,7 @@ class Conference: Equatable {
                 return false
             }
             return teamNamesForConferenceOption.contains(teamName)
-        }[0]
+            }[0]
         guard let teamNames = data[conferenceOptionForTeamName] else {
             os_log("Could not unwrap data[conferenceOption] in Conference.newConference()", type: .debug)
             return nil
@@ -78,7 +78,7 @@ class Conference: Equatable {
         let teams = teamNames.map { (name) -> Team in
             return Team(teamName: name, conferenceName: conferenceOptionForTeamNameStr)
         }
-        return Conference(name: conferenceOptionForTeamNameStr, conferenceOption: conferenceOptionForTeamName, teams: teams)
+        self.init(name: conferenceOptionForTeamNameStr, conferenceOption: conferenceOptionForTeamName, teams: teams)
         
     }
     

@@ -44,53 +44,31 @@ class DataModelManager {
     // the DataModelManager already
     public func loadGames(gameApiResponses: [GameApiResponse]) {
         
-        let games = gameApiResponses.map { (gameApiResponse) -> Game in
-            let contestantNames = gameApiResponse.contestants
-            let conferenceNamesInGame = contestantNames.map({ (contestantName) -> String in
-                if let conferenceName = Conference.name(forTeamName: contestantName) {
-                    return conferenceName
-                } else {
-                    return "None"
-                }
-            })
-            guard let game = Game(id: Int.random(in: 1...65535), contestantsNames: gameApiResponse.contestants, winnerName: gameApiResponse.contestants[0], confidence: 50, conferencesNames: conferenceNamesInGame, week: gameApiResponse.week) else {
-                os_log("Could not unwrap new game object in loadGames(gameApiResponses:) in DataModelManager", type: .debug)
-                return Game()
+        let gamesFromApi = gameApiResponses.map { (gameApiResponse) -> GameFromApi in
+            guard let homeConferenceName = Conference(withTeamName: gameApiResponse.homeTeam) else {
+                os_log("Could not unwrap homeConferenceName in loadGames(gameApiResponses:) in DataModelManager", type: .debug)
+                return GameFromApi()
             }
-            return game
-        }
-        self.allGames = [Game]()
-        games.forEach({ (game) in
-            saveOrCreateGameMO(withGame: game)
-            self.allGames?.append(game)
-        })
-        
-    }
-    
-    public func loadGames(gameNewApiResponses: [GameNewApiResponse]) {
-        
-        let gamesFromApi = gameNewApiResponses.map { (gameNewApiResponse) -> GameFromApi in
-            let contestantNames = gameNewApiResponse.contestants
-            let conferenceNamesInGame = contestantNames.map({ (contestantName) -> String in
-                if let conferenceName = Conference.name(forTeamName: contestantName) {
-                    return conferenceName
-                } else {
-                    return "None"
-                }
-            })
-            if let winnerName = gameNewApiResponse.winner {
-                guard let gameFromApi = GameFromApi(id: gameNewApiResponse.id, contestantsNames: gameNewApiResponse.contestants, winnerName: winnerName, confidence: 50, conferencesNames: conferenceNamesInGame, week: gameNewApiResponse.week) else {
+            guard let awayConferenceName = Conference(withTeamName: gameApiResponse.awayTeam) else {
+                os_log("Could not unwrap awayConferenceName in loadGames(gameApiResponses:) in DataModelManager", type: .debug)
+                return GameFromApi()
+            }
+            guard let gameFromApi = GameFromApi(
+                id: gameApiResponse.id,
+                homeTeamName: gameApiResponse.homeTeam,
+                awayTeamName: gameApiResponse.awayTeam,
+                winnerName: gameApiResponse.winner,
+                avgConfidence: gameApiResponse.avgConfidence,
+                homeConferenceName: homeConferenceName.name,
+                awayConferenceName: awayConferenceName.name,
+                avgHomeTeamScore: gameApiResponse.avgHomeTeamScore,
+                avgAwayTeamScore: gameApiResponse.avgAwayTeamScore,
+                week: gameApiResponse.week
+            ) else {
                     os_log("Could not unwrap new game object in loadGames(gameApiResponses:) in DataModelManager", type: .debug)
                     return GameFromApi()
-                }
-                return gameFromApi
-            } else {
-                guard let gameFromApi = GameFromApi(id: gameNewApiResponse.id, contestantsNames: gameNewApiResponse.contestants, winnerName: nil, confidence: 50, conferencesNames: conferenceNamesInGame, week: gameNewApiResponse.week) else {
-                    os_log("Could not unwrap new game object in loadGames(gameApiResponses:) in DataModelManager", type: .debug)
-                    return GameFromApi()
-                }
-                return gameFromApi
             }
+            return gameFromApi
         }
         
         var newGamesList = [Game]()
@@ -103,20 +81,20 @@ class DataModelManager {
             gamesFromApi.forEach { (gameFromApi) in
                 let gameId = gameFromApi.id
                 let game = Game(fromGameFromApi: gameFromApi)
-                let isWinnerSetByApi = false
                 if let winner = gameFromApi.winner {
                     game.confidence = 100
                     game.winner = winner
                     newGamesList.append(game)
                     return
                 }
+                // At this point, we know that the winner is not set by the API
                 if gameFromApi.contestants != gameIdsMappedToGamesFromCoreData[gameId]?.contestants ||
-                    gameFromApi.conferences != gameIdsMappedToGamesFromCoreData[gameId]!.conferences {
+                        gameFromApi.conferences != gameIdsMappedToGamesFromCoreData[gameId]!.conferences {
                     newGamesList.append(game)
                     return
                 }
                 if let gameFromCoreData = gameIdsMappedToGamesFromCoreData[gameId] {
-                    if !isWinnerSetByApi && gameFromCoreData.confidence == 100 {
+                    if gameFromCoreData.confidence == 100 {
                         gameFromCoreData.confidence = 50 // this is because the game used to have the winner set by the API but now it doesn't, so we need to reset the confidence back to 50 so it's not disabled
                     }
                     newGamesList.append(gameFromCoreData)
@@ -203,15 +181,20 @@ class DataModelManager {
             let objectToDelete = test[0] as! GameMO
             managedContext.delete(objectToDelete)
             
-            guard let gameMO = GameMO.newGameMO(fromGame: game, withContext: managedContext) else {
-                os_log("Could not unwrap gameMO from game in ConferenceGamesTableViewController", type: .debug)
-                return
-            }
+            let gameMO = GameMO.newGameMO(fromGame: game, withContext: managedContext)
             
-            gameMO.setValue(gameMO.id, forKey: "id")
-            gameMO.setValue(gameMO.conferencesNames, forKey: "conferencesNames")
+            gameMO.setValue(gameMO.avgAwayTeamScore, forKey: "avgAwayTeamScore")
+            gameMO.setValue(gameMO.avgConfidence, forKey: "avgConfidence")
+            gameMO.setValue(gameMO.avgHomeTeamScore, forKey: "avgHomeTeamScore")
+            gameMO.setValue(gameMO.awayConferenceName, forKey: "awayConferenceName")
+            gameMO.setValue(gameMO.awayTeamName, forKey: "awayTeamName")
+            gameMO.setValue(gameMO.awayTeamScore, forKey: "awayTeamScore")
             gameMO.setValue(gameMO.confidence, forKey: "confidence")
-            gameMO.setValue(gameMO.contestantsNames, forKey: "contestantsNames")
+            gameMO.setValue(gameMO.homeConferenceName, forKey: "homeConferenceName")
+            gameMO.setValue(gameMO.homeTeamName, forKey: "homeTeamName")
+            gameMO.setValue(gameMO.homeTeamScore, forKey: "homeTeamScore")
+            gameMO.setValue(gameMO.id, forKey: "id")
+            gameMO.setValue(gameMO.week, forKey: "week")
             gameMO.setValue(gameMO.winnerName, forKey: "winnerName")
             
             do {
@@ -227,16 +210,21 @@ class DataModelManager {
     
     private func saveNewGameMO(game: Game, withContext managedContext: NSManagedObjectContext) {
         
-        guard let newGameMO = GameMO.newGameMO(fromGame: game, withContext: managedContext) else {
-            os_log("Could not unwrap newGameMO from game in DataModelManager", type: .debug)
-            return
-        }
+        let newGameMO = GameMO.newGameMO(fromGame: game, withContext: managedContext)
         
+        newGameMO.setValue(newGameMO.avgAwayTeamScore, forKey: "avgAwayTeamScore")
+        newGameMO.setValue(newGameMO.avgConfidence, forKey: "avgConfidence")
+        newGameMO.setValue(newGameMO.avgHomeTeamScore, forKey: "avgHomeTeamScore")
+        newGameMO.setValue(newGameMO.awayConferenceName, forKey: "awayConferenceName")
+        newGameMO.setValue(newGameMO.awayTeamName, forKey: "awayTeamName")
+        newGameMO.setValue(newGameMO.awayTeamScore, forKey: "awayTeamScore")
+        newGameMO.setValue(newGameMO.confidence, forKey: "confidence")
+        newGameMO.setValue(newGameMO.homeConferenceName, forKey: "homeConferenceName")
+        newGameMO.setValue(newGameMO.homeTeamName, forKey: "homeTeamName")
+        newGameMO.setValue(newGameMO.homeTeamScore, forKey: "homeTeamScore")
         newGameMO.setValue(newGameMO.id, forKey: "id")
-        newGameMO.setValue(newGameMO.conferencesNames, forKeyPath: "conferencesNames")
-        newGameMO.setValue(newGameMO.confidence, forKeyPath: "confidence")
-        newGameMO.setValue(newGameMO.contestantsNames, forKeyPath: "contestantsNames")
-        newGameMO.setValue(newGameMO.winnerName, forKeyPath: "winnerName")
+        newGameMO.setValue(newGameMO.week, forKey: "week")
+        newGameMO.setValue(newGameMO.winnerName, forKey: "winnerName")
         
         do {
             try managedContext.save()

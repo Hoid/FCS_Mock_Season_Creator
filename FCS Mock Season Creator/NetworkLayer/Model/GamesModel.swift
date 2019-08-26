@@ -28,59 +28,74 @@ extension GamesApiResponse: Decodable {
 }
 
 struct GameApiResponse {
-    let contestants: [String]
+    let id: Int
+    let homeTeam: String
+    let awayTeam: String
     let week: Int
+    let avgConfidence: Double
+    let avgHomeTeamScore: Double
+    let avgAwayTeamScore: Double
     let winner: String?
 }
 
 extension GameApiResponse: Decodable {
     
     private enum GameApiResponseCodingKeys: String, CodingKey {
-        case contestants = "contestants"
+        case id = "id"
+        case homeTeam = "home_team"
+        case awayTeam = "away_team"
         case week = "week"
+        case avgConfidence = "avg_confidence"
+        case avgHomeTeamScore = "avg_home_score"
+        case avgAwayTeamScore = "avg_away_score"
         case winner = "winner"
     }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: GameApiResponseCodingKeys.self)
         
-        contestants = try container.decode([String].self, forKey: .contestants)
+        id = try container.decode(Int.self, forKey: .id)
+        homeTeam = try container.decode(String.self, forKey: .homeTeam)
+        awayTeam = try container.decode(String.self, forKey: .awayTeam)
         week = try container.decode(Int.self, forKey: .week)
+        avgConfidence = try container.decode(Double.self, forKey: .avgConfidence)
+        avgHomeTeamScore = try container.decode(Double.self, forKey: .avgHomeTeamScore)
+        avgAwayTeamScore = try container.decode(Double.self, forKey: .avgAwayTeamScore)
         winner = try container.decodeIfPresent(String.self, forKey: .winner)
         
     }
     
 }
 
-struct GamesNewApiResponse {
-    let games: [GameNewApiResponse]
+struct GamesOldApiResponse {
+    let games: [GameOldApiResponse]
 }
 
-extension GamesNewApiResponse: Decodable {
+extension GamesOldApiResponse: Decodable {
     
-    private enum GamesNewApiResponseCodingKeys: String, CodingKey {
+    private enum GamesApiResponseCodingKeys: String, CodingKey {
         case games = "games"
     }
     
     init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: GamesNewApiResponseCodingKeys.self)
+        let container = try decoder.container(keyedBy: GamesApiResponseCodingKeys.self)
         
-        games = try container.decode([GameNewApiResponse].self, forKey: .games)
+        games = try container.decode([GameOldApiResponse].self, forKey: .games)
         
     }
     
 }
 
-struct GameNewApiResponse {
+struct GameOldApiResponse {
     let id: Int
     let contestants: [String]
     let week: Int
     let winner: String?
 }
 
-extension GameNewApiResponse: Decodable {
+extension GameOldApiResponse: Decodable {
     
-    private enum GameNewApiResponseCodingKeys: String, CodingKey {
+    private enum GameApiResponseCodingKeys: String, CodingKey {
         case id = "id"
         case contestants = "contestants"
         case week = "week"
@@ -88,7 +103,7 @@ extension GameNewApiResponse: Decodable {
     }
     
     init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: GameNewApiResponseCodingKeys.self)
+        let container = try decoder.container(keyedBy: GameApiResponseCodingKeys.self)
         
         id = try container.decode(Int.self, forKey: .id)
         contestants = try container.decode([String].self, forKey: .contestants)

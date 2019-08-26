@@ -76,6 +76,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                  Check the error message to determine what the actual problem was.
                  */
                 fatalError("Unresolved error \(error), \(error.userInfo)")
+            } else {
+                os_log("Migrating store...")
+                let description = NSPersistentStoreDescription()
+                description.shouldMigrateStoreAutomatically = false
+                description.shouldInferMappingModelAutomatically = false
+                container.persistentStoreDescriptions = [description]
             }
         })
         return container

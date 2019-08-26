@@ -48,9 +48,9 @@ class GamesNetworkManager: NetworkManager {
         
     }
     
-    func getGamesNew(completion: @escaping (_ games: [GameNewApiResponse]?, _ error: String?) -> ()) {
+    func getGamesOld(completion: @escaping (_ games: [GameOldApiResponse]?, _ error: String?) -> ()) {
         
-        router.request(.gamesNew) { data, response, error in
+        router.request(.gamesOld) { data, response, error in
             
             if error != nil {
                 completion(nil, "Please check your network connection.")
@@ -65,7 +65,7 @@ class GamesNetworkManager: NetworkManager {
                         return
                     }
                     do {
-                        let apiResponse = try JSONDecoder().decode(GamesNewApiResponse.self, from: responseData)
+                        let apiResponse = try JSONDecoder().decode(GamesOldApiResponse.self, from: responseData)
                         completion(apiResponse.games, nil)
                     } catch {
                         print(error)
