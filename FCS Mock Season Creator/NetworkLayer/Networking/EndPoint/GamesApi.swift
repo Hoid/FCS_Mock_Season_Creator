@@ -32,9 +32,9 @@ extension GamesApi: EndPointType {
     var path: String {
         switch self {
         case .games:
-            return "new/games"
-        case .gamesOld:
             return "games"
+        case .gamesOld:
+            return "new/games"
         }
     }
     

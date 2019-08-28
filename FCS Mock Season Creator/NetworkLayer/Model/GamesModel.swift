@@ -19,6 +19,7 @@ extension GamesApiResponse: Decodable {
     }
     
     init(from decoder: Decoder) throws {
+        
         let container = try decoder.container(keyedBy: GamesApiResponseCodingKeys.self)
         
         games = try container.decode([GameApiResponse].self, forKey: .games)
@@ -52,6 +53,7 @@ extension GameApiResponse: Decodable {
     }
     
     init(from decoder: Decoder) throws {
+        
         let container = try decoder.container(keyedBy: GameApiResponseCodingKeys.self)
         
         id = try container.decode(Int.self, forKey: .id)
@@ -73,12 +75,13 @@ struct GamesOldApiResponse {
 
 extension GamesOldApiResponse: Decodable {
     
-    private enum GamesApiResponseCodingKeys: String, CodingKey {
+    private enum GamesOldApiResponseCodingKeys: String, CodingKey {
         case games = "games"
     }
     
     init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: GamesApiResponseCodingKeys.self)
+        
+        let container = try decoder.container(keyedBy: GamesOldApiResponseCodingKeys.self)
         
         games = try container.decode([GameOldApiResponse].self, forKey: .games)
         
@@ -95,7 +98,7 @@ struct GameOldApiResponse {
 
 extension GameOldApiResponse: Decodable {
     
-    private enum GameApiResponseCodingKeys: String, CodingKey {
+    private enum GameOldApiResponseCodingKeys: String, CodingKey {
         case id = "id"
         case contestants = "contestants"
         case week = "week"
@@ -103,7 +106,8 @@ extension GameOldApiResponse: Decodable {
     }
     
     init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: GameApiResponseCodingKeys.self)
+        
+        let container = try decoder.container(keyedBy: GameOldApiResponseCodingKeys.self)
         
         id = try container.decode(Int.self, forKey: .id)
         contestants = try container.decode([String].self, forKey: .contestants)
